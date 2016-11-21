@@ -1,6 +1,6 @@
 # RigeVIM
 
-_Customized Vim functionality for the .vimrc file_
+_Customized VIM functionality for the .vimrc file_
 
 ---
 
