@@ -8,7 +8,7 @@ _Customized VIM functionality for the .vimrc file_
 
 run `bash swap_vimrc.sh`  
 OR  
-replace your .vimrc file in the home directory (ubuntu) with the repository file 'vimrc'
+replace your .vimrc file in the home directory with the repository file 'vimrc'
 
 ### What's Included
 

@@ -63,16 +63,6 @@ function! s:swap_lines(n1, n2)
     call setline(a:n2, line1)
 endfunction
 
-function! s:dup_lines(n1, n2)
-    let line1 = getline(a:n1)
-    let line2 = getline(a:n2)
-    let @a = "\n"
-    call append(a:n1, @a)
-
-    let linenew = line1    
-    call setline(a:n2, linenew)
-endfunction
-
 function! s:swap_up()
     let n = line('.')
     if n == 1
@@ -93,17 +83,32 @@ function! s:swap_down()
     exec n + 1
 endfunction
 
+"duplicate lines
+
+function! s:dup_lines(n1, n2)
+    let line1 = getline(a:n1)
+    let line2 = getline(a:n2)
+    let @a = "\n"
+    call append(a:n1, @a)
+
+    let linenew = line1    
+    call setline(a:n2, linenew)
+endfunction
+
 function! s:duplicate()
     let n = line('.')
-    if n == line('$')
-        return
-    endif
-    
+   
     call s:dup_lines(n, n + 1)
 endfunction
 
+"quick remove line function
+function! s:remove()
+    let n = line('.')
+    :exe "normal dd"
+endfunction
+
+" mapping keys for custom vim script functions
 noremap <silent> <c-s-up> :call <SID>swap_up()<CR>
 noremap <silent> <c-s-down> :call <SID>swap_down()<CR>
-noremap <silent> <C-S-d> :call <SID>duplicate()<CR>
-
-
+noremap <silent> <C-S-right> :call <SID>duplicate()<CR>
+noremap <silent> <C-S-left> :call <SID>remove()<CR>
