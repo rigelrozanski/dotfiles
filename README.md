@@ -6,7 +6,9 @@ _Customized VIM functionality for the .vimrc file_
 
 ### Installation
 
-replace your .vimrc file in the home directory (ubuntu)
+run initDB.sh  
+OR  
+replace your .vimrc file in the home directory (ubuntu) with the repository file 'vimrc'
 
 ### What's Included
 
@@ -19,6 +21,8 @@ replace your .vimrc file in the home directory (ubuntu)
     6. nerdtree
 2. Custom functions for quickly swapping lines up and down from [this stackflow thread][3]
 3. Custom functions for quickly inserting a duplicate line below
+4. Custom functions for quickly removing a line
+
 
 [1]: https://unknwon.io/setup-vim-for-go-development/
 [2]: https://gist.github.com/jdewit/9818870
@@ -34,4 +38,4 @@ replace your .vimrc file in the home directory (ubuntu)
 
 ### License
 
-Cobra is released under the Apache 2.0 license.
+RigeVIM is released under the Apache 2.0 license.
