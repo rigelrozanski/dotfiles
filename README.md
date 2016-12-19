@@ -6,7 +6,7 @@ _Customized VIM functionality for the .vimrc file_
 
 ### Installation
 
-run initDB.sh  
+run `bash swap_vimrc.sh`  
 OR  
 replace your .vimrc file in the home directory (ubuntu) with the repository file 'vimrc'
 
