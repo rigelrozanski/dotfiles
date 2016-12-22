@@ -109,11 +109,11 @@ endfunction
 
 "fast switching tabs
 function! s:tabLeft()
-    :exe "normal gt"
+    :exe "normal gT"
 endfunction
 
 function! s:tabRight()
-    :exe "normal gT"
+    :exe "normal gt"
 endfunction
 
 " mapping keys for custom vim script functions
