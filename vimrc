@@ -116,7 +116,15 @@ function! s:tabRight()
     :exe "normal gt"
 endfunction
 
+"quick remove line function
+function! s:openAllGo()
+    :n */*.go
+    :tab all
+endfunction
+
+"""""""""""""""""""""""""""
 " mapping keys for custom vim script functions
+"""""""""""""""""""""""""""
 noremap <silent> <C-left> :call <SID>tabLeft()<CR>
 noremap <silent> <C-right> :call <SID>tabRight()<CR>
 
@@ -124,3 +132,9 @@ noremap <silent> <c-s-up> :call <SID>swap_up()<CR>
 noremap <silent> <c-s-down> :call <SID>swap_down()<CR>
 noremap <silent> <C-S-left> :call <SID>remove()<CR>
 noremap <silent> <C-S-right> :call <SID>duplicate()<CR>
+
+
+"""""""""""""""""""""""""""
+"" Custom Commands
+""""""""""""""""""""""""""
+command Allgo call <SID>openAllGo()
