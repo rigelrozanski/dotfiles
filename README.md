@@ -12,21 +12,35 @@ replace your .vimrc file in the home directory with the repository file 'vimrc'
 
 ### What's Included
 
-1. Implementation of .vimrc for a number of pluggins from [Setup VIM for Go development][1]
-    1. Pathogen
-    2. VIM-GO
-    3. neocomplete (commented out in .vimrc, requires [VIM with Lua][2])
-    4. molokai theme
-    5. tagbar
-    6. nerdtree
-2. Custom functions for quickly swapping lines up and down from [this stackflow thread][3]
-3. Custom functions for quickly inserting a duplicate line below
-4. Custom functions for quickly removing a line
-
+- Implementation of .vimrc for a number of pluggins from [Setup VIM for Go development][1]
+  - Pathogen
+  - VIM-GO
+  - neocomplete (commented out in .vimrc, requires [VIM with Lua][2])
+  - molokai theme
+  - tagbar
+  - nerdtree
+- Custom functions for 
+  - Swap lines up and down (Credit: [this stackflow thread][3])
+  - Insert a duplicate line to a new line below
+  - Remove the current line
+  - Navigate vim tabs
 
 [1]: https://unknwon.io/setup-vim-for-go-development/
 [2]: https://gist.github.com/jdewit/9818870
 [3]: http://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim
+
+### Custom Functions Mapped Keys
+
+While vim is in _normal mode_ the following commands perform the customized functions
+
+| Ctrl-Shift-Up    | Swap current line and above line               |
+|------------------|------------------------------------------------|
+| Ctrl-Shift-Down  | Swap current line and lower line               |
+| Ctrl-Shift-Left  | Delete the current line entirely               |
+| Ctrl-Shift-Right | Duplicate the current line to a new line below |
+| Ctrl-Left        | Navigate vim tab left                          |
+| Ctrl-Right       | Navigate vim tab right                         |
+
  
 ### Contributing
 
