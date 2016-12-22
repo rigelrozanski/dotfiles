@@ -24,6 +24,7 @@ replace your .vimrc file in the home directory with the repository file 'vimrc'
   - Insert a duplicate line to a new line below
   - Remove the current line
   - Navigate vim tabs
+  - Open all .go files as tabs
 
 [1]: https://unknwon.io/setup-vim-for-go-development/
 [2]: https://gist.github.com/jdewit/9818870
@@ -31,15 +32,15 @@ replace your .vimrc file in the home directory with the repository file 'vimrc'
 
 ### Custom Functions Mapped Keys
 
-While vim is in _normal mode_ the following commands perform the customized functions
-
-| Ctrl-Shift-Up    | Swap current line and above line               |
-|------------------|------------------------------------------------|
-| Ctrl-Shift-Down  | Swap current line and lower line               |
-| Ctrl-Shift-Left  | Delete the current line entirely               |
-| Ctrl-Shift-Right | Duplicate the current line to a new line below |
-| Ctrl-Left        | Navigate vim tab left                          |
-| Ctrl-Right       | Navigate vim tab right                         |
+| Command          | Mode   | Function                                       |
+|------------------|--------|------------------------------------------------|
+| Ctrl-Shift-Up    | normal | Swap current line and above line               |
+| Ctrl-Shift-Down  | normal | Swap current line and lower line               |
+| Ctrl-Shift-Left  | normal | Delete the current line entirely               |
+| Ctrl-Shift-Right | normal | Duplicate the current line to a new line below |
+| Ctrl-Left        | normal | Navigate vim tab left                          |
+| Ctrl-Right       | normal | Navigate vim tab right                         |
+| :Ogo             | any    | Open all .go files recursively as tabs         |
 
  
 ### Contributing
