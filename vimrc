@@ -120,7 +120,7 @@ endfunction
 function! s:openAllGo()
     :argadd **/*.go
     :argadd **/*.md
-    :argdelete vendor/*
+    :silent! argdelete vendor/*
     :tab all
 endfunction
 
