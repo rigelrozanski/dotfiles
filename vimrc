@@ -118,7 +118,9 @@ endfunction
 
 "quick remove line function
 function! s:openAllGo()
-    :n **/*.go
+    :argadd **/*.go
+    :argadd **/*.md
+    :argdelete vendor/*
     :tab all
 endfunction
 
@@ -137,4 +139,4 @@ noremap <silent> <C-S-right> :call <SID>duplicate()<CR>
 """""""""""""""""""""""""""
 "" Custom Commands
 """"""""""""""""""""""""""
-command Ogo call <SID>openAllGo()
+command O call <SID>openAllGo()
