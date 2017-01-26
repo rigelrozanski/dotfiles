@@ -124,6 +124,14 @@ function! s:openAllGo()
     :tab all
 endfunction
 
+function! s:spellCheck()
+    :exe "setlocal spell spelllang=en_us"
+endfunction
+
+function! s:spellCheckEnd()
+    :exe "set nospell"
+endfunction
+
 """""""""""""""""""""""""""
 " mapping keys for custom vim script functions
 """""""""""""""""""""""""""
@@ -140,3 +148,5 @@ noremap <silent> <C-S-right> :call <SID>duplicate()<CR>
 "" Custom Commands
 """"""""""""""""""""""""""
 command O call <SID>openAllGo()
+command SC call <SID>spellCheck()
+command SCE call <SID>spellCheckEnd()

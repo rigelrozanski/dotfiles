@@ -41,6 +41,8 @@ replace your .vimrc file in the home directory with the repository file 'vimrc'
 | Ctrl-Left        | normal | Navigate vim tab left                                            |
 | Ctrl-Right       | normal | Navigate vim tab right                                           |
 | :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor |
+| :SC              | any    | Starts the spell check                                           |
+| :SCE             | any    | Ends the spell check                                             |
 
  
 ### Contributing
