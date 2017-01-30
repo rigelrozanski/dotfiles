@@ -143,6 +143,12 @@ noremap <silent> <c-s-down> :call <SID>swap_down()<CR>
 noremap <silent> <C-S-left> :call <SID>remove()<CR>
 noremap <silent> <C-S-right> :call <SID>duplicate()<CR>
 
+""" split navigation remap
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 
 """""""""""""""""""""""""""
 "" Custom Commands
