@@ -143,6 +143,10 @@ noremap <silent> <c-s-down> :call <SID>swap_down()<CR>
 noremap <silent> <C-S-left> :call <SID>remove()<CR>
 noremap <silent> <C-S-right> :call <SID>duplicate()<CR>
 
+" remap for quick search replace
+" http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor 
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+
 """ split navigation remap
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
