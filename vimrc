@@ -107,13 +107,18 @@ function! s:remove()
     :exe "normal dd"
 endfunction
 
-"fast switching tabs
+"fast tab actions
 function! s:tabLeft()
     :exe "normal gT"
 endfunction
 
 function! s:tabRight()
     :exe "normal gt"
+endfunction
+
+function! s:newtab()
+    :exe "tabnew"
+    :exe "NERDTreeToggle"
 endfunction
 
 "quick remove line function
@@ -160,3 +165,4 @@ nnoremap <C-H> <C-W><C-H>
 command O call <SID>openAllGo()
 command SC call <SID>spellCheck()
 command SCE call <SID>spellCheckEnd()
+command T call <SID>newtab()

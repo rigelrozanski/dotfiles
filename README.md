@@ -42,6 +42,7 @@ replace your .vimrc file in the home directory with the repository file 'vimrc'
 | Ctrl-Right       | normal | Navigate vim tab right                                                     |
 | \s               | any    | setup a quick find replace for the whole document on the given cursor word |
 | :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor           |
+| :T               | any    | Open a new tab and toggle the NERD tree to on                              |
 | :SC              | any    | Starts the spell check                                                     |
 | :SCE             | any    | Ends the spell check                                                       |
 
