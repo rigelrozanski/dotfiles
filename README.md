@@ -1,14 +1,30 @@
-# RigeVIM
+# Quickstart vim-go
 
-_Customized VIM functionality for the .vimrc file_
+_Quickstart vim to use customized functionality for golang_
 
 ---
 
-### Installation
+### Usage
 
-run `bash swap_vimrc.sh`  
-OR  
-replace your .vimrc file in the home directory with the repository file 'vimrc'
+##### Installation
+This tool provides .vimrc file which should be arrived at AFTER going through [this][1] setup.
+Pathogen, vim-go, neocomplete, molokai theme, tagbar, and nerdtree, should be installed with the 
+given link before running this installation. Once you've run through the tutorial you use:  
+```
+make install
+```
+##### Updating from this repo's custom vimrc
+The custom `vimrc` file can be manually changed from this repo and updated in `~/.vimrc` with the
+following command:
+```
+make update
+```
+
+##### Updating the custom vimrc from existing vimrc
+As a reverse from the above command, the  `~/.vimrc` can update this repo's local `vimrc` with
+```
+make pull 
+```
 
 ### What's Included
 
@@ -19,6 +35,7 @@ replace your .vimrc file in the home directory with the repository file 'vimrc'
   - molokai theme
   - tagbar
   - nerdtree
+- Implementation of [vim-godef][4] to open definitions in new tab
 - Custom functions for 
   - Swap lines up and down (Credit: [this stackflow thread][3])
   - Insert a duplicate line to a new line below
@@ -29,6 +46,7 @@ replace your .vimrc file in the home directory with the repository file 'vimrc'
 [1]: https://unknwon.io/setup-vim-for-go-development/
 [2]: https://gist.github.com/jdewit/9818870
 [3]: http://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim
+[4]: https://github.com/dgryski/vim-godef
 
 ### Custom Functions Mapped Keys
 
@@ -45,6 +63,7 @@ replace your .vimrc file in the home directory with the repository file 'vimrc'
 | :T               | any    | Open a new tab and toggle the NERD tree to on                              |
 | :SC              | any    | Starts the spell check                                                     |
 | :SCE             | any    | Ends the spell check                                                       |
+| gd               | normal | open get definition in new tab from [vim-godef][4]                         |
 
  
 ### Contributing
@@ -57,4 +76,4 @@ replace your .vimrc file in the home directory with the repository file 'vimrc'
 
 ### License
 
-RigeVIM is released under the Apache 2.0 license.
+quickstart-vim-go is released under the Apache 2.0 license.

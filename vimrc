@@ -61,6 +61,8 @@ if executable('ag')
     set grepformat=%f:%l:%c%m
 endif
 
+" for use of https://github.com/dgryski/vim-godef
+let g:godef_split=2
 
 """""""""""""""""""""""""""""""""""""
 " Moving lines up/down, http://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim
