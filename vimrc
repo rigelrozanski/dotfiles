@@ -53,6 +53,15 @@ nmap <F8> :TagbarToggle<CR>
 
 map <C-n> :NERDTreeToggle<CR>
 
+" ag seach functionality: https://github.com/ggreer/the_silver_searcher
+"http://codeinthehole.com/writing/using-the-silver-searcher-with-vim/
+if executable('ag')
+    " Note we extract the column as well as the file and line number
+    set grepprg=ag\ --nogroup\ --nocolor\ --column
+    set grepformat=%f:%l:%c%m
+endif
+
+
 """""""""""""""""""""""""""""""""""""
 " Moving lines up/down, http://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim
 
