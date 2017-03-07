@@ -12,7 +12,7 @@ go get -d github.com/rigelrozanski/quickstart-vim-go
 ```
 
 ##### Installation
-This tool provides .vimrc file which should be arrived at AFTER going through [this][1] setup.
+This tool will generate a new `.vimrc` file, but first you have to do [this][1] setup
 Pathogen, vim-go, neocomplete, molokai theme, tagbar, and nerdtree, should be installed with the 
 given link before running this installation. Once you've run through the tutorial you use:  
 ```
