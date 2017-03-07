@@ -1,10 +1,15 @@
-# Quickstart vim-go
+# quickstart-vim-go
 
 _Quickstart vim to use customized functionality for golang_
 
 ---
 
 ### Usage
+
+##### Download
+```
+go get -d github.com/rigelrozanski/quickstart-vim-go
+```
 
 ##### Installation
 This tool provides .vimrc file which should be arrived at AFTER going through [this][1] setup.
@@ -13,6 +18,7 @@ given link before running this installation. Once you've run through the tutoria
 ```
 make install
 ```
+
 ##### Updating from this repo's custom vimrc
 The custom `vimrc` file can be manually changed from this repo and updated in `~/.vimrc` with the
 following command:
