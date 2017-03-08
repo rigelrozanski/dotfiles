@@ -71,6 +71,8 @@ make pull
 | :SCE             | any    | Ends the spell check                                                       |
 | gd               | normal | open get definition in new tab from [vim-godef][4]                         |
 | gf               | normal | open file under cursor in new tab, great for use with `:GoCallers`         |
+| <                | visual | shift all selected text one character left                                 |
+| >                | visual | shift all selected text one character right                                |
 
  
 ### Contributing

@@ -172,6 +172,10 @@ nnoremap <C-H> <C-W><C-H>
 " remap for gf to open file under cursor, but in a new tab
 nnoremap gf <C-W><S-T>gf
 
+"remap for left right shifting
+vnoremap > xp`[v`]
+vnoremap < x2hp`[v`]
+
 """""""""""""""""""""""""""
 "" Custom Commands
 """"""""""""""""""""""""""
