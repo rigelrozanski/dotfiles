@@ -70,6 +70,7 @@ make pull
 | :SC              | any    | Starts the spell check                                                     |
 | :SCE             | any    | Ends the spell check                                                       |
 | gd               | normal | open get definition in new tab from [vim-godef][4]                         |
+| gf               | normal | open file under cursor in new tab, great for use with `:GoCallers`         |
 
  
 ### Contributing

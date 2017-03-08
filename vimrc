@@ -169,6 +169,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" remap for gf to open file under cursor, but in a new tab
+nnoremap gf <C-W><S-T>gf
 
 """""""""""""""""""""""""""
 "" Custom Commands
