@@ -172,9 +172,18 @@ nnoremap <C-H> <C-W><C-H>
 " remap for gf to open file under cursor, but in a new tab
 nnoremap gf <C-W><S-T>gf
 
+
+"""""""""""""""""""""""""""""""""""
+" Visual remapping
+
+
 "remap for left right shifting
 vnoremap > xp`[v`]
 vnoremap < x2hp`[v`]
+
+"commenting lines or uncommenting lines
+vnoremap // :s!^!//!<ENTER>
+vnoremap ?? :s!^//!!<ENTER>
 
 """""""""""""""""""""""""""
 "" Custom Commands

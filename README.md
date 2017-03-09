@@ -44,10 +44,16 @@ make pull
 - Implementation of [vim-godef][4] to open definitions in new tab
 - Custom functions for 
   - Swap lines up and down (Credit: [this stackflow thread][3])
+  - Move selection horizontally within line
   - Insert a duplicate line to a new line below
   - Remove the current line
   - Navigate vim tabs
+  - comment/uncomment visual mode selected lines
+  - quick find replace of word under cursor 
+  - open function definition in a new tab 
+  - Spellcheck shortcuts 
   - Open all .go/.md files as tabs
+
 
 [1]: https://unknwon.io/setup-vim-for-go-development/
 [2]: https://gist.github.com/jdewit/9818870
@@ -73,6 +79,8 @@ make pull
 | gf               | normal | open file under cursor in new tab, great for use with `:GoCallers`         |
 | <                | visual | shift all selected text one character left                                 |
 | >                | visual | shift all selected text one character right                                |
+| //               | visual | add comments to the beginnings of each line                                |
+| ??               | visual | remove comments to the beginnings of each line                             |
 
  
 ### Contributing
