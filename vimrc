@@ -183,7 +183,7 @@ vnoremap < x2hp`[v`]
 
 "commenting lines or uncommenting lines
 vnoremap // :s!^!//!<ENTER>
-vnoremap ?? :s!^//!!<ENTER>
+vnoremap ?? :s!^\s\+//!!<ENTER>
 
 """""""""""""""""""""""""""
 "" Custom Commands
