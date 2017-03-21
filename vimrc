@@ -153,11 +153,23 @@ endfunction
 """""""""""""""""""""""""""
 noremap <silent> <C-left> :call <SID>tabLeft()<CR>
 noremap <silent> <C-right> :call <SID>tabRight()<CR>
+inoremap <C-left> <Esc>  :call <SID>tabLeft()<CR>
+inoremap  <C-right> <Esc> :call <SID>tabRight()<CR>
+vnoremap  <C-left> <Esc>  :call <SID>tabLeft()<CR>
+vnoremap  <C-right> <Esc> `:call <SID>tabRight()<CR>
 
 noremap <silent> <c-s-up> :call <SID>swap_up()<CR>
 noremap <silent> <c-s-down> :call <SID>swap_down()<CR>
 noremap <silent> <C-S-left> :call <SID>remove()<CR>
 noremap <silent> <C-S-right> :call <SID>duplicate()<CR>
+inoremap <silent> <c-s-up> <Esc> :call <SID>swap_up()<CR>
+inoremap <silent> <c-s-down> <Esc> :call <SID>swap_down()<CR>
+inoremap <silent> <C-S-left> <Esc> :call <SID>remove()<CR>
+inoremap <silent> <C-S-right> <Esc> :call <SID>duplicate()<CR>
+vnoremap <silent> <c-s-up> <Esc> :call <SID>swap_up()<CR>
+vnoremap <silent> <c-s-down> <Esc> :call <SID>swap_down()<CR>
+vnoremap <silent> <C-S-left> <Esc> :call <SID>remove()<CR>
+vnoremap <silent> <C-S-right> <Esc> :call <SID>duplicate()<CR>
 
 " remap for quick search replace
 " http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor 
