@@ -188,6 +188,11 @@ nnoremap <C-H> <C-W><C-H>
 " remap for gf to open file under cursor, but in a new tab
 nnoremap gf <C-W><S-T>gf
 
+" automatically leave insert mode after 'updatetime' milliseconds of inaction
+au CursorHoldI * stopinsert
+" set 'updatetime' to 15 seconds when in insert mode
+" au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+" au InsertLeave * let &updatetime=updaterestore
 
 """""""""""""""""""""""""""""""""""
 " Visual remapping
