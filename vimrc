@@ -153,6 +153,9 @@ endfunction
 """""""""""""""""""""""""""
 noremap <silent> <C-left> :call <SID>tabLeft()<CR>
 noremap <silent> <C-right> :call <SID>tabRight()<CR>
+noremap <A-Left>  :-tabmove<cr>
+noremap <A-Right> :+tabmove<cr>
+
 
 inoremap <C-left> <Esc>  :call <SID>tabLeft()<CR>
 inoremap  <C-right> <Esc> :call <SID>tabRight()<CR>

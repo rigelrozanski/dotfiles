@@ -64,12 +64,14 @@ make pull
 
 | Command          | Mode   | Function                                                                   |
 |------------------|--------|----------------------------------------------------------------------------|
-| Ctrl-Shift-Up    | normal | Swap current line and above line                                           |
-| Ctrl-Shift-Down  | normal | Swap current line and lower line                                           |
-| Ctrl-Shift-Left  | normal | Delete the current line entirely                                           |
-| Ctrl-Shift-Right | normal | Duplicate the current line to a new line below                             |
-| Ctrl-Left        | normal | Navigate vim tab left                                                      |
-| Ctrl-Right       | normal | Navigate vim tab right                                                     |
+| Ctrl-Shift-Up    | any    | Swap current line and above line                                           |
+| Ctrl-Shift-Down  | any    | Swap current line and lower line                                           |
+| Ctrl-Shift-Left  | any    | Delete the current line entirely                                           |
+| Ctrl-Shift-Right | any    | Duplicate the current line to a new line below                             |
+| Ctrl-Left        | any    | Navigate vim tab left                                                      |
+| Ctrl-Right       | any    | Navigate vim tab right                                                     |
+| Alt-Left         | normal | Move vim tab left                                                          |
+| Alt-Right        | normal | Move vim tab right                                                         |
 | \s               | any    | setup a quick find replace for the whole document on the given cursor word |
 | :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor           |
 | :T               | any    | Open a new tab and toggle the NERD tree to on                              |
