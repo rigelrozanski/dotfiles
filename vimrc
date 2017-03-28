@@ -217,6 +217,6 @@ endfunction
 "" Custom Commands
 """"""""""""""""""""""""""
 command O call <SID>openAllGo()
-command SC call <SID>spellChecknd '"\t":menu-complete'()
+command SC call <SID>spellCheck()
 command SCE call <SID>spellCheckEnd()
 command T call <SID>newtab()
