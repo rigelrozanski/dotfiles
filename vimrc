@@ -65,6 +65,12 @@ endif
 let g:godef_split=2
 
 """""""""""""""""""""""""""""""""""""
+" Visual Mods
+
+" remove paren matching
+:let loaded_matchparen = 1
+
+
 " Moving lines up/down, http://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim
 
 function! s:swap_lines(n1, n2)
@@ -156,7 +162,6 @@ noremap <silent> <C-right> :call <SID>tabRight()<CR>
 noremap <A-Left>  :-tabmove<cr>
 noremap <A-Right> :+tabmove<cr>
 
-
 inoremap <C-left> <Esc>  :call <SID>tabLeft()<CR>
 inoremap  <C-right> <Esc> :call <SID>tabRight()<CR>
 
@@ -168,15 +173,15 @@ noremap <silent> <c-s-down> :call <SID>swap_down()<CR>
 noremap <silent> <C-S-left> :call <SID>remove()<CR>
 noremap <silent> <C-S-right> :call <SID>duplicate()<CR>
 
-inoremap <silent> <c-s-up> <Esc> :call <SID>swap_up()<CR>
-inoremap <silent> <c-s-down> <Esc> :call <SID>swap_down()<CR>
-inoremap <silent> <C-S-left> <Esc> :call <SID>remove()<CR>
-inoremap <silent> <C-S-right> <Esc> :call <SID>duplicate()<CR>
+inoremap <silent> <c-s-up> <Esc>:call <SID>swap_up()<CR>i
+inoremap <silent> <c-s-down> <Esc>:call <SID>swap_down()<CR>i
+inoremap <silent> <C-S-left> <Esc>:call <SID>remove()<CR>i
+inoremap <silent> <C-S-right> <Esc>:call <SID>duplicate()<CR>i
 
-vnoremap <silent> <c-s-up> <Esc> :call <SID>swap_up()<CR>
-vnoremap <silent> <c-s-down> <Esc> :call <SID>swap_down()<CR>
-vnoremap <silent> <C-S-left> <Esc> :call <SID>remove()<CR>
-vnoremap <silent> <C-S-right> <Esc> :call <SID>duplicate()<CR>
+vnoremap <silent> <c-s-up> <Esc>:call <SID>swap_up()<CR>v
+vnoremap <silent> <c-s-down> <Esc>:call <SID>swap_down()<CR>v
+vnoremap <silent> <C-S-left> <Esc>:call <SID>remove()<CR>v
+vnoremap <silent> <C-S-right> <Esc>:call <SID>duplicate()<CR>v
 
 " remap for quick search replace
 " http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor 
