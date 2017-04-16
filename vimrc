@@ -210,11 +210,15 @@ vnoremap > xp`[v`]
 vnoremap < x2hp`[v`]
 
 "commenting lines or uncommenting lines
-vnoremap // :s!^!//!<ENTER>
+vnoremap // :call <SID>addComment()<CR>
 vnoremap ?? :call <SID>replaceComment()<CR>
 
+function! s:addComment()
+	:s!^\(\s\+\)!\1//!e
+endfunction
+
 function! s:replaceComment()
-    :s!^\s\+//!!e
+    :s!^\(\s\+\)//!\1!e
     :s!^//!!e
 endfunction
 
