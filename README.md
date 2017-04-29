@@ -76,6 +76,7 @@ make pull
 | \s               | any    | setup a quick find replace for the whole document on the given cursor word |
 | :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor           |
 | :T               | any    | Open a new tab and toggle the NERD tree to on                              |
+| :Q               | any    | Close all the current tab                                                  |
 | :SC              | any    | Starts the spell check                                                     |
 | :SCE             | any    | Ends the spell check                                                       |
 | gd               | normal | open get definition in new tab from [vim-godef][4]                         |

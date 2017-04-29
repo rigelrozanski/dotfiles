@@ -138,6 +138,10 @@ function! s:newtab()
     :exe "NERDTreeToggle"
 endfunction
 
+function! s:closetab()
+    :exe "windo bd"
+endfunction
+
 "quick remove line function
 function! s:openAllGo()
     :argadd **/*.go
@@ -229,3 +233,8 @@ command O call <SID>openAllGo()
 command SC call <SID>spellCheck()
 command SCE call <SID>spellCheckEnd()
 command T call <SID>newtab()
+command Q call <SID>closetab()
+
+"This next command will force close nerd tree if it's the last and only buffer
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
