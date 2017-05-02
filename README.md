@@ -73,6 +73,8 @@ make pull
 | Ctrl-Right       | any    | Navigate vim tab right                                                     |
 | Alt-Left         | normal | Move vim tab left                                                          |
 | Alt-Right        | normal | Move vim tab right                                                         |
+| dup              | normal | duplicate the current block                                                |
+| cut              | normal | cut the current block                                                      |
 | \s               | any    | setup a quick find replace for the whole document on the given cursor word |
 | :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor           |
 | :T               | any    | Open a new tab and toggle the NERD tree to on                              |

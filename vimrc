@@ -204,6 +204,12 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+"block commanpds
+"duplication
+nnoremap dup {v}y}p}dd{
+"highlight
+nnoremap cut {v}xO<Esc>
+
 " remap for gf to open file under cursor, but in a new tab
 nnoremap gf <C-W><S-T>gf
 
