@@ -218,7 +218,8 @@ vnoremap // :call <SID>addComment()<CR>
 vnoremap ?? :call <SID>replaceComment()<CR>
 
 function! s:addComment()
-	:s!^\(\s\+\)!\1//!e
+	:s!^\(\S\+\)!//\1!e "if line doesn't start with whitespace
+	:s!^\(\s\+\)!\1//!e "if line starts with whitespaces
 endfunction
 
 function! s:replaceComment()
