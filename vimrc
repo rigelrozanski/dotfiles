@@ -21,6 +21,13 @@ let g:go_highlight_build_constraints = 1
 
 colorscheme molokai
 
+"optional fixes a glitch under some versions of terminal
+if &term =~ '256color'
+    " disable Background Color Erase (BCE) so that color schemes
+    " render properly when inside 256-color tmux and GNU screen.
+    set t_ut=
+endif
+
 let g:tagbar_type_go = {  
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
