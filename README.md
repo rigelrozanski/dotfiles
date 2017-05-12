@@ -75,10 +75,15 @@ make pull
 | Alt-Right        | normal | Move vim tab right                                                         |
 | dup              | normal | duplicate the current block                                                |
 | cut              | normal | cut the current block                                                      |
+| \ou              | normal | open current line in github on google chrome                               |
+| <tab>-<char>     | normal | navigate to a specific character with easy-motion                          |
+| :let fmt ="foo"  | normal | set default content of the fmt command (defined next)                      |
+| fmt              | normal | insert a previous line with fmt.Println("")                                |
 | \s               | any    | setup a quick find replace for the whole document on the given cursor word |
 | :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor           |
 | :T               | any    | Open a new tab and toggle the NERD tree to on                              |
 | :Q               | any    | Close all the current tab                                                  |
+| :W or :Wq or :WQ | any    | :w of :wq or :wq                                                           |
 | :SC              | any    | Starts the spell check                                                     |
 | :SCE             | any    | Ends the spell check                                                       |
 | gd               | normal | open get definition in new tab from [vim-godef][4]                         |

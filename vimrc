@@ -71,6 +71,12 @@ endif
 " for use of https://github.com/dgryski/vim-godef
 let g:godef_split=2
 
+" EasyMotion
+ let g:EasyMotion_do_mapping = 0 " Disable default mappings
+ map  <Tab> <Plug>(easymotion-bd-f)
+ nmap <Tab> <Plug>(easymotion-overwin-f)
+ let g:EasyMotion_smartcase = 1
+
 """""""""""""""""""""""""""""""""""""
 " Visual Mods
 
@@ -248,7 +254,17 @@ command SC call <SID>spellCheck()
 command SCE call <SID>spellCheckEnd()
 command T call <SID>newtab()
 command Q call <SID>closetab()
+" Duplication for messed up key strokes
+command W :w
+command Wq :wq
+command WQ :wq
 
 "This next command will force close nerd tree if it's the last and only buffer
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" Open current line on Github
+nnoremap <leader>ou :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L<C-R>=line('.')<CR> \| xargs google-chrome<CR><CR>
+
+"quick insert fmt.Println("")
+let fmt = ""
+nnoremap fmt Ofmt.Println("<c-r>=fmt<cr>")<esc>hi
