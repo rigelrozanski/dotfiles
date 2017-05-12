@@ -268,3 +268,4 @@ nnoremap <leader>ou :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L
 "quick insert fmt.Println("")
 let fmt = ""
 nnoremap fmt Ofmt.Println("<c-r>=fmt<cr>")<esc>hi
+nnoremap F ggVGgq

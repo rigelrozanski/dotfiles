@@ -86,6 +86,7 @@ make pull
 | :W or :Wq or :WQ | any    | :w of :wq or :wq                                                           |
 | :SC              | any    | Starts the spell check                                                     |
 | :SCE             | any    | Ends the spell check                                                       |
+| F                | normal | Format all                                                                 |
 | gd               | normal | open get definition in new tab from [vim-godef][4]                         |
 | gf               | normal | open file under cursor in new tab, great for use with `:GoCallers`         |
 | <                | visual | shift all selected text one character left                                 |
