@@ -266,6 +266,6 @@ autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 nnoremap <leader>ou :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L<C-R>=line('.')<CR> \| xargs google-chrome<CR><CR>
 
 "quick insert fmt.Println("")
-let fmt = ""
-nnoremap fmt Ofmt.Println("<c-r>=fmt<cr>")<esc>hi
+let fmt = "debug %v\\n"
+nnoremap fmt Ofmt.Printf("<c-r>=fmt<cr>", )<esc>i
 nnoremap F ggVGgq

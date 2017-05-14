@@ -78,7 +78,7 @@ make pull
 | \ou              | normal | open current line in github on google chrome                               |
 | <tab>-<char>     | normal | navigate to a specific character with easy-motion                          |
 | :let fmt ="foo"  | normal | set default content of the fmt command (defined next)                      |
-| fmt              | normal | insert a previous line with fmt.Println("")                                |
+| fmt              | normal | insert a previous line with fmt.Printf("debug %v\n", )                     |
 | \s               | any    | setup a quick find replace for the whole document on the given cursor word |
 | :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor           |
 | :T               | any    | Open a new tab and toggle the NERD tree to on                              |
