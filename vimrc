@@ -77,6 +77,9 @@ let g:godef_split=2
  nmap <Tab> <Plug>(easymotion-overwin-f)
  let g:EasyMotion_smartcase = 1
 
+" GoImports
+let g:go_fmt_command = "goimports"
+
 """""""""""""""""""""""""""""""""""""
 " Visual Mods
 
