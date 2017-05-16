@@ -5,6 +5,7 @@ install:
 	go install -v github.com/rogpeppe/godef
 	git clone https://github.com/dgryski/vim-godef ~/.vim/bundle/vim-godef
 	git clone https://github.com/easymotion/vim-easymotion ~/.vim/bundle/vim-easymotion
+	git clone https://github.com/terryma/vim-multiple-cursors ~/.vim/bundle/vim-multiple-cursors
 	go get golang.org/x/tools/cmd/goimports
 
 	#run update

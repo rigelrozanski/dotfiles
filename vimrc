@@ -5,6 +5,14 @@ call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 syntax on
 filetype plugin indent on
 
+"multiple cursors
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_next_key='<C-d>'
+let g:multi_cursor_prev_key='<C-s>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+
+
 " syntax enable  
 " filetype plugin on  
 set number  
@@ -261,6 +269,9 @@ command Q call <SID>closetab()
 command W :w
 command Wq :wq
 command WQ :wq
+command WQA :wqa
+command WQa :wqa
+command Wqa :wqa
 
 "This next command will force close nerd tree if it's the last and only buffer
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

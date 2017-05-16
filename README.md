@@ -71,6 +71,10 @@ make pull
 | Ctrl-Shift-Right | any    | Duplicate the current line to a new line below                             |
 | Ctrl-Left        | any    | Navigate vim tab left                                                      |
 | Ctrl-Right       | any    | Navigate vim tab right                                                     |
+| Ctrl-d           | normal | vim-multi-cursors next                                                     |
+| Ctrl-s           | normal | vim-multi-cursors previous                                                 |
+| Ctrl-x           | normal | vim-multi-cursors skip                                                     |
+| <esp>            | normal | vim-multi-cursors quit                                                     |
 | Alt-Left         | normal | Move vim tab left                                                          |
 | Alt-Right        | normal | Move vim tab right                                                         |
 | dup              | normal | duplicate the current block                                                |
@@ -83,7 +87,8 @@ make pull
 | :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor           |
 | :T               | any    | Open a new tab and toggle the NERD tree to on                              |
 | :Q               | any    | Close all the current tab                                                  |
-| :W or :Wq or :WQ | any    | :w of :wq or :wq                                                           |
+| :W :Wq :WQ       | any    | :w or :wq                                                                  |
+| :WQA :Wqa :WQA   | any    | :wqa                                                                       |
 | :SC              | any    | Starts the spell check                                                     |
 | :SCE             | any    | Ends the spell check                                                       |
 | F                | normal | Format all                                                                 |
