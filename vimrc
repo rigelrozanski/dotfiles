@@ -221,16 +221,9 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-"block commanpds
-"duplication
-nnoremap dup {v}y}p}dd{
-"highlight
+nnoremap dup {v}y}p}dd{ 
 nnoremap cut {v}xO<Esc>
-
-"random
 nnoremap xx caw<Esc>
-
-" remap for gf to open file under cursor, but in a new tab
 nnoremap gf <C-W><S-T>gf
 
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
@@ -268,6 +261,8 @@ command SC call <SID>spellCheck()
 command SCE call <SID>spellCheckEnd()
 command T call <SID>newtab()
 command Q call <SID>closetab()
+command HL :set hlsearch
+command NHL :set nohlsearch
 " Duplication for messed up key strokes
 command W :w
 command Wq :wq

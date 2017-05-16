@@ -88,6 +88,8 @@ make pull
 | :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor           |
 | :T               | any    | Open a new tab and toggle the NERD tree to on                              |
 | :Q               | any    | Close all the current tab                                                  |
+| :HL              | any    | enable highlighted search                                                  |
+| :NHL             | any    | disable highlighted search                                                 |
 | :W :Wq :WQ       | any    | :w or :wq                                                                  |
 | :WQA :Wqa :WQA   | any    | :wqa                                                                       |
 | :SC              | any    | Starts the spell check                                                     |
