@@ -227,6 +227,9 @@ nnoremap dup {v}y}p}dd{
 "highlight
 nnoremap cut {v}xO<Esc>
 
+"random
+nnoremap xx caw<Esc>
+
 " remap for gf to open file under cursor, but in a new tab
 nnoremap gf <C-W><S-T>gf
 
