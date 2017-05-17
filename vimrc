@@ -5,6 +5,13 @@ call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 syntax on
 filetype plugin indent on
 
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+
 "multiple cursors
 let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_next_key='<C-d>'
