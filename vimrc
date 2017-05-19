@@ -230,7 +230,6 @@ nnoremap <C-H> <C-W><C-H>
 
 nnoremap dup {v}y}p}dd{ 
 nnoremap cut {v}xO<Esc>
-nnoremap xx caw<Esc>
 nnoremap gf <C-W><S-T>gf
 
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
@@ -289,3 +288,19 @@ let fmt = "debug %v\\n"
 nnoremap fmt ofmt.Printf("<c-r>=fmt<cr>", )<esc>i
 nnoremap err oif err != nil {<CR>return err<CR><left><left>}<esc>i
 nnoremap F ggVGgq
+
+" credit: https://github.com/convissor/vim-settings/blob/master/.vimrc
+" :CONVISSOR:  Declare function for moving left when closing a tab.
+function! TabCloseLeft(cmd)
+   if winnr('$') == 1 && tabpagenr('$') > 1 && tabpagenr() > 1 && tabpagenr()
+   < tabpagenr('$')
+        exec a:cmd | tabprevious
+   else
+   exec a:cmd
+   endif
+endfunction
+
+" :CONVISSOR:  ,x = Write if changes made, exit,move left one tab.
+noremap ,x :call TabCloseLeft('x')<CR>
+" :CONVISSOR:  ,q = Don't save changes, exit, move left one tab.
+noremap ,q :call TabCloseLeft('q!')<CR>

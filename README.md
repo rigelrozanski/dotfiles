@@ -84,7 +84,6 @@ make pull
 | :let fmt ="foo"  | normal | set default content of the fmt command (defined next)                      |
 | fmt              | normal | insert a on next  line with fmt.Printf("debug %v\n", )                     |
 | err              | normal | insert a on next  line with if err != nil { return err }                   |
-| xx               | normal | delete the word under the cursor                                           |
 | \s               | any    | setup a quick find replace for the whole document on the given cursor word |
 | :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor           |
 | :T               | any    | Open a new tab and toggle the NERD tree to on                              |
