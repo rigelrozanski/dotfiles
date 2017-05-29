@@ -18,26 +18,22 @@ sudo ls > /dev/null
 # Make sure all the directories exist 
 
 # Vim config directory
-if [ ! -d "~/.vim" ]
-then
+if [ ! -d "~/.vim" ]; then
 	mkdir ~/.vim
 fi
 
 # The Vim autoload directory
-if [ ! -d "~/.vim/autoload" ]
-then
+if [ ! -d "~/.vim/autoload" ]; then
 	mkdir -p ~/.vim/autoload 
 fi
 
 # The Vim/Pathogen bundle directory
-if [ ! -d "~/.vim/bundle" ]
-then
+if [ ! -d "~/.vim/bundle" ]; then
 	mkdir -p ~/.vim/bundle 
 fi
 
 # The Vim/Pathogen bundle directory
-if [ ! -d "~/.vim/colors" ]
-then
+if [ ! -d "~/.vim/colors" ]; then
 	mkdir -p ~/.vim/colors 
 fi
 
@@ -62,8 +58,7 @@ curl -LSso molokai.vim https://raw.githubusercontent.com/fatih/molokai/master/co
 popd
 
 # Install ctags
-if [ "$OS" == "Debian" ] 
-then
+if [ "$OS" == "Debian" ]; then
 	sudo apt-get install exuberant-ctags
 else
 	brew install ctags
