@@ -12,5 +12,8 @@ install:
 update:
 	bash swap_vimrc.sh push
 
+get_deps:
+	bash install_plugins.sh
+
 pull:
 	bash swap_vimrc.sh pull
