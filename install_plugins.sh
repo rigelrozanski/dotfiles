@@ -13,7 +13,7 @@ OS=`uname`
 # Init sudo first, if a password is needed
 sudo ls > /dev/null
 
-# Check that it is a valid OS
+# Check that the OS is valid
 if [ "$OS" == "Linux" ]; then
 	echo ""
 elif [ "$OS" == "Darwin" ]; then
