@@ -69,6 +69,9 @@ go get -u github.com/jstemmer/gotags
 
 pushd ~/.vim/bundle
 
+# Install golint
+go get -u github.com/golang/lint/golint
+
 # Install tagbar
 git clone https://github.com/majutsushi/tagbar.git
 
