@@ -8,10 +8,20 @@
 set -eu
 
 #OS="MacOS"
-OS="Debian"
+OS=`uname`
 
 # Init sudo first, if a password is needed
 sudo ls > /dev/null
+
+# Check that it is a valid OS
+if [ "$OS" == "Linux" ]; then
+	echo ""
+elif [ "$OS" == "Darwin" ]; then
+	echo ""
+else 
+	echo "Error: Invalid Operating System: $OS"
+	exit -1
+fi
 
 # TODO: Make sure gvim is installed, put in correct version for MacOS
 
@@ -58,7 +68,7 @@ curl -LSso molokai.vim https://raw.githubusercontent.com/fatih/molokai/master/co
 popd
 
 # Install ctags
-if [ "$OS" == "Debian" ]; then
+if [ "$OS" == "Linux" ]; then
 	sudo apt-get install exuberant-ctags
 else
 	brew install ctags
