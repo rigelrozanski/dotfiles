@@ -1,86 +1,91 @@
 #!/bin/bash
 #
-# Install all of the plugins for Gvim that are used by this repo.
-# Installation differs between MacOS and Linux
+# install all of the plugins for gvim that are used by this repo.
+# installation differs between macos and linux
 
-# General setup
+# general setup
 
 set -eu
 
-#OS="MacOS"
-OS=`uname`
+#os="macos"
+os=`uname`
 
-# Init sudo first, if a password is needed
+# init sudo first, if a password is needed
 sudo ls > /dev/null
 
-# Check that the OS is valid
-if [ "$OS" == "Linux" ]; then
+# check that the os is valid
+if [ "$os" == "linux" ]; then
 	echo ""
-elif [ "$OS" == "Darwin" ]; then
+elif [ "$os" == "darwin" ]; then
 	echo ""
 else 
-	echo "Error: Invalid Operating System: $OS"
+	echo "error: invalid operating system: $os"
 	exit -1
 fi
 
-# TODO: Make sure gvim is installed, put in correct version for MacOS
+# todo: make sure gvim is installed, put in correct version for macos
 
-# Make sure all the directories exist 
+# make sure all the directories exist 
 
-# Vim config directory
+# vim config directory
 if [ ! -d "~/.vim" ]; then
 	mkdir ~/.vim
 fi
 
-# The Vim autoload directory
+# the vim autoload directory
 if [ ! -d "~/.vim/autoload" ]; then
 	mkdir -p ~/.vim/autoload 
 fi
 
-# The Vim/Pathogen bundle directory
+# the vim/pathogen bundle directory
 if [ ! -d "~/.vim/bundle" ]; then
 	mkdir -p ~/.vim/bundle 
 fi
 
-# The Vim/Pathogen bundle directory
+# the vim/pathogen bundle directory
 if [ ! -d "~/.vim/colors" ]; then
 	mkdir -p ~/.vim/colors 
 fi
 
-# Install Pathogen
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+# install pathogen
+curl -lsso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-# Install the bundles
+# install the bundles
 pushd ~/.vim/bundle
 
-# Install VIM-GO
+# install vim-go
 git clone https://github.com/fatih/vim-go.git
 
-# Install neocomplete
-git clone https://github.com/Shougo/neocomplete.vim.git
+# install neocomplete
+git clone https://github.com/shougo/neocomplete.vim.git
 
 popd
 
-# Install Molokai color scheme 
+# install molokai color scheme 
 pushd ~/.vim/colors
-curl -LSso molokai.vim https://raw.githubusercontent.com/fatih/molokai/master/colors/molokai.vim
+curl -lsso molokai.vim https://raw.githubusercontent.com/fatih/molokai/master/colors/molokai.vim
 
 popd
 
-# Install ctags
-if [ "$OS" == "Linux" ]; then
+# install ctags
+if [ "$os" == "linux" ]; then
 	sudo apt-get install exuberant-ctags
 else
 	brew install ctags
 fi
 
-# Install gotags
+# install gotags
 go get -u github.com/jstemmer/gotags
 
 pushd ~/.vim/bundle
 
-# Install golint
+# install golint
 go get -u github.com/golang/lint/golint
+
+# Install godef
+go get -v github.com/rogpeppe/godef
+go install -v github.com/rogpeppe/godef
+git clone https://github.com/dgryski/vim-godef ~/.vim/bundle/vim-godef
 
 # Install tagbar
 git clone https://github.com/majutsushi/tagbar.git

@@ -12,23 +12,23 @@ go get -d github.com/rigelrozanski/quickstart-vim-go
 ```
 
 ##### Installation
-This tool will generate a new `.vimrc` file, but first you have to do [this][1] setup
-Pathogen, vim-go, neocomplete, molokai theme, tagbar, and nerdtree, should be installed with the 
-given link before running this installation. Additionally, I recommend that you install [go-def][3].
-Once you've run through the tutorial you use:  
 ```
 make install
 ```
 
+Use `make install` to generate a new `.vimrc` file and automatically install
+packages from [this tutorial][1] and will also install [go-def][3].
+
 ##### Updating from this repo's custom vimrc
-The custom `vimrc` file can be manually changed from this repo and updated in `~/.vimrc` with the
-following command:
+The custom `vimrc` file can be manually changed from this repo and updated in
+`~/.vimrc` with the following command:
 ```
 make update
 ```
 
 ##### Updating the custom vimrc from existing vimrc
-As a reverse from the above command, the  `~/.vimrc` can update this repo's local `vimrc` with
+As a reverse from the above command, the  `~/.vimrc` can update this repo's
+local `vimrc` with
 ```
 make pull 
 ```
