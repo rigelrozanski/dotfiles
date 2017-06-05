@@ -14,7 +14,7 @@ go get -d github.com/rigelrozanski/quickstart-vim-go
 ##### Installation
 This tool will generate a new `.vimrc` file, but first you have to do [this][1] setup
 Pathogen, vim-go, neocomplete, molokai theme, tagbar, and nerdtree, should be installed with the 
-given link before running this installation. Additionally, I recommend that you install [go-def][4].
+given link before running this installation. Additionally, I recommend that you install [go-def][3].
 Once you've run through the tutorial you use:  
 ```
 make install
@@ -42,9 +42,9 @@ make pull
   - molokai theme
   - tagbar
   - nerdtree
-- Implementation of [vim-godef][4] to open definitions in new tab
+- Implementation of [vim-godef][3] to open definitions in new tab
 - Custom functions for 
-  - Swap lines up and down (Credit: [this stackflow thread][3])
+  - Swap lines up and down (Credit: [this stackflow thread][4])
   - Move selection horizontally within line
   - Insert a duplicate line to a new line below
   - Remove the current line
@@ -54,12 +54,13 @@ make pull
   - open function definition in a new tab 
   - Spellcheck shortcuts 
   - Open all .go/.md files as tabs
-
+- Implementation of [golint][5]
 
 [1]: https://unknwon.io/setup-vim-for-go-development/
 [2]: https://gist.github.com/jdewit/9818870
-[3]: http://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim
-[4]: https://github.com/dgryski/vim-godef
+[3]: https://github.com/dgryski/vim-godef
+[4]: http://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim
+[5]: https://github.com/golang/lint
 
 ### Custom Functions Mapped Keys
 
