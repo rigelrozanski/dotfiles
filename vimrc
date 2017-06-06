@@ -13,8 +13,7 @@ set shiftwidth=4
 set expandtab
 
 " golint
-set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
-autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+let g:go_metalinter_autosave = 1
 
 "multiple cursors
 let g:multi_cursor_use_default_mapping=0
