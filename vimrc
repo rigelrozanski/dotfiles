@@ -307,3 +307,5 @@ endfunction
 noremap ,x :call TabCloseLeft('x')<CR>
 " :CONVISSOR:  ,q = Don't save changes, exit, move left one tab.
 noremap ,q :call TabCloseLeft('q!')<CR>
+
+source ~/.vimrc_custom
