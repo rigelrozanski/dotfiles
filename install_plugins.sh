@@ -14,9 +14,9 @@ os=`uname`
 sudo ls > /dev/null
 
 # check that the os is valid
-if [ "$os" == "linux" ]; then
+if [ "$os" == "Linux" ]; then
 	echo ""
-elif [ "$os" == "darwin" ]; then
+elif [ "$os" == "Darwin" ]; then
 	echo ""
 else 
 	echo "error: invalid operating system: $os"
@@ -48,7 +48,7 @@ if [ ! -d "~/.vim/colors" ]; then
 fi
 
 # install pathogen
-curl -lsso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 # install the bundles
 pushd ~/.vim/bundle
@@ -68,7 +68,7 @@ curl -lsso molokai.vim https://raw.githubusercontent.com/fatih/molokai/master/co
 popd
 
 # install ctags
-if [ "$os" == "linux" ]; then
+if [ "$os" == "Linux" ]; then
 	sudo apt-get install exuberant-ctags
 else
 	brew install ctags
