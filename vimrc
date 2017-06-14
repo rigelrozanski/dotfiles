@@ -280,6 +280,16 @@ command WQA :wqa
 command WQa :wqa
 command Wqa :wqa
 
+" Close all tabs to the right
+function TabCloseRight(bang)
+    let cur=tabpagenr()
+    while cur < tabpagenr('$')
+        exe 'tabclose' . a:bang . ' ' . (cur + 1)
+    endwhile
+endfunction
+
+command WWW call TabCloseRight('<bang>')
+
 "This next command will force close nerd tree if it's the last and only buffer
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
