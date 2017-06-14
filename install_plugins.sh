@@ -67,9 +67,10 @@ curl -lsso molokai.vim https://raw.githubusercontent.com/fatih/molokai/master/co
 
 popd
 
-# install ctags
+# install ctags (and vim gtk)
 if [ "$os" == "linux" ]; then
 	sudo apt-get install exuberant-ctags
+    sudo apt-get install vim-gtk
 else
 	brew install ctags
 fi
