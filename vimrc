@@ -169,7 +169,7 @@ endfunction
 
 function! s:newtab()
     :exe "tabnew"
-    :exe "NERDTreeToggle"
+    :exe "NERDTreeMirror"
 endfunction
 
 function! s:closetab()
