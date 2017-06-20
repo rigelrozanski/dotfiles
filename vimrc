@@ -22,6 +22,8 @@ let g:multi_cursor_prev_key='<C-s>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
+" system as the default clipboard
+set clipboard=unnamed
 
 " syntax enable  
 " filetype plugin on  
