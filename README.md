@@ -93,7 +93,7 @@ make pull
 | :NHL             | any    | disable highlighted search                                                 |
 | :W :Wq :WQ       | any    | :w or :wq                                                                  |
 | :WQA :Wqa :WQA   | any    | :wqa                                                                       |
-| :WWW             | any    | Close all tabs to the right of the current tab                             |
+| :QQQ             | any    | Close all tabs to the right of the current tab                             |
 | :SC              | any    | Starts the spell check                                                     |
 | :SCE             | any    | Ends the spell check                                                       |
 | F                | normal | Format all                                                                 |

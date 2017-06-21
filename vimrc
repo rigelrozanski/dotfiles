@@ -290,7 +290,7 @@ function TabCloseRight(bang)
     endwhile
 endfunction
 
-command WWW call TabCloseRight('<bang>')
+command QQQ call TabCloseRight('<bang>')
 
 "This next command will force close nerd tree if it's the last and only buffer
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
