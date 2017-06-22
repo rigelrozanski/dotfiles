@@ -255,13 +255,25 @@ vnoremap // :call <SID>addComment()<CR>
 vnoremap ?? :call <SID>replaceComment()<CR>
 
 function! s:addComment()
-	:s!^\(\S\+\)!//\1!e "if line doesn't start with whitespace
-	:s!^\(\s\+\)!\1//!e "if line starts with whitespaces
+    if (&ft=='go')
+      :s!^\(\S\+\)!//\1!e "if line doesn't start with whitespace
+	  :s!^\(\s\+\)!\1//!e "if line starts with whitespaces
+    endif
+    if (&ft=='sh')
+      :s!^\(\S\+\)!#\1!e "if line doesn't start with whitespace
+	  :s!^\(\s\+\)!\1#!e "if line starts with whitespaces
+    endif
 endfunction
 
 function! s:replaceComment()
-    :s!^\(\s\+\)//!\1!e
-    :s!^//!!e
+    if (&ft=='go')
+      :s!^\(\s\+\)//!\1!e
+      :s!^//!!e
+    endif
+    if (&ft=='sh')
+      :s!^\(\s\+\)#!\1!e
+      :s!^#!!e
+    endif
 endfunction
 
 """""""""""""""""""""""""""
@@ -319,3 +331,6 @@ endfunction
 noremap ,x :call TabCloseLeft('x')<CR>
 " :CONVISSOR:  ,q = Don't save changes, exit, move left one tab.
 noremap ,q :call TabCloseLeft('q!')<CR>
+
+"autoindent shell files
+autocmd BufWritePre *.sh exec "normal gg=G``zz" 
