@@ -157,7 +157,7 @@ endfunction
 "quick remove line function
 function! s:remove()
     let n = line('.')
-    :exe "normal dd"
+    :exe "normal \"_dd"
 endfunction
 
 "fast tab actions
