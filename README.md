@@ -64,45 +64,46 @@ make pull
 
 ### Custom Functions Mapped Keys
 
-| Command          | Mode   | Function                                                                   |
-|------------------|--------|----------------------------------------------------------------------------|
-| Ctrl-Shift-Up    | any    | Swap current line and above line                                           |
-| Ctrl-Shift-Down  | any    | Swap current line and lower line                                           |
-| Ctrl-Shift-Left  | any    | Delete the current line entirely                                           |
-| Ctrl-Shift-Right | any    | Duplicate the current line to a new line below                             |
-| Ctrl-Left        | any    | Navigate vim tab left                                                      |
-| Ctrl-Right       | any    | Navigate vim tab right                                                     |
-| Ctrl-d           | normal | vim-multi-cursors next                                                     |
-| Ctrl-s           | normal | vim-multi-cursors previous                                                 |
-| Ctrl-x           | normal | vim-multi-cursors skip                                                     |
-| <esp>            | normal | vim-multi-cursors quit                                                     |
-| Alt-Left         | normal | Move vim tab left                                                          |
-| Alt-Right        | normal | Move vim tab right                                                         |
-| dup              | normal | duplicate the current block                                                |
-| cut              | normal | cut the current block                                                      |
-| \ou              | normal | open current line in github on google chrome                               |
-| <tab>-<char>     | normal | navigate to a specific character with easy-motion                          |
-| :let fmt ="foo"  | normal | set default content of the fmt command (defined next)                      |
-| fmt              | normal | insert a on next  line with fmt.Printf("debug %v\n", )                     |
-| err              | normal | insert a on next  line with if err != nil { return err }                   |
-| \s               | any    | setup a quick find replace for the whole document on the given cursor word |
-| :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor           |
-| :T               | any    | Open a new tab and toggle the NERD tree to on                              |
-| :Q               | any    | Close all the current tab                                                  |
-| :HL              | any    | enable highlighted search                                                  |
-| :NHL             | any    | disable highlighted search                                                 |
-| :W :Wq :WQ       | any    | :w or :wq                                                                  |
-| :WQA :Wqa :WQA   | any    | :wqa                                                                       |
-| :QQQ             | any    | Close all tabs to the right of the current tab                             |
-| :SC              | any    | Starts the spell check                                                     |
-| :SCE             | any    | Ends the spell check                                                       |
-| F                | normal | Format all                                                                 |
-| gd               | normal | open get definition in new tab from [vim-godef][4]                         |
-| gf               | normal | open file under cursor in new tab, great for use with `:GoCallers`         |
-| <                | visual | shift all selected text one character left                                 |
-| >                | visual | shift all selected text one character right                                |
-| //               | visual | add comments to the beginnings of each line                                |
-| ??               | visual | remove comments to the beginnings of each line                             |
+| Command          | Mode   | Function                                                                     |
+|------------------|--------|------------------------------------------------------------------------------|
+| Ctrl-Shift-Up    | any    | Swap current line and above line                                             |
+| Ctrl-Shift-Down  | any    | Swap current line and lower line                                             |
+| Ctrl-Shift-Left  | any    | Delete the current line entirely                                             |
+| Ctrl-Shift-Right | any    | Duplicate the current line to a new line below                               |
+| Ctrl-Left        | any    | Navigate vim tab left                                                        |
+| Ctrl-Right       | any    | Navigate vim tab right                                                       |
+| Ctrl-d           | normal | vim-multi-cursors next                                                       |
+| Ctrl-s           | normal | vim-multi-cursors previous                                                   |
+| Ctrl-x           | normal | vim-multi-cursors skip                                                       |
+| <esp>            | normal | vim-multi-cursors quit                                                       |
+| Alt-Left         | normal | Move vim tab left                                                            |
+| Alt-Right        | normal | Move vim tab right                                                           |
+| dup              | normal | duplicate the current block                                                  |
+| cut              | normal | cut the current block                                                        |
+| \ou              | normal | open current line in github on google chrome                                 |
+| <tab>-<char>     | normal | navigate to a specific character with easy-motion                            |
+| :let fmt ="foo"  | normal | set default content of the fmt command (defined next)                        |
+| fmt              | normal | insert a on next  line with fmt.Printf("debug %v\n", )                       |
+| err              | normal | insert a on next  line with if err != nil { return err }                     |
+| \s               | any    | setup a quick find replace for the whole document on the given cursor word   |
+| :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor             |
+| :T               | any    | Open a new tab and toggle the NERD tree to on                                |
+| :Q               | any    | Close all the current tab                                                    |
+| :HL              | any    | enable highlighted search                                                    |
+| :NHL             | any    | disable highlighted search                                                   |
+| :WB              | any    | opens a new tab with a [wb](https://github.com/rigelrozanski/wb) named _vim_ |
+| :W :Wq :WQ       | any    | :w or :wq                                                                    |
+| :WQA :Wqa :WQA   | any    | :wqa                                                                         |
+| :QQQ             | any    | Close all tabs to the right of the current tab                               |
+| :SC              | any    | Starts the spell check                                                       |
+| :SCE             | any    | Ends the spell check                                                         |
+| F                | normal | Format all                                                                   |
+| gd               | normal | open get definition in new tab from [vim-godef][4]                           |
+| gf               | normal | open file under cursor in new tab, great for use with `:GoCallers`           |
+| <                | visual | shift all selected text one character left                                   |
+| >                | visual | shift all selected text one character right                                  |
+| //               | visual | add comments to the beginnings of each line                                  |
+| ??               | visual | remove comments to the beginnings of each line                               |
 
  
 ### Contributing

@@ -286,6 +286,10 @@ command T call <SID>newtab()
 command Q call <SID>closetab()
 command HL :set hlsearch
 command NHL :set nohlsearch
+
+"Open the whiteboard vim tab
+command WB :tabedit $GOPATH/src/github.com/rigelrozanski/wb/boards/vim
+
 " Duplication for messed up key strokes
 command W :w
 command Wq :wq
@@ -293,6 +297,7 @@ command WQ :wq
 command WQA :wqa
 command WQa :wqa
 command Wqa :wqa
+
 
 " Close all tabs to the right
 function TabCloseRight(bang)
