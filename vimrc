@@ -12,8 +12,9 @@ set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
 
-" golint
+" golint on save, without govet
 let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave_enabled = ['golint'] 
 
 "multiple cursors
 let g:multi_cursor_use_default_mapping=0
