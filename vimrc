@@ -238,6 +238,9 @@ nnoremap dup {v}y}p}dd{
 nnoremap cut {v}xO<Esc>
 nnoremap gf <C-W><S-T>gf
 
+"for faster comments
+nnoremap com yiwO// <Esc>pi<Right> - 
+
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
 " au CursorHoldI * stopinsert
 "set 'updatetime' to 15 seconds when in insert mode
