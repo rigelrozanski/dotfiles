@@ -323,6 +323,7 @@ nnoremap <leader>ou :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L
 let fmt = "debug %v\\n"
 nnoremap fmt ofmt.Printf("<c-r>=fmt<cr>", )<esc>i
 nnoremap err oif err != nil {<CR>return err<CR><left><left>}<esc>i
+nnoremap viwp viwpyiw
 nnoremap F ggVGgq
 
 " credit: https://github.com/convissor/vim-settings/blob/master/.vimrc
