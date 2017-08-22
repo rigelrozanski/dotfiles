@@ -1,5 +1,5 @@
 " Pathogen
-" set nocp
+set nocp
 execute pathogen#infect()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 syntax on
