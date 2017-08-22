@@ -24,14 +24,8 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 " system as the default clipboard
-if has("clipboard")
-  set clipboard=unnamed " copy to the system clipboard
-
-  if has("unnamedplus") " X11 support
-    set clipboard+=unnamedplus
-  endif
-endif
-
+set clipboard=unnamed " copy to the system clipboard
+set backspace=indent,eol,start " resolves backspace-not-working during insert for mac
 
 " syntax enable  
 " filetype plugin on  
