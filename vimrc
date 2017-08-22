@@ -224,6 +224,9 @@ vnoremap <silent> <c-s-down> <Esc>:call <SID>swap_down()<CR>v
 vnoremap <silent> <C-S-left> <Esc>:call <SID>remove()<CR>v
 vnoremap <silent> <C-S-right> <Esc>:call <SID>duplicate()<CR>v
 
+" remap for mac copy to clipboard
+vnoremap copy :w !pbcopy<CR><CR>
+
 " remap for quick search replace
 " http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor 
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
