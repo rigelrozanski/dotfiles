@@ -11,7 +11,7 @@ set -eu
 os=`uname`
 
 # init sudo first, if a password is needed
-sudo ls > /dev/null
+# sudo ls > /dev/null
 
 # check that the os is valid
 if [ "$os" == "linux" ] || [ "$os" == "darwin" ] || [ "$os" == "Darwin" ]; then
@@ -58,6 +58,9 @@ git clone https://github.com/fatih/vim-go.git
 git clone https://github.com/shougo/neocomplete.vim.git
 
 popd
+
+# install gotest
+git clone https://github.com/buoto/gotests-vim.git ~/.vim/bundle/gotests-vim
 
 # install molokai color scheme 
 pushd ~/.vim/colors
