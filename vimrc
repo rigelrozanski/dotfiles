@@ -326,7 +326,7 @@ nnoremap <leader>ou :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L
 "quick insert fmt.Println("")
 let fmt = "debug %v\\n"
 nnoremap fmt ofmt.Printf("<c-r>=fmt<cr>", )<esc>i
-nnoremap fmp opanic(fmt.Printf("<c-r>=fmt<cr>", ))<esc><left>i
+nnoremap fmp opanic(fmt.Sprintf("<c-r>=fmt<cr>", ))<esc><left>i
 nnoremap err oif err != nil {<CR>return err<CR><left><left>}<esc>i
 nnoremap viwp viwpyiw
 nnoremap F ggVGgq
