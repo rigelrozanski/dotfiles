@@ -108,7 +108,15 @@ make pull
 | //               | visual | add comments to the beginnings of each line                                  |
 | ??               | visual | remove comments to the beginnings of each line                               |
 | :GoTests         | visual | generate test for function in current line or functions in text selected     |
+   
+Deleting 
 
+| Command          | Mode   | Function                                                                     |
+|------------------|--------|------------------------------------------------------------------------------|
+| dd               | normal | delete whole line                                                            |
+| D                | normal | delete from cursor to end of line                                            |
+| d0               | normal | delete from cursor to beginning of line                                      |
+| cd               | normal | delete word                                                                  |
  
 ### Contributing
 

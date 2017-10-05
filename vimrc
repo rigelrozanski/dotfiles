@@ -330,6 +330,7 @@ nnoremap fmp yiwopanic(fmt.Sprintf("<c-r>=fmt<cr>", ))<esc><left><left>pi
 nnoremap err oif err != nil {<CR>return err<CR><left><left>}<esc>i
 nnoremap viwp viwpyiw
 nnoremap F ggVGgq
+nnoremap cd ciw<esc>
 
 " credit: https://github.com/convissor/vim-settings/blob/master/.vimrc
 " :CONVISSOR:  Declare function for moving left when closing a tab.
