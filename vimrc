@@ -210,20 +210,20 @@ inoremap  <C-right> <Esc> :call <SID>tabRight()<CR>
 vnoremap  <C-left> <Esc>  :call <SID>tabLeft()<CR>
 vnoremap  <C-right> <Esc> `:call <SID>tabRight()<CR>
 
-noremap <silent> <c-s-up> :call <SID>swap_up()<CR>
-noremap <silent> <c-s-down> :call <SID>swap_down()<CR>
-noremap <silent> <C-S-left> :call <SID>remove()<CR>
-noremap <silent> <C-S-right> :call <SID>duplicate()<CR>
+noremap <silent> <C-K> :call <SID>swap_up()<CR>
+noremap <silent> <C-J> :call <SID>swap_down()<CR>
+noremap <silent> <C-L> :call <SID>remove()<CR>
+noremap <silent> <C-H> :call <SID>duplicate()<CR>
 
-inoremap <silent> <c-s-up> <Esc>:call <SID>swap_up()<CR>i
-inoremap <silent> <c-s-down> <Esc>:call <SID>swap_down()<CR>i
-inoremap <silent> <C-S-left> <Esc>:call <SID>remove()<CR>i
-inoremap <silent> <C-S-right> <Esc>:call <SID>duplicate()<CR>i
+inoremap <silent> <C-K> <Esc>:call <SID>swap_up()<CR>i
+inoremap <silent> <C-J> <Esc>:call <SID>swap_down()<CR>i
+inoremap <silent> <C-L> <Esc>:call <SID>remove()<CR>i
+inoremap <silent> <C-H> <Esc>:call <SID>duplicate()<CR>i
 
-vnoremap <silent> <c-s-up> <Esc>:call <SID>swap_up()<CR>v
-vnoremap <silent> <c-s-down> <Esc>:call <SID>swap_down()<CR>v
-vnoremap <silent> <C-S-left> <Esc>:call <SID>remove()<CR>v
-vnoremap <silent> <C-S-right> <Esc>:call <SID>duplicate()<CR>v
+vnoremap <silent> <C-K> <Esc>:call <SID>swap_up()<CR>v
+vnoremap <silent> <C-J> <Esc>:call <SID>swap_down()<CR>v
+vnoremap <silent> <C-L> <Esc>:call <SID>remove()<CR>v
+vnoremap <silent> <C-H> <Esc>:call <SID>duplicate()<CR>v
 
 " remap for mac copy to clipboard
 vnoremap copy :w !pbcopy<CR><CR>
@@ -233,10 +233,10 @@ vnoremap copy :w !pbcopy<CR><CR>
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 """ split navigation remap
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <c-s-up> <C-W><C-J>
+nnoremap <c-s-down> <C-W><C-K>
+nnoremap <C-S-left> <C-W><C-L>
+nnoremap <C-S-right> <C-W><C-H>
 
 nnoremap dup {v}y}p}dd{ 
 nnoremap cut {v}xO<Esc>

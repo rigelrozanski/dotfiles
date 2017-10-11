@@ -66,10 +66,14 @@ make pull
 
 | Command          | Mode   | Function                                                                     |
 |------------------|--------|------------------------------------------------------------------------------|
-| Ctrl-Shift-Up    | any    | Swap current line and above line                                             |
-| Ctrl-Shift-Down  | any    | Swap current line and lower line                                             |
-| Ctrl-Shift-Left  | any    | Delete the current line entirely                                             |
-| Ctrl-Shift-Right | any    | Duplicate the current line to a new line below                               |
+| Ctrl-Shift-Up    | normal | Navigate pane up                                                             |
+| Ctrl-Shift-Down  | normal | Navigate pane down                                                           |
+| Ctrl-Shift-Left  | normal | Navigate pane left                                                           |
+| Ctrl-Shift-Right | normal | Navigate pane right                                                          |
+| Ctrl-k           | any    | Swap current line and above line                                             |
+| Ctrl-j           | any    | Swap current line and lower line                                             |
+| Ctrl-h           | any    | Delete the current line entirely                                             |
+| Ctrl-l           | any    | Duplicate the current line to a new line below                               |
 | Ctrl-Left        | any    | Navigate vim tab left                                                        |
 | Ctrl-Right       | any    | Navigate vim tab right                                                       |
 | Ctrl-d           | normal | vim-multi-cursors next                                                       |
