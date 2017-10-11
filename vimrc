@@ -212,18 +212,18 @@ vnoremap  <C-right> <Esc> `:call <SID>tabRight()<CR>
 
 noremap <silent> <C-K> :call <SID>swap_up()<CR>
 noremap <silent> <C-J> :call <SID>swap_down()<CR>
-noremap <silent> <C-L> :call <SID>remove()<CR>
-noremap <silent> <C-H> :call <SID>duplicate()<CR>
+noremap <silent> <C-H> :call <SID>remove()<CR>
+noremap <silent> <C-L> :call <SID>duplicate()<CR>
 
 inoremap <silent> <C-K> <Esc>:call <SID>swap_up()<CR>i
 inoremap <silent> <C-J> <Esc>:call <SID>swap_down()<CR>i
-inoremap <silent> <C-L> <Esc>:call <SID>remove()<CR>i
-inoremap <silent> <C-H> <Esc>:call <SID>duplicate()<CR>i
+inoremap <silent> <C-H> <Esc>:call <SID>remove()<CR>i
+inoremap <silent> <C-L> <Esc>:call <SID>duplicate()<CR>i
 
 vnoremap <silent> <C-K> <Esc>:call <SID>swap_up()<CR>v
 vnoremap <silent> <C-J> <Esc>:call <SID>swap_down()<CR>v
-vnoremap <silent> <C-L> <Esc>:call <SID>remove()<CR>v
-vnoremap <silent> <C-H> <Esc>:call <SID>duplicate()<CR>v
+vnoremap <silent> <C-H> <Esc>:call <SID>remove()<CR>v
+vnoremap <silent> <C-L> <Esc>:call <SID>duplicate()<CR>v
 
 " remap for mac copy to clipboard
 vnoremap copy :w !pbcopy<CR><CR>
@@ -235,8 +235,8 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 """ split navigation remap
 nnoremap <c-s-up> <C-W><C-J>
 nnoremap <c-s-down> <C-W><C-K>
-nnoremap <C-S-left> <C-W><C-L>
-nnoremap <C-S-right> <C-W><C-H>
+nnoremap <C-S-left> <C-W><C-H>
+nnoremap <C-S-right> <C-W><C-L>
 
 nnoremap dup {v}y}p}dd{ 
 nnoremap cut {v}xO<Esc>
@@ -324,10 +324,12 @@ autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 nnoremap <leader>ou :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L<C-R>=line('.')<CR> \| xargs google-chrome<CR><CR>
 
 "quick insert fmt.Println("")
-let fmt = "debug %v\\n"
-nnoremap fmt ofmt.Printf("<c-r>=fmt<cr>", )<esc>i
-nnoremap fmp yiwopanic(fmt.Sprintf("<c-r>=fmt<cr>", ))<esc><left><left>pi
-nnoremap err oif err != nil {<CR>return err<CR><left><left>}<esc>i
+let dbg = "debug : %v\\n"
+let bkp = "breakpoint : %v\\n"
+nnoremap fms yiwofmt.Printf("<c-r>=bkp<cr>", )<esc>10<left>p9<right>p<esc>ofmt.Scanf("")<esc>
+nnoremap fmt yiwofmt.Printf("<c-r>=dbg<cr>", )<esc>10<left>p9<right>p
+nnoremap fmp yiwopanic(fmt.Sprintf("<c-r>=dbg<cr>", ))<esc>11<left>p9<right>p
+nnoremap err oif err != nil {<CR>return err<CR><left><left>}<esc>
 nnoremap viwp viwpyiw
 nnoremap F ggVGgq
 nnoremap cd ciw<esc>

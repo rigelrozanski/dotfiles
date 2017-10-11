@@ -88,8 +88,9 @@ make pull
 | \ou              | normal | open current line in github on google chrome                                 |
 | <tab>-<char>     | normal | navigate to a specific character with easy-motion                            |
 | :let fmt ="foo"  | normal | set default content of the fmt command (defined next)                        |
-| fmt              | normal | insert a on next  line with fmt.Printf("debug %v\n", )                       |
-| fmp              | normal | insert a on next  line with panic(fmt.Printf("debug %v\n", ))                |
+| fmt              | normal | insert cursor variable debug line                                            |
+| fmp              | normal | insert cursor variable debug panic                                           |
+| fmp              | normal | insert cursor variable breakpoint                                            |
 | err              | normal | insert a on next  line with if err != nil { return err }                     |
 | com              | normal | insert a on previous line the comment: // cursorsword -                      |
 | \s               | any    | setup a quick find replace for the whole document on the given cursor word   |
