@@ -93,7 +93,8 @@ make pull
 | fmp              | normal | insert cursor variable breakpoint                                            |
 | err              | normal | insert a on next  line with if err != nil { return err }                     |
 | com              | normal | insert a on previous line the comment: // cursorsword -                      |
-| \s               | any    | setup a quick find replace for the whole document on the given cursor word   |
+| \s               | normal | setup a quick find replace for the whole document of the given cursor word   |
+| \s               | visual | setup a quick find replace for the whole document of the selected text       |
 | :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor             |
 | :T               | any    | Open a new tab and toggle the NERD tree to on                                |
 | :Q               | any    | Close all the current tab                                                    |
