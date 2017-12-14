@@ -2,8 +2,6 @@
 set nocp
 execute pathogen#infect()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
-syntax on
-filetype plugin indent on
 
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -28,7 +26,9 @@ set clipboard=unnamed " copy to the system clipboard
 set backspace=indent,eol,start " resolves backspace-not-working during insert for mac
 
 " syntax enable  
+syntax on
 " filetype plugin on  
+filetype plugin indent on
 set number  
 let g:go_disable_autoinstall = 0
 
@@ -94,10 +94,10 @@ endif
 let g:godef_split=2
 
 " EasyMotion
- let g:EasyMotion_do_mapping = 0 " Disable default mappings
- map  <Tab> <Plug>(easymotion-bd-f)
- nmap <Tab> <Plug>(easymotion-overwin-f)
- let g:EasyMotion_smartcase = 1
+" let g:EasyMotion_do_mapping = 0 " Disable default mappings
+" map  <Tab> <Plug>(easymotion-bd-f)
+" nmap <Tab> <Plug>(easymotion-overwin-f)
+" let g:EasyMotion_smartcase = 1
 
 " GoImports
 let g:go_fmt_command = "goimports"
@@ -106,8 +106,7 @@ let g:go_fmt_command = "goimports"
 " Visual Mods
 
 " remove paren matching
-:let loaded_matchparen = 1
-
+let loaded_matchparen = 1
 
 " Moving lines up/down, http://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim
 
