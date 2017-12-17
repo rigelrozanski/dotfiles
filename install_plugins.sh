@@ -95,4 +95,7 @@ git clone https://github.com/majutsushi/tagbar.git
 # Install nerdtree
 git clone https://github.com/scrooloose/nerdtree.git
 
+# Install taboo
+mkdir -p ~/.vim/plugin && curl -LSso ~/.vim/plugin/taboo.vim https://raw.githubusercontent.com/gcmt/taboo.vim/master/plugin/taboo.vim
+
 popd
