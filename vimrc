@@ -2,6 +2,7 @@
 set nocp
 execute pathogen#infect()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
+set nolazyredraw
 
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -240,7 +241,6 @@ nnoremap <C-S-right> <C-W><C-L>
 
 nnoremap dup {v}y}p}dd{ 
 nnoremap cut {v}xO<Esc>
-nnoremap gf <C-W><S-T>gf
 
 "for faster comments
 nnoremap com yiwO// <Esc>pi<Right> - 
@@ -351,4 +351,44 @@ noremap ,x :call TabCloseLeft('x')<CR>
 noremap ,q :call TabCloseLeft('q!')<CR>
 
 "autoindent shell files
-autocmd BufWritePre *.sh exec "normal gg=G``zz" 
+autocmd BufWritePre *.sh exec "normal gg=G``zz"
+
+"__________________________________________________________________________
+"goto commands
+
+"    command Install :r ! make install<CR>
+command Install call <SID>goinstall()
+"fast tab actions
+function! s:goinstall()
+    :tabnew
+    :silent exec "r ! make install"
+    :setlocal buftype=nofile
+endfunction
+
+function! GotoFileWithLineNum() 
+    " filename under the cursor 
+    let file_name = expand('<cfile>') 
+    if !strlen(file_name) 
+        echo 'NO FILE UNDER CURSOR' 
+        return 
+    endif 
+
+    " look for a line number separated by a : 
+    if search('\%#\f*:\zs[0-9]\+') 
+        " change the 'iskeyword' option temporarily to pick up just numbers 
+        let temp = &iskeyword 
+        set iskeyword=48-57 
+        let line_number = expand('<cword>') 
+        exe 'set iskeyword=' . temp 
+    endif 
+
+    " edit the file 
+    exe 'tabedit '.file_name 
+
+    " if there is a line number, go to it 
+    if exists('line_number') 
+        exe line_number 
+    endif 
+endfunction 
+
+map gf :call GotoFileWithLineNum()<CR> 

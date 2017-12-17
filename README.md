@@ -108,12 +108,13 @@ make pull
 | :SCE             | any    | Ends the spell check                                                         |
 | F                | normal | Format all                                                                   |
 | gd               | normal | open get definition in new tab from [vim-godef][4]                           |
-| gf               | normal | open file under cursor in new tab, great for use with `:GoCallers`           |
 | <                | visual | shift all selected text one character left                                   |
 | >                | visual | shift all selected text one character right                                  |
 | //               | visual | add comments to the beginnings of each line                                  |
 | ??               | visual | remove comments to the beginnings of each line                               |
 | :GoTests         | visual | generate test for function in current line or functions in text selected     |
+| :Install         | normal | Open a scratch tab with the results from `make install`                      |
+| gf               | normal | open file under cursor in new tab at the line number (ex filename:lineno)    |
    
 Deleting 
 
