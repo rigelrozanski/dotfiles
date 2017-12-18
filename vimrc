@@ -413,6 +413,9 @@ function! s:ReplaceAll(from, to)
     :silent exec "! mt rep " . a:from . " " . a:to
     :silent source ~/vim_session <cr>     
     :set noautoread
+    if TabooTabName(tabpagenr()) == ""
+        :q 
+    endif
 endfunction
 
 "__________________________________________________________________________
@@ -421,4 +424,7 @@ command! Reload call s:Reload()
 function! s:Reload()
     :silent mksession! ~/vim_session <cr>
     :silent source ~/vim_session <cr>     
+    if TabooTabName(tabpagenr()) == ""
+        :q 
+    endif
 endfunction
