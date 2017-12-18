@@ -356,9 +356,7 @@ autocmd BufWritePre *.sh exec "normal gg=G``zz"
 "__________________________________________________________________________
 "goto commands
 
-"    command Install :r ! make install<CR>
 command Install call <SID>goinstall()
-"fast tab actions
 function! s:goinstall()
     if TabooTabName(tabpagenr()) == ""
         :TabooRename makeinstall
@@ -404,3 +402,15 @@ function! GotoFileWithLineNum()
 endfunction 
 
 map gf :call GotoFileWithLineNum()<CR> 
+
+"__________________________________________________________________________
+
+command! -nargs=* Rep call s:ReplaceAll(<f-args>)
+nnoremap <Leader>S :Rep <C-r><C-w> 
+function! s:ReplaceAll(from, to)
+    :set autoread
+    :silent mksession! ~/vim_session <cr>
+    :silent exec "! mt rep " . a:from . " " . a:to
+    :silent source ~/vim_session <cr>     
+    :set noautoread
+endfunction

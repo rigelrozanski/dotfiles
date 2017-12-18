@@ -95,6 +95,7 @@ make pull
 | com              | normal | insert a on previous line the comment: // cursorsword -                      |
 | \s               | normal | setup a quick find replace for the whole document of the given cursor word   |
 | \s               | visual | setup a quick find replace for the whole document of the selected text       |
+| \S               | normal | setup a global find replace in the current directory using multitool         |
 | :O               | any    | Open all .go and .md files recursively as tabs, excluding vendor             |
 | :T               | any    | Open a new tab and toggle the NERD tree to on                                |
 | :Q               | any    | Close all the current tab                                                    |
