@@ -405,12 +405,20 @@ map gf :call GotoFileWithLineNum()<CR>
 
 "__________________________________________________________________________
 
-command! -nargs=* Rep call s:ReplaceAll(<f-args>)
 nnoremap <Leader>S :Rep <C-r><C-w> 
+command! -nargs=* Rep call s:ReplaceAll(<f-args>)
 function! s:ReplaceAll(from, to)
     :set autoread
     :silent mksession! ~/vim_session <cr>
     :silent exec "! mt rep " . a:from . " " . a:to
     :silent source ~/vim_session <cr>     
     :set noautoread
+endfunction
+
+"__________________________________________________________________________
+
+command! Reload call s:Reload()
+function! s:Reload()
+    :silent mksession! ~/vim_session <cr>
+    :silent source ~/vim_session <cr>     
 endfunction

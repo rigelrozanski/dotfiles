@@ -116,6 +116,7 @@ make pull
 | :GoTests         | visual | generate test for function in current line or functions in text selected     |
 | :Install         | normal | Open a scratch tab with the results from `make install`                      |
 | gf               | normal | open file under cursor in new tab at the line number (ex filename:lineno)    |
+| Reload           | normal | Reload vim with all the same junk                                            |
    
 Deleting 
 
