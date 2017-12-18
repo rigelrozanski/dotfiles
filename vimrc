@@ -360,13 +360,20 @@ autocmd BufWritePre *.sh exec "normal gg=G``zz"
 command Install call <SID>goinstall()
 "fast tab actions
 function! s:goinstall()
-    if TabooTabName(tabpagenr()) == "makeinstall"
+    if TabooTabName(tabpagenr()) == ""
+        :TabooRename makeinstall
         :normal ggdG
         :silent exec "r ! make install"
-    else
-        :TabooOpen makeinstall
-        :silent exec "r ! make install"
         :setlocal buftype=nofile
+    else
+        if TabooTabName(tabpagenr()) == "makeinstall"
+            :normal ggdG
+            :silent exec "r ! make install"
+        else
+            :TabooOpen makeinstall
+            :silent exec "r ! make install"
+            :setlocal buftype=nofile
+        endif
     endif
 endfunction
 
