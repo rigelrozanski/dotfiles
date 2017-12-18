@@ -375,6 +375,13 @@ function! s:goinstall()
     endif
 endfunction
 
+nnoremap rrr :call <SID>refreshInstall()<CR>
+function! s:refreshInstall()
+    if TabooTabName(tabpagenr()) == "makeinstall"
+        :call <SID>goinstall()
+    endif
+endfunction
+
 function! GotoFileWithLineNum() 
     " filename under the cursor 
     let file_name = expand('<cfile>') 
