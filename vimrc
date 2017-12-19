@@ -356,8 +356,8 @@ autocmd BufWritePre *.sh exec "normal gg=G``zz"
 "__________________________________________________________________________
 "goto commands
 
-command Install call <SID>goinstall()
-function! s:goinstall()
+command Install call <SID>makeinstall()
+function! s:makeinstall()
     if TabooTabName(tabpagenr()) == ""
         :TabooRename makeinstall
         :normal ggdG
@@ -375,10 +375,33 @@ function! s:goinstall()
     endif
 endfunction
 
+command Test call <SID>maketest()
+function! s:maketest()
+    if TabooTabName(tabpagenr()) == ""
+        :TabooRename maketest
+        :normal ggdG
+        :silent exec "r ! make test"
+        :setlocal buftype=nofile
+    else
+        if TabooTabName(tabpagenr()) == "maketest"
+            :normal ggdG
+            :silent exec "r ! make test"
+        else
+            :TabooOpen maketest
+            :silent exec "r ! make test"
+            :setlocal buftype=nofile
+        endif
+    endif
+endfunction
+
 nnoremap rrr :call <SID>refreshInstall()<CR>
 function! s:refreshInstall()
     if TabooTabName(tabpagenr()) == "makeinstall"
-        :call <SID>goinstall()
+        :call <SID>makeinstall()
+    endif
+    
+    if TabooTabName(tabpagenr()) == "maketest"
+        :call <SID>maketest()
     endif
 endfunction
 
