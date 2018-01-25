@@ -11,11 +11,14 @@ set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
 
+" nerd tree show hidden by default
+let g:NERDTreeShowHidden = 1
+
 " golint on save, without govet
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = ['golint'] 
 
-"multiple cursors
+" multiple cursors
 let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_next_key='<C-d>'
 let g:multi_cursor_prev_key='<C-s>'
