@@ -3,13 +3,16 @@ set nocp
 execute pathogen#infect()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 set nolazyredraw
-
+    
 " show existing tab with 4 spaces width
 set tabstop=4
 " when indenting with '>', use 4 spaces width
 set shiftwidth=4
-" On pressing tab, insert 4 spaces
+" on pressing tab, insert 4 spaces
 set expandtab
+
+" disable Ex Mode
+map Q <Nop>
 
 " nerd tree show hidden by default
 let g:NERDTreeShowHidden = 1
@@ -47,7 +50,7 @@ let g:go_highlight_build_constraints = 1
 
 colorscheme molokai
 
-"optional fixes a glitch under some versions of terminal
+" optional fixes a glitch under some versions of terminal
 if &term =~ '256color'
     " disable Background Color Erase (BCE) so that color schemes
     " render properly when inside 256-color tmux and GNU screen.
@@ -87,7 +90,7 @@ nmap <F8> :TagbarToggle<CR>
 map <C-n> :NERDTreeToggle<CR>
 
 " ag seach functionality: https://github.com/ggreer/the_silver_searcher
-"http://codeinthehole.com/writing/using-the-silver-searcher-with-vim/
+" http://codeinthehole.com/writing/using-the-silver-searcher-with-vim/
 if executable('ag')
     " Note we extract the column as well as the file and line number
     set grepprg=ag\ --nogroup\ --nocolor\ --column
@@ -141,8 +144,7 @@ function! s:swap_down()
     exec n + 1
 endfunction
 
-"duplicate lines
-
+" duplicate lines
 function! s:dup_lines(n1, n2)
     let line1 = getline(a:n1)
     let line2 = getline(a:n2)
@@ -159,13 +161,13 @@ function! s:duplicate()
     call s:dup_lines(n, n + 1)
 endfunction
 
-"quick remove line function
+" quick remove line function
 function! s:remove()
     let n = line('.')
     :exe "normal \"_dd"
 endfunction
 
-"fast tab actions
+" fast tab actions
 function! s:tabLeft()
     :exe "normal gT"
 endfunction
@@ -183,7 +185,7 @@ function! s:closetab()
     :exe "windo bd"
 endfunction
 
-"quick remove line function
+" quick remove line function
 function! s:openAllGo()
     :argadd **/*.go
     :argadd **/*.md
@@ -250,29 +252,30 @@ nnoremap com yiwO// <Esc>pi<Right> -
 
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
 " au CursorHoldI * stopinsert
-"set 'updatetime' to 15 seconds when in insert mode
-"au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
-"au InsertLeave * let &updatetime=updaterestore
+" set 'updatetime' to 15 seconds when in insert mode
+" au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+" au InsertLeave * let &updatetime=updaterestore
 
 """""""""""""""""""""""""""""""""""
 " Visual remapping
+"""""""""""""""""""""""""""""""""""
 
-"remap for left right shifting
+" remap for left right shifting
 vnoremap > xp`[v`]
 vnoremap < x2hp`[v`]
 
-"commenting lines or uncommenting lines
+" commenting lines or uncommenting lines
 vnoremap // :call <SID>addComment()<CR>
 vnoremap ?? :call <SID>replaceComment()<CR>
 
 function! s:addComment()
     if (&ft=='go')
-      :s!^\(\S\+\)!//\1!e "if line doesn't start with whitespace
-	  :s!^\(\s\+\)!\1//!e "if line starts with whitespaces
+      :s!^\(\S\+\)!//\1!e " if line doesn't start with whitespace
+	  :s!^\(\s\+\)!\1//!e " if line starts with whitespaces
     endif
     if (&ft=='sh')
-      :s!^\(\S\+\)!#\1!e "if line doesn't start with whitespace
-	  :s!^\(\s\+\)!\1#!e "if line starts with whitespaces
+      :s!^\(\S\+\)!#\1!e " if line doesn't start with whitespace
+	  :s!^\(\s\+\)!\1#!e " if line starts with whitespaces
     endif
 endfunction
 
@@ -298,10 +301,10 @@ command Q call <SID>closetab()
 command HL :set hlsearch
 command NHL :set nohlsearch
 
-"Open the whiteboard vim tab
+" open the whiteboard vim tab
 command WB :tabedit $GOPATH/src/github.com/rigelrozanski/wb/boards/vim
 
-" Duplication for messed up key strokes
+" duplication for messed up key strokes
 command W :w
 command Wq :wq
 command WQ :wq
@@ -310,7 +313,7 @@ command WQa :wqa
 command Wqa :wqa
 
 
-" Close all tabs to the right
+" close all tabs to the right
 function TabCloseRight(bang)
     let cur=tabpagenr()
     while cur < tabpagenr('$')
@@ -320,13 +323,13 @@ endfunction
 
 command QQQ call TabCloseRight('<bang>')
 
-"This next command will force close nerd tree if it's the last and only buffer
+" this next command will force close nerd tree if it's the last and only buffer
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" Open current line on Github
+" open current line on Github
 nnoremap <leader>ou :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L<C-R>=line('.')<CR> \| xargs google-chrome<CR><CR>
 
-"quick insert fmt.Println("")
+" quick insert fmt.Println("")
 let dbg = "debug : %v\\n"
 let bkp = "breakpoint : %v\\n"
 nnoremap fms yiwofmt.Printf("<c-r>=bkp<cr>", )<esc>10<left>p9<right>p<esc>ofmt.Scanf("")<esc>
@@ -353,11 +356,11 @@ noremap ,x :call TabCloseLeft('x')<CR>
 " :CONVISSOR:  ,q = Don't save changes, exit, move left one tab.
 noremap ,q :call TabCloseLeft('q!')<CR>
 
-"autoindent shell files
+" autoindent shell files
 autocmd BufWritePre *.sh exec "normal gg=G``zz"
 
 "__________________________________________________________________________
-"goto commands
+" goto commands
 
 command Install call <SID>makeinstall()
 function! s:makeinstall()
