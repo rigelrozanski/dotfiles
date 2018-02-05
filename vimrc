@@ -277,6 +277,10 @@ function! s:addComment()
       :s!^\(\S\+\)!#\1!e " if line doesn't start with whitespace
 	  :s!^\(\s\+\)!\1#!e " if line starts with whitespaces
     endif
+    if (&ft=='vimrc')
+      :s!^\(\S\+\)!"\1!e " if line doesn't start with whitespace
+	  :s!^\(\s\+\)!\1"!e " if line starts with whitespaces
+    endif
 endfunction
 
 function! s:replaceComment()
@@ -327,7 +331,7 @@ command QQQ call TabCloseRight('<bang>')
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " open current line on Github
-nnoremap <leader>ou :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L<C-R>=line('.')<CR> \| xargs google-chrome<CR><CR>
+let g:gh_line_map = 'git'
 
 " quick insert fmt.Println("")
 let dbg = "debug : %v\\n"

@@ -85,7 +85,7 @@ make pull
 | dup              | normal | duplicate the current block                                                  |
 | cut              | normal | cut the current block                                                        |
 | copy             | visual | copy the current selection to the clipboard for Mac OS                       |
-| \ou              | normal | open current line in github on google chrome                                 |
+| git              | normal | open current line in github.com                                              |
 | <tab>-<char>     | normal | navigate to a specific character with easy-motion                            |
 | :let fmt ="foo"  | normal | set default content of the fmt command (defined next)                        |
 | fmt              | normal | insert cursor variable debug line                                            |
