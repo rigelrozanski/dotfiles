@@ -181,10 +181,6 @@ function! s:newtab()
     :exe "NERDTreeMirror"
 endfunction
 
-function! s:closetab()
-    :exe "windo bd"
-endfunction
-
 " quick remove line function
 function! s:openAllGo()
     :argadd **/*.go
@@ -301,9 +297,12 @@ command O call <SID>openAllGo()
 command SC call <SID>spellCheck()
 command SCE call <SID>spellCheckEnd()
 command T call <SID>newtab()
-command Q call <SID>closetab()
+command Q call TabCloseLeft('q!')
 command HL :set hlsearch
 command NHL :set nohlsearch
+
+"override default quit command
+cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Q' : 'q')<CR>
 
 " open the whiteboard vim tab
 command WB :tabedit $GOPATH/src/github.com/rigelrozanski/wb/boards/vim
@@ -345,20 +344,14 @@ nnoremap F ggVGgq
 nnoremap cd ciw<esc>
 
 " credit: https://github.com/convissor/vim-settings/blob/master/.vimrc
-" :CONVISSOR:  Declare function for moving left when closing a tab.
+" Declare function for moving left when closing a tab.
 function! TabCloseLeft(cmd)
-   if winnr('$') == 1 && tabpagenr('$') > 1 && tabpagenr() > 1 && tabpagenr()
-   < tabpagenr('$')
-        exec a:cmd | tabprevious
-   else
-   exec a:cmd
-   endif
+	if winnr('$') == 1 && tabpagenr('$') > 1 && tabpagenr() > 1 && tabpagenr() < tabpagenr('$')
+		exec a:cmd | tabprevious
+	else
+		exec a:cmd
+	endif
 endfunction
-
-" :CONVISSOR:  ,x = Write if changes made, exit,move left one tab.
-noremap ,x :call TabCloseLeft('x')<CR>
-" :CONVISSOR:  ,q = Don't save changes, exit, move left one tab.
-noremap ,q :call TabCloseLeft('q!')<CR>
 
 " autoindent shell files
 autocmd BufWritePre *.sh exec "normal gg=G``zz"
