@@ -9,13 +9,16 @@ install:
 	#run update
 	bash swap_vimrc.sh push
 
-update: updatevimrc updatebash
+update: updatevimrc updatebash updategitignore
 
 updatevimrc:
 	bash swap_vimrc.sh push
 
 updatebash:
 	bash swap_bash_profile.sh push
+
+updategitignore:
+	bash swap_gitignore.sh push
 
 pullvimrc:
 	bash swap_vimrc.sh pull

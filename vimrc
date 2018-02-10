@@ -461,3 +461,11 @@ function! s:Reload()
         :q 
     endif
 endfunction
+
+"__________________________________________________________________________
+    
+fu! SaveSess()
+    execute 'mksession! ' . getcwd() . '/.session.vim'
+endfunction
+
+autocmd VimLeave * call SaveSess()
