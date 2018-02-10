@@ -21,6 +21,7 @@ alias gitt='cd $GOPATH/src/github.com/tendermint'
 alias gitc='cd $GOPATH/src/github.com/cosmos'
 alias vimo='vim -c "O"'
 alias vimn='vim -c "NERDTreeToggle"'
+alias vimr='vim -S .session.vim'
 alias fuck='fuck -y'
 
 #git branch auto-completion
