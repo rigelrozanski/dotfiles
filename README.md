@@ -74,14 +74,14 @@ make pull
 | Ctrl-j           | any    | Swap current line and lower line                                             |
 | Ctrl-h           | any    | Delete the current line entirely                                             |
 | Ctrl-l           | any    | Duplicate the current line to a new line below                               |
-| Ctrl-Left        | any    | Navigate vim tab left                                                        |
-| Ctrl-Right       | any    | Navigate vim tab right                                                       |
+| Ctrl-y           | any    | Navigate vim tab left                                                        |
+| Ctrl-u           | any    | Navigate vim tab right                                                       |
+| Ctrl-t           | normal | Move vim tab left                                                            |
+| Ctrl-i           | normal | Move vim tab right                                                           |
 | Ctrl-d           | normal | vim-multi-cursors next                                                       |
 | Ctrl-s           | normal | vim-multi-cursors previous                                                   |
 | Ctrl-x           | normal | vim-multi-cursors skip                                                       |
 | <esp>            | normal | vim-multi-cursors quit                                                       |
-| Alt-Left         | normal | Move vim tab left                                                            |
-| Alt-Right        | normal | Move vim tab right                                                           |
 | dup              | normal | duplicate the current block                                                  |
 | cut              | normal | cut the current block                                                        |
 | copy             | visual | copy the current selection to the clipboard for Mac OS                       |

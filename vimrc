@@ -200,16 +200,16 @@ endfunction
 """""""""""""""""""""""""""
 " mapping keys for custom vim script functions
 """""""""""""""""""""""""""
-noremap <silent> <C-left> :call <SID>tabLeft()<CR>
-noremap <silent> <C-right> :call <SID>tabRight()<CR>
-noremap <A-Left>  :-tabmove<cr>
-noremap <A-Right> :+tabmove<cr>
+noremap <silent> <C-y> :call <SID>tabLeft()<CR>
+noremap <silent> <C-u> :call <SID>tabRight()<CR>
+noremap <C-t> :-tabmove<cr>
+noremap <C-i> :+tabmove<cr>
 
-inoremap <C-left> <Esc>  :call <SID>tabLeft()<CR>
-inoremap  <C-right> <Esc> :call <SID>tabRight()<CR>
+inoremap <C-y> <Esc>  :call <SID>tabLeft()<CR>
+inoremap  <C-u> <Esc> :call <SID>tabRight()<CR>
 
-vnoremap  <C-left> <Esc>  :call <SID>tabLeft()<CR>
-vnoremap  <C-right> <Esc> `:call <SID>tabRight()<CR>
+vnoremap  <C-y> <Esc>  :call <SID>tabLeft()<CR>
+vnoremap  <C-u> <Esc> `:call <SID>tabRight()<CR>
 
 noremap <silent> <C-K> :call <SID>swap_up()<CR>
 noremap <silent> <C-J> :call <SID>swap_down()<CR>
