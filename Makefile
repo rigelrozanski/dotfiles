@@ -6,18 +6,18 @@ install:
 	git clone https://github.com/terryma/vim-multiple-cursors ~/.vim/bundle/vim-multiple-cursors
 	go get golang.org/x/tools/cmd/goimports
 
-	#run update
+	#run swap
 	bash swap_vimrc.sh push
 
-update: updatevimrc updatebash updategitignore
+swap: swapvimrc swapbash swapgitignore
 
-updatevimrc:
+swapvimrc:
 	bash swap_vimrc.sh push
 
-updatebash:
+swapbash:
 	bash swap_bash_profile.sh push
 
-updategitignore:
+swapgitignore:
 	bash swap_gitignore.sh push
 
 pullvimrc:

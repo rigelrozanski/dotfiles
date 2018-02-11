@@ -261,34 +261,8 @@ vnoremap > xp`[v`]
 vnoremap < x2hp`[v`]
 
 " commenting lines or uncommenting lines
-vnoremap // :call <SID>addComment()<CR>
-vnoremap ?? :call <SID>replaceComment()<CR>
-
-function! s:addComment()
-    if (&ft=='go')
-      :s!^\(\S\+\)!//\1!e " if line doesn't start with whitespace
-	  :s!^\(\s\+\)!\1//!e " if line starts with whitespaces
-    endif
-    if (&ft=='sh')
-      :s!^\(\S\+\)!#\1!e " if line doesn't start with whitespace
-	  :s!^\(\s\+\)!\1#!e " if line starts with whitespaces
-    endif
-    if (&ft=='vimrc')
-      :s!^\(\S\+\)!"\1!e " if line doesn't start with whitespace
-	  :s!^\(\s\+\)!\1"!e " if line starts with whitespaces
-    endif
-endfunction
-
-function! s:replaceComment()
-    if (&ft=='go')
-      :s!^\(\s\+\)//!\1!e
-      :s!^//!!e
-    endif
-    if (&ft=='sh')
-      :s!^\(\s\+\)#!\1!e
-      :s!^#!!e
-    endif
-endfunction
+vnoremap // :call NERDComment(0,"comment")<CR>
+vnoremap ?? :call NERDComment(0,"uncomment")<CR>
 
 """""""""""""""""""""""""""
 "" Custom Commands
