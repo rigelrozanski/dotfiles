@@ -1,5 +1,5 @@
 export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.cargo/bin
 export PS1='\w$ '
 
 eval $(thefuck --alias)
