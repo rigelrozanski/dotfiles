@@ -99,4 +99,7 @@ git clone https://github.com/scrooloose/nerdtree.git
 mkdir -p ~/.vim/plugin && curl -LSso ~/.vim/plugin/taboo.vim https://raw.githubusercontent.com/gcmt/taboo.vim/master/plugin/taboo.vim
 curl -LSso ~/.vim/plugin/vim-gh-line.vim https://raw.githubusercontent.com/ruanyl/vim-gh-line/master/plugin/vim-gh-line.vim
 
+# Install Rust Racer
+git clone --depth=1 https://github.com/racer-rust/vim-racer.git ~/.vim/bundle/vim-racer
+
 popd

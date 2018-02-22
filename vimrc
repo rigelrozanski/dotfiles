@@ -100,11 +100,21 @@ endif
 " for use of https://github.com/dgryski/vim-godef
 let g:godef_split=2
 
-" EasyMotion
-" let g:EasyMotion_do_mapping = 0 " Disable default mappings
-" map  <Tab> <Plug>(easymotion-bd-f)
-" nmap <Tab> <Plug>(easymotion-overwin-f)
-" let g:EasyMotion_smartcase = 1
+" rust racer go to definition
+set hidden
+let g:racer_experimental_completer = 1
+au FileType rust nmap gd :call <SID>rustdef()<CR>
+
+function! s:rustdef()
+    "<Plug>(rust-def)
+    "tabnew
+    split
+    call racer#GoToDefinition()
+    tabedit %
+    tabp
+    q
+    tabn
+endfunction
 
 " GoImports
 let g:go_fmt_command = "goimports"
