@@ -1,4 +1,4 @@
-" Pathogen
+" Pathoger
 set nocp
 execute pathogen#infect()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
@@ -330,7 +330,7 @@ let bkp = "breakpoint : %v\\n"
 nnoremap fms yiwofmt.Printf("<c-r>=bkp<cr>", )<esc>10<left>p9<right>p<esc>ofmt.Scanf("")<esc>
 nnoremap fmt yiwofmt.Printf("<c-r>=dbg<cr>", )<esc>10<left>p9<right>p
 nnoremap fmp yiwopanic(fmt.Sprintf("<c-r>=dbg<cr>", ))<esc>11<left>p9<right>p
-nnoremap perr oif err != nil {<CR>return err<CR><left><left>}<esc>
+nnoremap <Leader>err oif err != nil {<CR>return err<CR><left><left>}<esc>
 nnoremap viwp viwpyiw
 nnoremap F ggVGgq
 nnoremap cd ciw<esc>
