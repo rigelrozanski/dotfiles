@@ -119,6 +119,10 @@ endfunction
 " GoImports
 let g:go_fmt_command = "goimports"
 
+"let g:rustfmt_command = "cargo fmt -- "
+"let g:rustfmt_autosave = 1
+
+
 """""""""""""""""""""""""""""""""""""
 " Visual Mods
 
@@ -274,6 +278,10 @@ vnoremap < x2hp`[v`]
 vnoremap // :call NERDComment(0,"comment")<CR>
 vnoremap ?? :call NERDComment(0,"uncomment")<CR>
 
+" tab on visual code
+vmap <Tab> >gv
+vmap <S-Tab> <gv
+
 """""""""""""""""""""""""""
 "" Custom Commands
 """"""""""""""""""""""""""
@@ -322,7 +330,7 @@ let bkp = "breakpoint : %v\\n"
 nnoremap fms yiwofmt.Printf("<c-r>=bkp<cr>", )<esc>10<left>p9<right>p<esc>ofmt.Scanf("")<esc>
 nnoremap fmt yiwofmt.Printf("<c-r>=dbg<cr>", )<esc>10<left>p9<right>p
 nnoremap fmp yiwopanic(fmt.Sprintf("<c-r>=dbg<cr>", ))<esc>11<left>p9<right>p
-nnoremap err oif err != nil {<CR>return err<CR><left><left>}<esc>
+nnoremap perr oif err != nil {<CR>return err<CR><left><left>}<esc>
 nnoremap viwp viwpyiw
 nnoremap F ggVGgq
 nnoremap cd ciw<esc>
