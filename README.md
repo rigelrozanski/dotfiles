@@ -76,8 +76,8 @@ make pull
 | Ctrl-l           | any    | Duplicate the current line to a new line below                               |
 | Ctrl-y           | any    | Navigate vim tab left                                                        |
 | Ctrl-u           | any    | Navigate vim tab right                                                       |
-| Ctrl-t           | normal | Move vim tab left                                                            |
-| Ctrl-i           | normal | Move vim tab right                                                           |
+| Ctrl-i           | normal | Move vim tab left                                                            |
+| Ctrl-o           | normal | Move vim tab right                                                           |
 | Ctrl-d           | normal | vim-multi-cursors next                                                       |
 | Ctrl-s           | normal | vim-multi-cursors previous                                                   |
 | Ctrl-x           | normal | vim-multi-cursors skip                                                       |
