@@ -101,9 +101,9 @@ endif
 let g:godef_split=2
 
 " rust racer go to definition
-set hidden
-let g:racer_experimental_completer = 1
-au FileType rust nmap gd :call <SID>rustdef()<CR>
+"set hidden
+"let g:racer_experimental_completer = 1
+"au FileType rust nmap gd :call <SID>rustdef()<CR>
 
 function! s:rustdef()
     "<Plug>(rust-def)
@@ -183,11 +183,15 @@ endfunction
 
 " fast tab actions
 function! s:tabLeft()
-    :exe "normal gT"
+    :let tabno = tabpagenr() - 1 
+	if tabno > 0
+        :exe "normal " . tabno . "gt"
+	endif
 endfunction
 
 function! s:tabRight()
-    :exe "normal gt"
+    :let tabno = tabpagenr() + 1
+    :exe "normal " . tabno . "gt"
 endfunction
 
 function! s:newtab()
@@ -214,16 +218,16 @@ endfunction
 """""""""""""""""""""""""""
 " mapping keys for custom vim script functions
 """""""""""""""""""""""""""
-noremap <silent> <C-y> :call <SID>tabLeft()<CR>
-noremap <silent> <C-u> :call <SID>tabRight()<CR>
-noremap <C-i> :-tabmove<cr>
-noremap <C-o> :+tabmove<cr>
+noremap <silent> <C-u> :call <SID>tabLeft()<CR>
+noremap <silent> <C-i> :call <SID>tabRight()<CR>
+noremap <C-o> :-tabmove<cr>
+noremap <C-p> :+tabmove<cr>
 
-inoremap <C-y> <Esc>  :call <SID>tabLeft()<CR>
-inoremap  <C-u> <Esc> :call <SID>tabRight()<CR>
+inoremap <C-u> <Esc>  :call <SID>tabLeft()<CR>
+inoremap  <C-i> <Esc> :call <SID>tabRight()<CR>
 
-vnoremap  <C-y> <Esc>  :call <SID>tabLeft()<CR>
-vnoremap  <C-u> <Esc> `:call <SID>tabRight()<CR>
+vnoremap  <C-u> <Esc>  :call <SID>tabLeft()<CR>
+vnoremap  <C-i> <Esc> `:call <SID>tabRight()<CR>
 
 noremap <silent> <C-K> :call <SID>swap_up()<CR>
 noremap <silent> <C-J> :call <SID>swap_down()<CR>
