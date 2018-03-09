@@ -428,6 +428,9 @@ function! GotoFileWithLineNum()
     if exists('line_number') 
         exe line_number 
     endif 
+
+    " go back to the previous tab, move cursor left, go back
+    exe "normal gThhgt"
 endfunction 
 
 map gf :call GotoFileWithLineNum()<CR> 
