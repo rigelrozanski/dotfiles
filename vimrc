@@ -224,7 +224,7 @@ noremap <C-o> :-tabmove<cr>
 noremap <C-p> :+tabmove<cr>
 
 inoremap <C-u> <Esc>  :call <SID>tabLeft()<CR>
-inoremap  <C-i> <Esc> :call <SID>tabRight()<CR>
+inoremap <C-i> <Esc> :call <SID>tabRight()<CR>
 
 vnoremap  <C-u> <Esc>  :call <SID>tabLeft()<CR>
 vnoremap  <C-i> <Esc> `:call <SID>tabRight()<CR>
@@ -285,6 +285,7 @@ vnoremap ?? :call NERDComment(0,"uncomment")<CR>
 " tab on visual code
 vmap <Tab> >gv
 vmap <S-Tab> <gv
+imap <Tab> <Tab>
 
 """""""""""""""""""""""""""
 "" Custom Commands
