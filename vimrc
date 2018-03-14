@@ -394,13 +394,32 @@ function! s:maketest()
     endif
 endfunction
 
+nnoremap <Leader>a :Ag <C-r><C-w><CR> 
+command! -nargs=* Ag call s:agsearch(<f-args>)
+function! s:agsearch(find)
+    if TabooTabName(tabpagenr()) == ""
+        :TabooRename search
+        :normal ggdG
+        :silent exec "r ! ag " . a:find
+        :setlocal buftype=nofile
+    else
+        if TabooTabName(tabpagenr()) == "search"
+            :normal ggdG
+            :silent exec "r ! ag " . a:find
+        else
+            :TabooOpen search
+            :silent exec "r ! ag " . a:find
+            :setlocal buftype=nofile
+        endif
+    endif
+    exe "normal ggi" . a:find 
+endfunction
+
 nnoremap rrr :call <SID>refreshInstall()<CR>
 function! s:refreshInstall()
     if TabooTabName(tabpagenr()) == "makeinstall"
         :call <SID>makeinstall()
-    endif
-    
-    if TabooTabName(tabpagenr()) == "maketest"
+    elseif TabooTabName(tabpagenr()) == "maketest"
         :call <SID>maketest()
     endif
 endfunction
