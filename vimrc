@@ -397,20 +397,14 @@ endfunction
 nnoremap <Leader>a :Ag <C-r><C-w><CR> 
 command! -nargs=* Ag call s:agsearch(<f-args>)
 function! s:agsearch(find)
-    if TabooTabName(tabpagenr()) == ""
-        :TabooRename search
+    if TabooTabName(tabpagenr()) == "search"
         :normal ggdG
         :silent exec "r ! ag " . a:find
-        :setlocal buftype=nofile
     else
-        if TabooTabName(tabpagenr()) == "search"
-            :normal ggdG
-            :silent exec "r ! ag " . a:find
-        else
-            :TabooOpen search
-            :silent exec "r ! ag " . a:find
-            :setlocal buftype=nofile
-        endif
+        :tabnew
+        :TabooRename search
+        :silent exec "r ! ag " . a:find
+        :setlocal buftype=nofile
     endif
     exe "normal ggi" . a:find 
 endfunction
