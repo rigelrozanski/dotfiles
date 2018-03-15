@@ -358,39 +358,27 @@ autocmd BufWritePre *.sh exec "normal gg=G``zz"
 
 command Install call <SID>makeinstall()
 function! s:makeinstall()
-    if TabooTabName(tabpagenr()) == ""
-        :TabooRename makeinstall
+    if TabooTabName(tabpagenr()) == "makeinstall"
         :normal ggdG
         :silent exec "r ! make install"
-        :setlocal buftype=nofile
     else
-        if TabooTabName(tabpagenr()) == "makeinstall"
-            :normal ggdG
-            :silent exec "r ! make install"
-        else
-            :TabooOpen makeinstall
-            :silent exec "r ! make install"
-            :setlocal buftype=nofile
-        endif
+        :tabnew
+        :TabooRename makeinstall
+        :silent exec "r ! make install"
+        :setlocal buftype=nofile
     endif
 endfunction
 
 command Test call <SID>maketest()
 function! s:maketest()
-    if TabooTabName(tabpagenr()) == ""
-        :TabooRename maketest
+    if TabooTabName(tabpagenr()) == "maketest"
         :normal ggdG
         :silent exec "r ! make test"
-        :setlocal buftype=nofile
     else
-        if TabooTabName(tabpagenr()) == "maketest"
-            :normal ggdG
-            :silent exec "r ! make test"
-        else
-            :TabooOpen maketest
-            :silent exec "r ! make test"
-            :setlocal buftype=nofile
-        endif
+        :tabnew
+        :TabooRename maketest
+        :silent exec "r ! make test"
+        :setlocal buftype=nofile
     endif
 endfunction
 
