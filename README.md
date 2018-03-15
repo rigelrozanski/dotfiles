@@ -108,7 +108,7 @@ make pull
 | :SC              | any    | Starts the spell check                                                       |
 | :SCE             | any    | Ends the spell check                                                         |
 | F                | normal | Format all                                                                   |
-| gd               | normal | open get definition in new tab from [vim-godef][4]                           |
+| \d               | normal | open get definition in new tab from [vim-godef][4]                           |
 | <                | visual | shift all selected text one character left                                   |
 | >                | visual | shift all selected text one character right                                  |
 | //               | visual | add comments to the beginnings of each line                                  |
@@ -118,7 +118,7 @@ make pull
 | rrr              | normal | quick install refresh, if in the [makeinstall] tab will run :Install         |                      
 | :Ag [tofind]     | normal | Open a scratch tab with the results from `Ag [tofind]`                       |
 | \a               | normal | Same as above command for word under the cursor                              |
-| gf               | normal | open file under cursor in new tab at the line number (ex filename:lineno)    |
+| \f               | normal | open file under cursor in new tab at the line number (ex filename:lineno)    |
 | Reload           | normal | Reload vim with all the same junk                                            |
    
 Deleting 

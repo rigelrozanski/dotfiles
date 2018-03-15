@@ -97,8 +97,8 @@ if executable('ag')
     set grepformat=%f:%l:%c%m
 endif
 
-" for use of https://github.com/dgryski/vim-godef
-let g:godef_split=2
+" go to definition #godef #go-def 
+au FileType go nmap <leader>d <Plug>(go-def-tab)
 
 " rust racer go to definition
 "set hidden
@@ -435,7 +435,7 @@ function! GotoFileWithLineNum()
     exe "normal gThhgt"
 endfunction 
 
-map gf :call GotoFileWithLineNum()<CR> 
+map <leader>f :call GotoFileWithLineNum()<CR> 
 
 "__________________________________________________________________________
 

@@ -84,11 +84,6 @@ pushd ~/.vim/bundle
 # install golint
 go get -u github.com/golang/lint/golint
 
-# Install godef
-go get -v github.com/rogpeppe/godef
-go install -v github.com/rogpeppe/godef
-git clone https://github.com/dgryski/vim-godef ~/.vim/bundle/vim-godef
-
 # Install tagbar
 git clone https://github.com/majutsushi/tagbar.git
 
