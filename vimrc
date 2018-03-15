@@ -98,7 +98,8 @@ if executable('ag')
 endif
 
 " go to definition #godef #go-def 
-au FileType go nmap <leader>d <Plug>(go-def-tab)
+let g:go_def_mapping_enabled = 0
+au FileType go nmap gd <Plug>(go-def-tab)
 
 " rust racer go to definition
 "set hidden
@@ -435,7 +436,7 @@ function! GotoFileWithLineNum()
     exe "normal gThhgt"
 endfunction 
 
-map <leader>f :call GotoFileWithLineNum()<CR> 
+map gf :call GotoFileWithLineNum()<CR> 
 
 "__________________________________________________________________________
 
