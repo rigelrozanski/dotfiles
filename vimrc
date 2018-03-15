@@ -335,7 +335,8 @@ let dbg = "debug : %v\\n"
 let bkp = "breakpoint : %v\\n"
 nnoremap fms yiwofmt.Printf("<c-r>=bkp<cr>", )<esc>10<left>p9<right>p<esc>ofmt.Scanf("")<esc>
 nnoremap fmt yiwofmt.Printf("<c-r>=dbg<cr>", )<esc>10<left>p9<right>p
-nnoremap fmp yiwopanic(fmt.Sprintf("<c-r>=dbg<cr>", ))<esc>11<left>p9<right>p
+nnoremap fmp yiwopanic(fmt.Sprintf("<c-r>=dbg<cr>", ))<esc>11<left>p9<right>p `json"yiwopanic"`
+nnoremap <Leader>json yiwA `json:"<esc>pviwuA"`<esc>
 nnoremap <Leader>err oif err != nil {<CR>return err<CR><left><left>}<esc>
 nnoremap viwp viwpyiw
 nnoremap F ggVGgq

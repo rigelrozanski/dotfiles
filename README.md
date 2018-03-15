@@ -91,6 +91,7 @@ make pull
 | fmt              | normal | insert cursor variable debug line                                            |
 | fmp              | normal | insert cursor variable debug panic                                           |
 | fmp              | normal | insert cursor variable breakpoint                                            |
+| \json            | normal | adds json snippet for golang struct when hovered over field                  |
 | \err             | normal | insert a on next  line with if err != nil { return err }                     |
 | com              | normal | insert a on previous line the comment: // cursorsword -                      |
 | \s               | normal | setup a quick find replace for the whole document of the given cursor word   |
