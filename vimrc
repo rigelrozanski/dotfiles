@@ -223,7 +223,7 @@ vnoremap copy :w !pbcopy<CR><CR>
 " remap for quick search replace
 " http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor 
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
-vnoremap <Leader>s y:%s/<C-r>"//g<Left><Left>
+vnoremap <Leader>s y:%s/<C-r>"/<C-r>"/g<Left><Left>
 
 """ split navigation remap
 nnoremap <c-s-up> <C-W><C-J>
