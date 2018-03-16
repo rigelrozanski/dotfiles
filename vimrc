@@ -132,32 +132,6 @@ let loaded_matchparen = 1
 
 " Moving lines up/down, http://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim
 
-function! s:swap_lines(n1, n2)
-    let line1 = getline(a:n1)
-    let line2 = getline(a:n2)
-    call setline(a:n1, line2)
-    call setline(a:n2, line1)
-endfunction
-
-function! s:swap_up()
-    let n = line('.')
-    if n == 1
-        return
-    endif
-
-    call s:swap_lines(n, n - 1)
-    exec n - 1
-endfunction
-
-function! s:swap_down()
-    let n = line('.')
-    if n == line('$')
-        return
-    endif
-
-    call s:swap_lines(n, n + 1)
-    exec n + 1
-endfunction
 
 " duplicate lines
 function! s:dup_lines(n1, n2)
@@ -172,13 +146,11 @@ endfunction
 
 function! s:duplicate()
     let n = line('.')
-   
     call s:dup_lines(n, n + 1)
 endfunction
 
 " quick remove line function
 function! s:remove()
-    let n = line('.')
     :exe "normal \"_dd"
 endfunction
 
@@ -230,20 +202,20 @@ inoremap <C-i> <Esc> :call <SID>tabRight()<CR>
 vnoremap  <C-u> <Esc>  :call <SID>tabLeft()<CR>
 vnoremap  <C-i> <Esc> `:call <SID>tabRight()<CR>
 
-noremap <silent> <C-K> :call <SID>swap_up()<CR>
-noremap <silent> <C-J> :call <SID>swap_down()<CR>
 noremap <silent> <C-H> :call <SID>remove()<CR>
 noremap <silent> <C-L> :call <SID>duplicate()<CR>
-
-inoremap <silent> <C-K> <Esc>:call <SID>swap_up()<CR>i
-inoremap <silent> <C-J> <Esc>:call <SID>swap_down()<CR>i
 inoremap <silent> <C-H> <Esc>:call <SID>remove()<CR>i
 inoremap <silent> <C-L> <Esc>:call <SID>duplicate()<CR>i
-
-vnoremap <silent> <C-K> <Esc>:call <SID>swap_up()<CR>v
-vnoremap <silent> <C-J> <Esc>:call <SID>swap_down()<CR>v
 vnoremap <silent> <C-H> <Esc>:call <SID>remove()<CR>v
 vnoremap <silent> <C-L> <Esc>:call <SID>duplicate()<CR>v
+
+" http://vim.wikia.com/wiki/Moving_lines_up_or_down
+noremap <silent> <C-K> :m-2<CR>
+noremap <silent> <C-J> :m+1<CR>
+inoremap <silent> <C-K> <esc>:m-2<CR>i
+inoremap <silent> <C-J> <esc>:m+1<CR>i
+vnoremap <silent> <C-K> :m-2<CR>gv
+vnoremap <silent> <C-J> :m'>+1<CR>gv
 
 " remap for mac copy to clipboard
 vnoremap copy :w !pbcopy<CR><CR>
