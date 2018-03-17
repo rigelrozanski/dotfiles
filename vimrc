@@ -191,6 +191,7 @@ endfunction
 """""""""""""""""""""""""""
 " mapping keys for custom vim script functions
 """""""""""""""""""""""""""
+noremap <silent> <C-y> <Nop>
 noremap <silent> <C-u> :call <SID>tabLeft()<CR>
 noremap <silent> <C-i> :call <SID>tabRight()<CR>
 noremap <C-o> :-tabmove<cr>
@@ -343,6 +344,7 @@ function! s:makeinstall()
     endif
 endfunction
 
+command TEst call <SID>maketest() "for my fast inaccurate typing
 command Test call <SID>maketest()
 function! s:maketest()
     if TabooTabName(tabpagenr()) == "maketest"
