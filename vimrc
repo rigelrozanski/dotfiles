@@ -389,6 +389,7 @@ function! GotoFileWithLineNum()
         echo 'NO FILE UNDER CURSOR' 
         return 
     endif 
+    
 
     " look for a line number separated by a : 
     if search('\%#\f*:\zs[0-9]\+') 
@@ -397,6 +398,10 @@ function! GotoFileWithLineNum()
         set iskeyword=48-57 
         let line_number = expand('<cword>') 
         exe 'set iskeyword=' . temp 
+    endif 
+    
+    if !exists('line_number') 
+        return
     endif 
 
     " edit the file 
