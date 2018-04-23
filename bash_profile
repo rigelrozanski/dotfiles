@@ -1,4 +1,5 @@
 export GOPATH=$HOME/go
+export GOBIN=$HOME/go/bin
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.cargo/bin
 export PS1='\w$ '
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
@@ -20,9 +21,12 @@ alias gitsquash2='git add -u ; git commit -m "int" ; git reset --soft HEAD~2 && 
 alias gitr='cd $GOPATH/src/github.com/rigelrozanski'
 alias gitt='cd $GOPATH/src/github.com/tendermint'
 alias gitc='cd $GOPATH/src/github.com/cosmos'
+alias edvim='cd $GOPATH/src/github.com/rigelrozanski/dotfiles ; vim vimrc'
+alias edbash='cd $GOPATH/src/github.com/rigelrozanski/dotfiles ; vim bash_profile'
 alias vimo='vim -c "O"'
 alias vimn='vim -c "NERDTreeToggle"'
 alias vimr='vim -S .session.vim'
+alias vimtest='vim -c "Test"'
 alias fuck='fuck -y'
 
 #git branch auto-completion

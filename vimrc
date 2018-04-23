@@ -223,7 +223,7 @@ vnoremap copy :w !pbcopy<CR><CR>
 
 " remap for quick search replace
 " http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor 
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/g<Left><Left>
 vnoremap <Leader>s y:%s/<C-r>"/<C-r>"/g<Left><Left>
 
 """ split navigation remap
@@ -285,6 +285,9 @@ command WQ :wq
 command WQA :wqa
 command WQa :wqa
 command Wqa :wqa
+
+" get the current file directory
+command Where :echo @%
 
 
 " close all tabs to the right

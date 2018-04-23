@@ -108,6 +108,7 @@ make pull
 | :QQQ             | any    | Close all tabs to the right of the current tab                               |
 | :SC              | any    | Starts the spell check                                                       |
 | :SCE             | any    | Ends the spell check                                                         |
+| :Where           | any    | Echo the directory of the file currently being viewed                        |
 | F                | normal | Format all                                                                   |
 | \d               | normal | open get definition in new tab from [vim-godef][4]                           |
 | <                | visual | shift all selected text one character left                                   |
