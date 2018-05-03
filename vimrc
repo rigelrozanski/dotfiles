@@ -369,6 +369,14 @@ function! s:makegeneric(cmd)
     :setlocal buftype=nofile
 endfunction
 
+command -nargs=1 Go call <SID>gogeneric(<f-args>)
+function! s:gogeneric(cmd)
+    :tabnew
+    :TabooRename gogeneric
+    :silent exec "r ! go " . a:cmd
+    :setlocal buftype=nofile
+endfunction
+
 nnoremap <Leader>a :Ag <C-r><C-w><CR> 
 command! -nargs=* Ag call s:agsearch(<f-args>)
 function! s:agsearch(find)

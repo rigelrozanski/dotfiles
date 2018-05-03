@@ -119,6 +119,7 @@ make pull
 | :Install         | normal | Open a scratch tab with the results from `make install`                      |
 | :Test            | normal | Open a scratch tab with the results from `make test`                         |
 | :Make <arg>      | normal | Open a scratch tab with the results from `make <arg>`                        |
+| :Go <arg>        | normal | Open a scratch tab with the results from `go <arg>`                          |
 | rrr              | normal | quick install refresh, if in the [makeinstall] tab will run :Install         |                      
 | :Ag [tofind]     | normal | Open a scratch tab with the results from `Ag [tofind]`                       |
 | \a               | normal | Same as above command for word under the cursor                              |
