@@ -117,6 +117,8 @@ make pull
 | ??               | visual | remove comments to the beginnings of each line                               |
 | :GoTests         | visual | generate test for function in current line or functions in text selected     |
 | :Install         | normal | Open a scratch tab with the results from `make install`                      |
+| :Test            | normal | Open a scratch tab with the results from `make test`                         |
+| :Make <arg>      | normal | Open a scratch tab with the results from `make <arg>`                        |
 | rrr              | normal | quick install refresh, if in the [makeinstall] tab will run :Install         |                      
 | :Ag [tofind]     | normal | Open a scratch tab with the results from `Ag [tofind]`                       |
 | \a               | normal | Same as above command for word under the cursor                              |
