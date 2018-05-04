@@ -313,6 +313,7 @@ nnoremap fms yiwofmt.Printf("<c-r>=bkp<cr>", )<esc>10<left>p9<right>p<esc>ofmt.S
 nnoremap fmt yiwofmt.Printf("<c-r>=dbg<cr>", )<esc>10<left>p9<right>p
 nnoremap fmp yiwopanic(fmt.Sprintf("<c-r>=dbg<cr>", ))<esc>11<left>p9<right>p `json"yiwopanic"`
 nnoremap <Leader>json yiwA `json:"<esc>pbve:s#\%V\(\<\u\l\+\\|\l\+\)\(\u\)#\l\1_\l\2#g<CR>A"`<esc>
+nnoremap <Leader>camel bve:s#\%V\(\<\u\l\+\\|\l\+\)\(\u\)#\l\1_\l\2#g<CR><esc>
 nnoremap <Leader>err oif err != nil {<CR>return err<CR><left><left>}<esc>
 nnoremap viwp viwpyiw
 nnoremap F ggVGgq
