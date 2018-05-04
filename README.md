@@ -124,6 +124,7 @@ make pull
 | :Ag [tofind]     | normal | Open a scratch tab with the results from `Ag [tofind]`                       |
 | \a               | normal | Same as above command for word under the cursor                              |
 | \f               | normal | open file under cursor in new tab at the line number (ex filename:lineno)    |
+| \new             | normal | create NewYourStruct function when highlighted over struct def name          |
 | Reload           | normal | Reload vim with all the same junk                                            |
    
 Deleting 

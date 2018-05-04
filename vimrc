@@ -452,10 +452,44 @@ function! s:ReplaceAll(from, to)
     endif
 endfunction
 
+nnoremap <Leader>new :New<CR>
+command! New call s:NewFunc()
+function! s:NewFunc()
+    let n1 = line('.')
+    exe "normal }"
+    let n2 = line('.')
+    let lines = (n2 - n1 - 2)
+    exe "normal! ``"
+    exe "normal yiw}i\<CR>func New\epb3lvUA() \epa {\<CR>return \epa{\<CR>}\<CR>}\<CR>\e"
+
+    let ii = 0
+    let ex = 0
+    while lines - ii > 0
+        exe "normal ``jg0lvee"
+        let ch = getline(".")[col(".")-1]
+        let lex = 0
+        if ch == "]" 
+            let lex = 1
+            let ex += 1
+            exe "normal e"
+        endif 
+
+        if ii == 0 
+            exe "normal y}jeelp".(2+lex)."bvu"
+	    else
+            exe "normal y}j".(2+ii*3+ex-lex)."ea,\ep".(2+lex)."bvu"
+        endif
+        exe "normal ``g0lviw"
+        exe "normal y}".(2+ii)."jo\epa: \epa,\ebvu,``"
+        let ii += 1
+    endwhile
+endfunction
+
 "__________________________________________________________________________
 
 command! Reload call s:Reload()
 function! s:Reload()
+            exe "normal y}j".(4+ii*2+ex)."ei,\epbbvu".(ii+1)."jo\epbvu".(lex+1)."beli:\eA,\e``"
     :silent mksession! ~/vim_session <cr>
     :silent source ~/vim_session <cr>     
     if TabooTabName(tabpagenr()) == ""
