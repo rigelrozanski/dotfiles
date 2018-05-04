@@ -453,6 +453,15 @@ function! s:ReplaceAll(from, to)
     endif
 endfunction
 
+nnoremap <Leader>test :CreateTest <C-r><C-w><CR>
+command! -nargs=1 CreateTest call s:CreateTest(<f-args>)
+function! s:CreateTest(fnname)
+    let path = expand('%:p')
+    let cmd = "mt vim create-test " . a:fnname . " " . path
+    let testpath = system(cmd) 
+    exe "tabnew" testpath
+endfunction
+
 nnoremap <Leader>new :New<CR>
 command! New call s:NewFunc()
 function! s:NewFunc()

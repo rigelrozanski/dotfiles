@@ -93,6 +93,7 @@ make pull
 | fmp              | normal | insert cursor variable breakpoint                                            |
 | \json            | normal | adds json snippet for golang struct when hovered over field                  |
 | \camel           | normal | convert word from camel to underscore case                                   |
+| \test            | normal | construct and open a go test function for the function name under the cursor |
 | \err             | normal | insert a on next  line with if err != nil { return err }                     |
 | com              | normal | insert a on previous line the comment: // cursorsword -                      |
 | \s               | normal | setup a quick find replace for the whole document of the given cursor word   |
