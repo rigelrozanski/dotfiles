@@ -457,6 +457,7 @@ function! GotoFileWithLineNum()
 endfunction 
 
 map gf :call GotoFileWithLineNum()<CR> 
+nnoremap <Leader>gf ma/FAIL<CR>neebvEy`abhpli/<ESC>Bi$GOPATH/src/<esc>5l:call GotoFileWithLineNum()<CR>
 
 "__________________________________________________________________________
 
