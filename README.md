@@ -82,6 +82,8 @@ make pull
 | Ctrl-s           | normal | vim-multi-cursors previous                                                   |
 | Ctrl-x           | normal | vim-multi-cursors skip                                                       |
 | Ctrl-g           | normal | copy the current word to the word on the position directly 1 row down        |
+| Ctrl-n           | normal | open or close nerd tree navigation                                           |
+| Shift-n          | normal | navigate to or from the nerd tree tab (split pane movement left/right)       |
 | dup              | normal | duplicate the current block                                                  |
 | cut              | normal | cut the current block                                                        |
 | copy             | visual | copy the current selection to the clipboard for Mac OS                       |

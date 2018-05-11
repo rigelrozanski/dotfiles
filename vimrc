@@ -231,6 +231,15 @@ nnoremap <c-s-up> <C-W><C-J>
 nnoremap <c-s-down> <C-W><C-K>
 nnoremap <C-S-left> <C-W><C-H>
 nnoremap <C-S-right> <C-W><C-L>
+nnoremap <S-n>  :call <SID>navigateNerdTree()<CR>
+
+function! s:navigateNerdTree()
+        if (exists("b:NERDTree") && b:NERDTree.isTabTree()) 
+            execute "normal \<C-W>\<C-L>"
+        else 
+            execute "normal \<C-W>\<C-H>"
+        endif
+endfunction
 
 nnoremap dup {v}y}p}dd{ 
 nnoremap cut {v}xO<Esc>
@@ -300,8 +309,6 @@ endfunction
 
 command QQQ call TabCloseRight('<bang>')
 
-" this next command will force close nerd tree if it's the last and only buffer
-autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " open current line on Github
 let g:gh_line_map = 'git'
@@ -330,14 +337,16 @@ function! TabCloseLeft(cmd)
 	endif
 endfunction
 
-" autoindent shell files
-autocmd BufWritePre *.sh exec "normal gg=G``zz"
 
 "__________________________________________________________________________
 " goto commands
 
+function! s:tabIsEmpty()
+    return winnr('$') == 1 && len(expand('%')) == 0 && line2byte(line('$') + 1) <= 2 
+endfunction
+
 function! s:tabIsEmptyRename(newtabname)
-    if winnr('$') == 1 && len(expand('%')) == 0 && line2byte(line('$') + 1) <= 2 
+    if s:tabIsEmpty()
         exec "TabooRename " . a:newtabname
         :setlocal buftype=nofile
     endif
@@ -507,10 +516,11 @@ function! s:NewFunc()
 endfunction
 
 "__________________________________________________________________________
+" END OF FILE/SESSION/SAVE stuff
 
 command! Reload call s:Reload()
 function! s:Reload()
-            exe "normal y}j".(4+ii*2+ex)."ei,\epbbvu".(ii+1)."jo\epbvu".(lex+1)."beli:\eA,\e``"
+    exe "normal y}j".(4+ii*2+ex)."ei,\epbbvu".(ii+1)."jo\epbvu".(lex+1)."beli:\eA,\e``"
     :silent mksession! ~/vim_session <cr>
     :silent source ~/vim_session <cr>     
     if TabooTabName(tabpagenr()) == ""
@@ -525,3 +535,21 @@ fu! SaveSess()
 endfunction
 
 autocmd VimLeave * call SaveSess()
+
+" autoindent shell files
+autocmd BufWritePre *.sh exec "normal gg=G``zz"
+
+" this next command will force close nerd tree if it's the last and only buffer
+" autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd BufEnter * call EnterBuffer()
+
+let g:canClose = 0 
+fu! EnterBuffer()
+    if winnr("$") > 2 
+        let g:canClose = 1
+    endif
+    if g:canClose 
+        if (winnr("$") == 1 && s:tabIsEmpty()) | q | endif
+        if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    endif
+endfunction
