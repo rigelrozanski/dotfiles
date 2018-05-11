@@ -318,6 +318,7 @@ nnoremap <Leader>err oif err != nil {<CR>return err<CR><left><left>}<esc>
 nnoremap viwp viwpyiw
 nnoremap F ggVGgq
 nnoremap cd ciw<esc>
+nnoremap <C-g> yiwjviwp
 
 " credit: https://github.com/convissor/vim-settings/blob/master/.vimrc
 " Declare function for moving left when closing a tab.

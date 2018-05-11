@@ -81,7 +81,7 @@ make pull
 | Ctrl-d           | normal | vim-multi-cursors next                                                       |
 | Ctrl-s           | normal | vim-multi-cursors previous                                                   |
 | Ctrl-x           | normal | vim-multi-cursors skip                                                       |
-| <esp>            | normal | vim-multi-cursors quit                                                       |
+| Ctrl-g           | normal | copy the current word to the word on the position directly 1 row down        |
 | dup              | normal | duplicate the current block                                                  |
 | cut              | normal | cut the current block                                                        |
 | copy             | visual | copy the current selection to the clipboard for Mac OS                       |
