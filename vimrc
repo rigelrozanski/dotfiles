@@ -336,8 +336,16 @@ autocmd BufWritePre *.sh exec "normal gg=G``zz"
 "__________________________________________________________________________
 " goto commands
 
+function! s:tabIsEmptyRename(newtabname)
+    if winnr('$') == 1 && len(expand('%')) == 0 && line2byte(line('$') + 1) <= 2 
+        exec "TabooRename " . a:newtabname
+        :setlocal buftype=nofile
+    endif
+endfunction
+
 command Install call <SID>makeinstall()
 function! s:makeinstall()
+    call s:tabIsEmptyRename("makeinstall")
     if TabooTabName(tabpagenr()) == "makeinstall"
         :normal ggdG
         :silent exec "r ! make install"
@@ -352,7 +360,9 @@ endfunction
 command TEst call <SID>maketest() "for my fast inaccurate typing
 command Test call <SID>maketest()
 function! s:maketest()
-    if TabooTabName(tabpagenr()) == "maketest"
+    call s:tabIsEmptyRename("maketest")
+    if TabooTabName(tabpagenr()) == "maketest" 
+        :call <SID>makeinstall()
         :normal ggdG
         :silent exec "r ! make test"
     else
