@@ -342,13 +342,25 @@ endfunction
 " goto commands
 
 function! s:tabIsEmpty()
-    return winnr('$') == 1 && len(expand('%')) == 0 && line2byte(line('$') + 1) <= 2 
+    "return winnr('$') == 1 && len(expand('%')) == 0 && line2byte(line('$') + 1) <= 2 
+    return len(expand('%')) == 0 && line2byte(line('$') + 1) <= 2 
 endfunction
 
 function! s:tabIsEmptyRename(newtabname)
-    if s:tabIsEmpty()
+    if TabooTabName(tabpagenr()) == a:newtabname 
+        return
+    elseif s:tabIsEmpty()
         exec "TabooRename " . a:newtabname
         :setlocal buftype=nofile
+    endif
+endfunction
+
+nnoremap rrr :call <SID>refreshInstall()<CR>
+function! s:refreshInstall()
+    if TabooTabName(tabpagenr()) == "makeinstall"
+        :call <SID>makeinstall()
+    elseif TabooTabName(tabpagenr()) == "maketest"
+        :call <SID>maketest()
     endif
 endfunction
 
@@ -413,14 +425,6 @@ function! s:agsearch(find)
     exe "normal ggi" . a:find 
 endfunction
 
-nnoremap rrr :call <SID>refreshInstall()<CR>
-function! s:refreshInstall()
-    if TabooTabName(tabpagenr()) == "makeinstall"
-        :call <SID>makeinstall()
-    elseif TabooTabName(tabpagenr()) == "maketest"
-        :call <SID>maketest()
-    endif
-endfunction
 
 function! GotoFileWithLineNum() 
     " filename under the cursor 
@@ -457,7 +461,7 @@ function! GotoFileWithLineNum()
 endfunction 
 
 map gf :call GotoFileWithLineNum()<CR> 
-nnoremap <Leader>gf ma/FAIL<CR>neebvEy`abhpli/<ESC>Bi$GOPATH/src/<esc>5l:call GotoFileWithLineNum()<CR>
+nnoremap <Leader>gf ma/FAIL\t<CR>eebvEy`abhpli/<ESC>Bi$GOPATH/src/<esc>5l:call GotoFileWithLineNum()<CR>
 
 "__________________________________________________________________________
 
