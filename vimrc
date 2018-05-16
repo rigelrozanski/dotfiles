@@ -487,6 +487,26 @@ function! s:CreateTest(fnname)
     exe "tabnew" testpath
 endfunction
 
+nnoremap <Leader>debugs :DebugPrints <CR>
+command! DebugPrints call s:DebugPrints()
+function! s:DebugPrints()
+    let lineno = line('.') - 1
+    let path = expand('%:p')
+    let cmd = "mt vim debug-prints " . path . " " . lineno
+    let results = system(cmd) 
+    edit! "reload the current buffer
+endfunction
+
+nnoremap <Leader>rmdebugs :RmDebugPrints <CR>
+command! RmDebugPrints call s:RmDebugPrints()
+function! s:RmDebugPrints()
+    let lineno = line('.') - 1
+    let path = expand('%:p')
+    let cmd = "mt vim remove-debug-prints " . path . " " . lineno
+    let results = system(cmd) 
+    edit! "reload the current buffer
+endfunction
+
 nnoremap <Leader>new :New<CR>
 command! New call s:NewFunc()
 function! s:NewFunc()
