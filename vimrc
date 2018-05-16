@@ -487,12 +487,12 @@ function! s:CreateTest(fnname)
     exe "tabnew" testpath
 endfunction
 
-nnoremap <Leader>debugs :DebugPrints <CR>
-command! DebugPrints call s:DebugPrints()
-function! s:DebugPrints()
+nnoremap <Leader>debugs :DebugPrints <C-r><C-w><CR>
+command! -nargs=1 DebugPrints call s:DebugPrints(<f-args>)
+function! s:DebugPrints(fnname)
     let lineno = line('.') - 1
     let path = expand('%:p')
-    let cmd = "mt vim debug-prints " . path . " " . lineno
+    let cmd = "mt vim debug-prints " . a:fnname . " " . path . " " . lineno
     let results = system(cmd) 
     edit! "reload the current buffer
 endfunction
