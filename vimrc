@@ -15,7 +15,7 @@ set expandtab
 map Q <Nop>
 
 " nerd tree show hidden by default
-let g:NERDTreeShowHidden = 1
+" let g:NERDTreeShowHidden = 1
 
 " golint on save, without govet
 let g:go_metalinter_autosave = 1
@@ -383,7 +383,6 @@ command Test call <SID>maketest()
 function! s:maketest()
     call s:tabIsEmptyRename("maketest")
     if TabooTabName(tabpagenr()) == "maketest" 
-        :call <SID>makeinstall()
         :normal ggdG
         :silent exec "r ! make test"
     else
