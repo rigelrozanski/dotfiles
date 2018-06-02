@@ -169,7 +169,6 @@ endfunction
 
 function! s:newtab()
     :exe "tabnew"
-    :exe "NERDTreeMirror"
 endfunction
 
 " quick remove line function
