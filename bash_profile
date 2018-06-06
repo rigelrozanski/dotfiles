@@ -27,6 +27,7 @@ alias vimo='vim -c "O"'
 alias vimn='vim -c "NERDTreeToggle"'
 alias vimr='vim -S .session.vim'
 alias vimtest='vim -c "Test"'
+alias viminstall='vim -c "Install"'
 alias fuck='fuck -y'
 
 #git branch auto-completion
