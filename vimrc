@@ -12,7 +12,8 @@ set shiftwidth=4
 set expandtab
 
 " disable Ex Mode
-map Q <Nop>
+map Q <Nop> 
+
 
 " nerd tree show hidden by default
 " let g:NERDTreeShowHidden = 1
@@ -265,9 +266,9 @@ vnoremap // :call NERDComment(0,"comment")<CR>
 vnoremap ?? :call NERDComment(0,"uncomment")<CR>
 
 " tab on visual code
-vmap <Tab> >gv
-vmap <S-Tab> <gv
-imap <Tab> <Tab>
+"vmap <Tab> >gv
+"vmap <S-Tab> <gv
+"imap <Tab> <Tab>
 
 """""""""""""""""""""""""""
 "" Custom Commands
@@ -576,3 +577,4 @@ fu! EnterBuffer()
         if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
     endif
 endfunction
+
