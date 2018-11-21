@@ -609,3 +609,6 @@ augroup encrypted
   " after the file has been written.
   autocmd BufWritePost,FileWritePost *.gpg u
 augroup END
+
+" set default encryption
+:setlocal cm=blowfish2
