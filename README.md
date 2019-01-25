@@ -132,6 +132,7 @@ make pull
 | \a                    | normal | Same as above command for word under the cursor                              |
 | \f                    | normal | open file under cursor in new tab at the line number (ex filename:lineno)    |
 | \new                  | normal | create NewYourStruct function when highlighted over struct def name          |
+| \time                 | normal | insert current date and timestamp at cursor                                  |
 | Reload                | normal | Reload vim with all the same junk                                            |
 | gf                    | normal | go to the file at the line number of the path under the cursor               |
 | \gf                   | normal | copy the full path to the file for a regular fail message, then gf           |

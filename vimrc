@@ -247,6 +247,9 @@ nnoremap cut {v}xO<Esc>
 "for faster comments
 nnoremap com yiwO// <Esc>pi<Right> - 
 
+" insert timesstamp
+nnoremap time :pu=strftime('%c')<CR>i<BS><ESC>
+
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
 " au CursorHoldI * stopinsert
 " set 'updatetime' to 15 seconds when in insert mode
