@@ -480,13 +480,24 @@ function! s:ReplaceAll(from, to)
     endif
 endfunction
 
-"command! -nargs=1 SetWidth call s:SetWidth(<f-args>)
 command! -range -nargs=1 SetWidth <line1>,<line2>call SetWidth(<f-args>)
 function! SetWidth(cols)
     let path = expand('%:p')
     let linenostart = a:firstline  - 1
     let linenoend = a:lastline - 1
     let cmd = "mt vim column-width " . path . " " . linenostart . " " . linenoend . " " . a:cols
+    let results = system(cmd) 
+    edit! "reload the current buffer
+endfunction
+
+nnoremap <Leader>me :RemoveEveryOther <C-r><C-w> 
+command! -range RemoveEveryOther <line1>,<line2>call RemoveEveryOther()
+function! RemoveEveryOther()
+    let path = expand('%:p')
+    let linenostart = a:firstline  - 1
+    let linenoend = a:lastline - 1
+    let linenoend = a:lastline - 1
+    let cmd = "mt vim remove-every-other " . path . " " . linenostart . " " . linenoend 
     let results = system(cmd) 
     edit! "reload the current buffer
 endfunction
