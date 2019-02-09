@@ -490,12 +490,22 @@ function! SetWidth(cols)
     edit! "reload the current buffer
 endfunction
 
+nnoremap <Leader>new :New<CR>
+command! -range New call New(<line1>,<line2>)
+function! New(linestart, lineend)
+    let path = expand('%:p')
+    let linenostart = a:linestart  - 1
+    let linenoend = a:lineend - 1
+    let cmd = "mt vim create-new-xxx " . path . " " . linenostart . " " . linenoend 
+    let results = system(cmd) 
+    edit! "reload the current buffer
+endfunction
+
 nnoremap <Leader>me :RemoveEveryOther <C-r><C-w> 
 command! -range RemoveEveryOther <line1>,<line2>call RemoveEveryOther()
 function! RemoveEveryOther()
     let path = expand('%:p')
     let linenostart = a:firstline  - 1
-    let linenoend = a:lastline - 1
     let linenoend = a:lastline - 1
     let cmd = "mt vim remove-every-other " . path . " " . linenostart . " " . linenoend 
     let results = system(cmd) 
@@ -531,8 +541,8 @@ function! s:RmDebugPrints()
     edit! "reload the current buffer
 endfunction
 
-nnoremap <Leader>new :New<CR>
-command! New call s:NewFunc()
+"nnoremap <Leader>new :New<CR>
+"command! New call s:NewFunc()
 function! s:NewFunc()
     let n1 = line('.')
     exe "normal }"
