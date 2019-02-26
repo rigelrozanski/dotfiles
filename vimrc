@@ -283,6 +283,7 @@ command T call <SID>newtab()
 command Q call TabCloseLeft('q!')
 command HL :set hlsearch
 command NHL :set nohlsearch
+command Wrap :set wrap!
 
 "override default quit command
 cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Q' : 'q')<CR>

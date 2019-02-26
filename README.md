@@ -108,6 +108,7 @@ make pull
 | :Q                    | any    | Close all the current tab                                                    |
 | :HL                   | any    | enable highlighted search                                                    |
 | :NHL                  | any    | disable highlighted search                                                   |
+| :Wrap                 | any    | toggle vim line wrapping                                                     |
 | :WB                   | any    | opens a new tab with a [wb](https://github.com/rigelrozanski/wb) named _vim_ |
 | :W :Wq :WQ            | any    | :w or :wq                                                                    |
 | :WQA :Wqa :WQA        | any    | :wqa                                                                         |
