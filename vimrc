@@ -542,8 +542,10 @@ function! s:RmDebugPrints()
     edit! "reload the current buffer
 endfunction
 
+command! AddCal call s:CalAdd()
 command! CalAdd call s:CalAdd()
 function! s:CalAdd()
+    :w
     let lineno = line('.') - 1
     let path = expand('%:p')
     let cmd = "mt cal add " . path . " " . lineno
