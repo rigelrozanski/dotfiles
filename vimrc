@@ -502,6 +502,17 @@ function! CreateNewXxx(linestart, lineend)
     edit! "reload the current buffer
 endfunction
 
+nnoremap <Leader>fo <S-v>}k:CreateFunctionOf <CR>
+command! -range CreateFunctionOf call CreateFunctionOf(<line1>,<line2>)
+function! CreateFunctionOf(linestart, lineend)
+    let path = expand('%:p')
+    let linenostart = a:linestart  - 1
+    let linenoend = a:lineend - 1
+    let cmd = "mt vim create-function-of " . path . " " . linenostart . " " . linenoend 
+    let results = system(cmd) 
+    edit! "reload the current buffer
+endfunction
+
 nnoremap <Leader>me :RemoveEveryOther <C-r><C-w> 
 command! -range RemoveEveryOther <line1>,<line2>call RemoveEveryOther()
 function! RemoveEveryOther()
