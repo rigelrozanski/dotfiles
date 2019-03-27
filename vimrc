@@ -326,7 +326,7 @@ nnoremap fmp yiwopanic(fmt.Sprintf("<c-r>=dbg<cr>", ))<esc>11<left>p9<right>p `j
 nnoremap <Leader>json yiwA `json:"<esc>pbve:s#\%V\(\<\u\l\+\\|\l\+\)\(\u\)#\l\1_\l\2#g<CR>A"`<esc>
 nnoremap <Leader>camel bve:s#\%V\(\<\u\l\+\\|\l\+\)\(\u\)#\l\1_\l\2#g<CR><esc>
 nnoremap <Leader>err oif err != nil {<CR>return err<CR><left><left>}<esc>
-nnoremap viwp viwpyiw
+nnoremap viwp viwpyiwgvy
 nnoremap F ggVGgq
 nnoremap cd ciw<esc>
 nnoremap <C-g> yiwjviwp
@@ -502,6 +502,16 @@ function! CreateNewXxx(linestart, lineend)
     edit! "reload the current buffer
 endfunction
 
+command! -range Romeo call Romeo(<line1>,<line2>)
+function! Romeo(linestart, lineend)
+    let diffr = a:lineend - a:linestart
+    let c = 0
+    while c <= diffr/2
+        exe "normal vXj"
+        let c += 1
+    endwhile
+endfunction
+
 nnoremap <Leader>fo <S-v>}k:CreateFunctionOf <CR>
 command! -range CreateFunctionOf call CreateFunctionOf(<line1>,<line2>)
 function! CreateFunctionOf(linestart, lineend)
@@ -509,17 +519,6 @@ function! CreateFunctionOf(linestart, lineend)
     let linenostart = a:linestart  - 1
     let linenoend = a:lineend - 1
     let cmd = "mt vim create-function-of " . path . " " . linenostart . " " . linenoend 
-    let results = system(cmd) 
-    edit! "reload the current buffer
-endfunction
-
-nnoremap <Leader>me :RemoveEveryOther <C-r><C-w> 
-command! -range RemoveEveryOther <line1>,<line2>call RemoveEveryOther()
-function! RemoveEveryOther()
-    let path = expand('%:p')
-    let linenostart = a:firstline  - 1
-    let linenoend = a:lastline - 1
-    let cmd = "mt vim remove-every-other " . path . " " . linenostart . " " . linenoend 
     let results = system(cmd) 
     edit! "reload the current buffer
 endfunction
