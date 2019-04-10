@@ -1,3 +1,4 @@
 *.swp
+*.swk
 *.DS_Store
 *.session.vim
