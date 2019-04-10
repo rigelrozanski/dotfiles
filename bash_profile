@@ -4,6 +4,7 @@ export EDITOR="/usr/bin/vim"
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.cargo/bin
 export PS1='\w$ '
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+export GO111MODULE=on
 
 eval $(thefuck --alias)
 
