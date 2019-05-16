@@ -509,6 +509,15 @@ function! CreateNewXxx(linestart, lineend)
     edit! "reload the current buffer
 endfunction
 
+"command! -range UpdateAlias call UpdateAlias()
+command! UpdateAlias call UpdateAlias()
+function! UpdateAlias()
+    let path = expand('%:p')
+    let cmd = "mt update-alias " . path 
+    let results = system(cmd) 
+    edit! "reload the current buffer
+endfunction
+
 command! -range Romeo call Romeo(<line1>,<line2>)
 function! Romeo(linestart, lineend)
     let diffr = a:lineend - a:linestart
