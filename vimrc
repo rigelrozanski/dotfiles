@@ -428,6 +428,13 @@ function! s:agsearch(find)
     exe "normal ggi" . a:find 
 endfunction
 
+"open all files in seperate tabs
+command -nargs=1 OpenAll call <SID>openAll(<f-args>)
+function! s:openAll(dir)
+    execute 'args **/' . a:dir
+    silent argdo tabe %
+    syntax on
+endfunction
 
 function! GotoFileWithLineNum() 
     " filename under the cursor 
