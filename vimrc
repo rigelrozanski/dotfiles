@@ -248,7 +248,7 @@ nnoremap cut {v}xO<Esc>
 nnoremap com yiwO// <Esc>pi<Right> - 
 
 " insert timesstamp
-nnoremap time :pu=strftime('%c')<CR>i<BS><ESC>
+nnoremap time :pu=strftime('%Y %b %d - %H:%M, [%a .%Z]')<CR>i<BS><ESC>
 
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
 " au CursorHoldI * stopinsert
