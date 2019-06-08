@@ -33,9 +33,8 @@ alias viminstall='vim -c "Install"'
 alias fuck='fuck -y'
 
 #git branch auto-completion
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
-fi
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+
 
 function _makefile_targets {
     local curr_arg;
@@ -56,3 +55,4 @@ function _makefile_targets {
     COMPREPLY=( $(compgen -W "${targets[@]}" -- $curr_arg ) );
 }
 complete -F _makefile_targets make
+
