@@ -436,6 +436,12 @@ function! s:openAll(dir)
     syntax on
 endfunction
 
+"delete all lines with certain text
+command -nargs=1 Rmlines call <SID>rmlines(<f-args>)
+function! s:rmlines(keyword)
+    execute '%s/.*' . a:keyword . '.*\n//g'
+endfunction
+
 function! GotoFileWithLineNum() 
     " filename under the cursor 
     let file_name = expand('<cfile>') 
