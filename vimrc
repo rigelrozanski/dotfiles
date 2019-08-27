@@ -598,6 +598,11 @@ function! s:Reload()
     endif
 endfunction
 
+command! Open call s:Open()
+function! s:Open()
+    exe "normal gx"
+endfunction
+
 "__________________________________________________________________________
     
 fu! SaveSess()

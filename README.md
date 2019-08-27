@@ -139,6 +139,7 @@ make pull
 | gf                    | normal | go to the file at the line number of the path under the cursor               |
 | \gf                   | normal | copy the full path to the file for a regular fail message, then gf           |
 | :Romeo                | visual | remove every other line in selection                                         |
+| :Open                 | normal | open a given link under the cursor in your browser                           |
    
 Deleting 
 
