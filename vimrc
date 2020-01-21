@@ -610,9 +610,12 @@ fu! SaveSess()
 endfunction
 
 fu! Fresh()
-    execute 'e!'
-    call s:tabRight()
-    call s:tabLeft()
+    exe 'e!'
+    :let tabno = tabpagenr()
+    "create than close a tab as a hack to refresh
+    exe "tabnew"
+    exe "q"
+    exe "normal " . tabno . "gt"
 endfunction
 
 autocmd VimLeave * call SaveSess()
