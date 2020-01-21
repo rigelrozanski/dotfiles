@@ -609,7 +609,12 @@ fu! SaveSess()
     execute 'mksession! ' . getcwd() . '/.session.vim'
 endfunction
 
+fu! Fresh()
+    execute 'e!'
+endfunction
+
 autocmd VimLeave * call SaveSess()
+autocmd BufWritePost * call Fresh() "properly refresh vim issue resolved
 
 " autoindent shell files
 autocmd BufWritePre *.sh exec "normal gg=G``zz"
