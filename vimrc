@@ -611,6 +611,8 @@ endfunction
 
 fu! Fresh()
     execute 'e!'
+    call s:tabRight()
+    call s:tabLeft()
 endfunction
 
 autocmd VimLeave * call SaveSess()
