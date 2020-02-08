@@ -6,8 +6,6 @@ export PS1='\w$ '
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export GO111MODULE=on
 
-eval $(thefuck --alias)
-
 #tab to rotate through options
 bind '"\t":menu-complete'
 
