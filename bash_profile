@@ -1,3 +1,5 @@
+
+
 export GOPATH=$HOME/go
 export GOBIN=$HOME/go/bin
 export EDITOR="/usr/bin/vim"
@@ -5,6 +7,19 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.cargo/bin
 export PS1='\w$ '
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export GO111MODULE=on
+
+# android tools
+export ANT_HOME=/usr/local/opt/ant
+export MAVEN_HOME=/usr/local/opt/maven
+export GRADLE_HOME=/usr/local/opt/gradle
+export ANDROID_HOME=/usr/local/opt/android-sdk
+export ANDROID_NDK_HOME=/usr/local/opt/android-ndk
+export PATH=$ANT_HOME/bin:$PATH
+export PATH=$MAVEN_HOME/bin:$PATH
+export PATH=$GRADLE_HOME/bin:$PATH
+export PATH=$ANDROID_HOME/tools:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+export PATH=$ANDROID_HOME/build-tools/19.1.0:$PATH
 
 #tab to rotate through options
 bind '"\t":menu-complete'
@@ -19,7 +34,7 @@ alias gitrevert='git reset HEAD --hard ; git clean -fd ; git checkout -- .'
 alias gitsquash='git rebase -i HEAD~20'
 alias gitsquash2='git add -u ; git commit -m "int" ; git reset --soft HEAD~2 && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"'
 alias gitr='cd $GOPATH/src/github.com/rigelrozanski'
-alias gitr='cd $GOPATH/src//keybase/private/rigel'
+alias gitrk='cd $GOPATH/src//keybase/private/rigel'
 alias giti='cd $GOPATH/src/github.com/ipsdm'
 alias gitt='cd $GOPATH/src/github.com/tendermint'
 alias gitc='cd $GOPATH/src/github.com/cosmos/cosmos-sdk'
