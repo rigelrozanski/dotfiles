@@ -20,6 +20,7 @@ export PATH=$GRADLE_HOME/bin:$PATH
 export PATH=$ANDROID_HOME/tools:$PATH
 export PATH=$ANDROID_HOME/platform-tools:$PATH
 export PATH=$ANDROID_HOME/build-tools/19.1.0:$PATH
+export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
 
 #tab to rotate through options
 bind '"\t":menu-complete'
@@ -33,6 +34,7 @@ alias githash='git rev-parse --short HEAD ; git rev-parse HEAD'
 alias gitrevert='git reset HEAD --hard ; git clean -fd ; git checkout -- .'
 alias gitsquash='git rebase -i HEAD~20'
 alias gitsquash2='git add -u ; git commit -m "int" ; git reset --soft HEAD~2 && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"'
+alias desk='cd $HOME/Desktop'
 alias gitr='cd $GOPATH/src/github.com/rigelrozanski'
 alias gitrk='cd $GOPATH/src//keybase/private/rigel'
 alias giti='cd $GOPATH/src/github.com/ipsdm'

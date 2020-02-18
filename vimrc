@@ -152,7 +152,11 @@ endfunction
 
 " quick remove line function
 function! s:remove()
-    :exe "normal \"_dd"
+    if &scb ==# "noscrollbind"
+       :exe "normal \"_dd"
+    else  " if scrollbind is set remove from all open lines 
+       :windo normal dd
+    endif
 endfunction
 
 " fast tab actions
@@ -227,10 +231,10 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/g<Left><Left>
 vnoremap <Leader>s y:%s/<C-r>"/<C-r>"/g<Left><Left>
 
 """ split navigation remap
-nnoremap <c-s-up> <C-W><C-J>
-nnoremap <c-s-down> <C-W><C-K>
-nnoremap <C-S-left> <C-W><C-H>
-nnoremap <C-S-right> <C-W><C-L>
+"nnoremap <c-s-up> <C-W><C-J>
+"nnoremap <c-s-down> <C-W><C-K>
+"nnoremap <C-S-left> <C-W><C-H>
+"nnoremap <C-S-right> <C-W><C-L>
 nnoremap <S-n>  :call <SID>navigateNerdTree()<CR>
 
 function! s:navigateNerdTree()
