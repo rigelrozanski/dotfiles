@@ -155,7 +155,13 @@ function! s:remove()
     if &scb ==# "noscrollbind"
        :exe "normal \"_dd"
     else  " if scrollbind is set remove from all open lines 
-       :windo normal dd
+       let n = line('.')
+       exe "normal \"_dd"
+       exe "normal \<C-w>\<C-t>"
+       exe n 
+       exe "normal \"_dd"
+       exe "normal \<C-w>\<C-w>"
+       
     endif
 endfunction
 
