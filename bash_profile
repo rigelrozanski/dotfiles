@@ -47,7 +47,10 @@ alias vimn='vim -c "NERDTreeToggle"'
 alias vimr='vim -S .session.vim'
 alias vimtest='vim -c "Test"'
 alias viminstall='vim -c "Install"'
-alias fuck='fuck -y'
+
+notes(){
+   qu cat notes,$1
+}
 
 #git branch auto-completion
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
