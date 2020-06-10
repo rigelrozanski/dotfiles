@@ -9,13 +9,16 @@ install:
 	#run swap
 	bash swap_vimrc.sh push
 
-swap: swapvimrc swapbash swapgitignore
+swap: swapvimrc swapbash swapgitignore swapkitty
 
 swapvimrc:
 	bash swap_vimrc.sh push
 
 swapbash:
 	bash swap_bash_profile.sh push
+
+swapkitty:
+	bash swap_kitty.sh push
 
 swapgitignore:
 	bash swap_gitignore.sh push

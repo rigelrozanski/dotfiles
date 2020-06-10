@@ -51,6 +51,9 @@ let g:go_highlight_build_constraints = 1
 
 colorscheme molokai
 
+" vugu is a mod of html
+au BufRead,BufNewFile *.vugu setfiletype gohtmltmpl
+
 " optional fixes a glitch under some versions of terminal
 if &term =~ '256color'
     " disable Background Color Erase (BCE) so that color schemes
