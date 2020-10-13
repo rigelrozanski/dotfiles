@@ -244,7 +244,7 @@ vnoremap <Leader>s y:%s/<C-r>"/<C-r>"/g<Left><Left>
 "nnoremap <c-s-down> <C-W><C-K>
 "nnoremap <C-S-left> <C-W><C-H>
 "nnoremap <C-S-right> <C-W><C-L>
-nnoremap <S-n>  :call <SID>navigateNerdTree()<CR>
+"nnoremap <S-n>  :call <SID>navigateNerdTree()<CR>
 
 function! s:navigateNerdTree()
         if (exists("b:NERDTree") && b:NERDTree.isTabTree()) 
