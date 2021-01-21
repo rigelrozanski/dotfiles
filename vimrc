@@ -153,6 +153,7 @@ function! s:duplicate()
     call s:dup_lines(n, n + 1)
 endfunction
 
+
 " quick remove line function
 function! s:remove()
     if &scb ==# "noscrollbind"
@@ -222,6 +223,9 @@ inoremap <silent> <C-H> <Esc>:call <SID>remove()<CR>i
 inoremap <silent> <C-L> <Esc>:call <SID>duplicate()<CR>i
 vnoremap <silent> <C-H> <Esc>:call <SID>remove()<CR>v
 vnoremap <silent> <C-L> <Esc>:call <SID>duplicate()<CR>v
+
+" math evaluation
+inoremap <C-E> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 
 " http://vim.wikia.com/wiki/Moving_lines_up_or_down
 noremap <silent> <C-K> :m-2<CR>

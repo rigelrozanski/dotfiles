@@ -140,6 +140,7 @@ make pull
 | \gf                   | normal | copy the full path to the file for a regular fail message, then gf           |
 | :Romeo                | visual | remove every other line in selection                                         |
 | :Open                 | normal | open a given link under the cursor in your browser                           |
+| ctrl-E                | insert | evaluate the expression touching the cursor position                         |
    
 Deleting 
 
