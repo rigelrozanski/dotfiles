@@ -445,6 +445,21 @@ function! s:agsearch(find)
     exe "normal ggi" . a:find 
 endfunction
 
+nnoremap <Leader>a :XXX <C-r><C-w><CR> 
+command! XXX call s:xxxsearch()
+function! s:xxxsearch()
+    if TabooTabName(tabpagenr()) == "XXX"
+        :normal ggdG
+        :silent exec "r ! ag --ignore *.pb.go XXX"
+    else
+        :tabnew
+        :TabooRename XXX
+        :silent exec "r ! ag --ignore *.pb.go XXX"
+        :setlocal buftype=nofile
+    endif
+    exe "normal ggiXXX"
+endfunction
+
 "open all files in seperate tabs
 command -nargs=1 OpenAll call <SID>openAll(<f-args>)
 function! s:openAll(dir)
