@@ -382,6 +382,8 @@ function! s:refreshInstall()
         :call <SID>makeinstall()
     elseif TabooTabName(tabpagenr()) == "maketest"
         :call <SID>maketest()
+    elseif TabooTabName(tabpagenr()) == "XXX"
+        :call <SID>xxxsearch()
     endif
 endfunction
 
@@ -445,7 +447,6 @@ function! s:agsearch(find)
     exe "normal ggi" . a:find 
 endfunction
 
-nnoremap <Leader>a :XXX <C-r><C-w><CR> 
 command! XXX call s:xxxsearch()
 function! s:xxxsearch()
     if TabooTabName(tabpagenr()) == "XXX"
