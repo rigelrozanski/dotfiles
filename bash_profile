@@ -1,5 +1,3 @@
-
-
 export GOPATH=$HOME/go
 export GOBIN=$HOME/go/bin
 export EDITOR="/usr/bin/vim"
@@ -7,6 +5,7 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.cargo/bin
 export PS1='\w$ '
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export GO111MODULE=on
+export GOPHERJS_GOROOT="$(go1.12.16 env GOROOT)"
 
 # android tools
 export ANT_HOME=/usr/local/opt/ant

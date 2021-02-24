@@ -202,6 +202,16 @@ function! s:spellCheckEnd()
     :exe "set nospell"
 endfunction
 
+function! s:openNotes()
+    
+    "get the qu notes filepath
+    let cmd = "qu lsfl app=vim-notes"
+    let notesfile = system(cmd) 
+
+    " open filename in right split
+    :exe "botright vnew " . notesfile
+endfunction
+
 """""""""""""""""""""""""""
 " mapping keys for custom vim script functions
 """""""""""""""""""""""""""
@@ -224,6 +234,7 @@ inoremap <silent> <C-L> <Esc>:call <SID>duplicate()<CR>i
 vnoremap <silent> <C-H> <Esc>:call <SID>remove()<CR>v
 vnoremap <silent> <C-L> <Esc>:call <SID>duplicate()<CR>v
 
+" TODO replace with something much better in go 
 " math evaluation
 inoremap <C-E> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 
@@ -301,6 +312,7 @@ command Q call TabCloseLeft('q!')
 command HL :set hlsearch
 command NHL :set nohlsearch
 command Wrap :set wrap!
+command Notes call <SID>openNotes()
 
 "override default quit command
 cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Q' : 'q')<CR>
