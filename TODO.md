@@ -1,5 +1,7 @@
 
  - :Notes custom vim help file for all my custom commands and thoughts
+ - \fmt -> replace this function in vim with the one below
+ - \db -> should debug the entire term, not only the word the cursor is under
 
 ^^^^^^^^^^^^^^^^ DONE ^^^^^^^^^^^^^^^^
 
@@ -9,8 +11,6 @@ custom.Custom
 SHARPEN VIM TOOLS:
  - have all the golang functionality operate on the vim swap files and not the saved originals
  - close NerdTreeTab if its the last split after a tab close
- - \fmt -> replace this function in vim with the one below
- - \db -> should debug the entire term, not only the word the cursor is under
  - \ldb -> debug with len
  - \ff MyStruct   OR   :fulfill MyStruct 
        -> if under an interface, should create a new object which fullfills 
