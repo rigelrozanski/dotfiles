@@ -1,7 +1,14 @@
 
+ - :Notes custom vim help file for all my custom commands and thoughts
+
+^^^^^^^^^^^^^^^^ DONE ^^^^^^^^^^^^^^^^
+
+(custom.Custom,
+custom.Custom
+
 SHARPEN VIM TOOLS:
  - have all the golang functionality operate on the vim swap files and not the saved originals
- - :Notes custom vim help file for all my custom commands and thoughts
+ - close NerdTreeTab if its the last split after a tab close
  - \fmt -> replace this function in vim with the one below
  - \db -> should debug the entire term, not only the word the cursor is under
  - \ldb -> debug with len
@@ -10,11 +17,14 @@ SHARPEN VIM TOOLS:
           that interface with dummy functions. Add the following comment to the 
           header: 
                  "This struct fulfills the interface SomeInterface (DNETL)"
+       -> for all cases also add the line right after the struct 
+                 `var _ MyInterface = MyStruct{}`
  - \ni    OR   :newI OptionalNameForInterface
        -> if under a struct, creates an interface with all the existing functions on that interface
        -> will use OptionalNameForInterface if provided and then add the comment in the header: 
              "Companion interface of the struct MyStruct (DNETL)"
        -> otherwise will use the name MyStructI and not include the afformentioned comment
+       -> create this interface definition above the struct definition 
  - \up   OR   :Update
        if the cursor is within an interface definition: 
           -> updates the interface with its relative-struct functions from one of 2 sources:

@@ -345,13 +345,14 @@ command QQQ call TabCloseRight('<bang>')
 
 " open current line on Github
 let g:gh_line_map = 'git'
+fmt.Printf("breakpoint gh_line_map: %v\n", gh_line_map)
+fmt.Printf("debug gh_line_map: %v\n", gh_line_map)
 
 " quick insert fmt.Println("")
 let dbg = "debug : %v\\n"
 let bkp = "breakpoint : %v\\n"
-nnoremap fms yiwofmt.Printf("<c-r>=bkp<cr>", )<esc>10<left>p9<right>p<esc>ofmt.Scanf("")<esc>
-nnoremap fmt yiwofmt.Printf("<c-r>=dbg<cr>", )<esc>10<left>p9<right>p
-nnoremap fmp yiwopanic(fmt.Sprintf("<c-r>=dbg<cr>", ))<esc>11<left>p9<right>p `json"yiwopanic"`
+nnoremap db yiwofmt.Printf("<c-r>=dbg<cr>", )<esc>10<left>p9<right>p
+nnoremap pdb yiwopanic(fmt.Sprintf("<c-r>=dbg<cr>", ))<esc>11<left>p9<right>p `json"yiwopanic"`
 nnoremap <Leader>json yiwA `json:"<esc>pbve:s#\%V\(\<\u\l\+\\|\l\+\)\(\u\)#\l\1_\l\2#g<CR>A"`<esc>
 nnoremap <Leader>camel bve:s#\%V\(\<\u\l\+\\|\l\+\)\(\u\)#\l\1_\l\2#g<CR><esc>
 nnoremap <Leader>err oif err != nil {<CR>return err<CR><left><left>}<esc>
