@@ -254,21 +254,6 @@ vnoremap copy :w !pbcopy<CR><CR>
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/g<Left><Left>
 vnoremap <Leader>s y:%s/<C-r>"/<C-r>"/g<Left><Left>
 
-""" split navigation remap
-"nnoremap <c-s-up> <C-W><C-J>
-"nnoremap <c-s-down> <C-W><C-K>
-"nnoremap <C-S-left> <C-W><C-H>
-"nnoremap <C-S-right> <C-W><C-L>
-"nnoremap <S-n>  :call <SID>navigateNerdTree()<CR>
-
-function! s:navigateNerdTree()
-        if (exists("b:NERDTree") && b:NERDTree.isTabTree()) 
-            execute "normal \<C-W>\<C-L>"
-        else 
-            execute "normal \<C-W>\<C-H>"
-        endif
-endfunction
-
 nnoremap dup {v}y}p}dd{ 
 nnoremap cut {v}xO<Esc>
 
@@ -277,12 +262,6 @@ nnoremap com yiwO// <Esc>pi<Right> -
 
 " insert timesstamp
 nnoremap time :pu=strftime('%Y %b %d - %H:%M, [%a .%Z]')<CR>i<BS><ESC>
-
-" automatically leave insert mode after 'updatetime' milliseconds of inaction
-" au CursorHoldI * stopinsert
-" set 'updatetime' to 15 seconds when in insert mode
-" au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
-" au InsertLeave * let &updatetime=updaterestore
 
 """""""""""""""""""""""""""""""""""
 " Visual remapping
@@ -347,12 +326,12 @@ command QQQ call TabCloseRight('<bang>')
 let g:gh_line_map = 'git'
 
 " quick insert fmt.Println("")
-let dbg = "debug : %v\\n"
+let dbgStr = "debug : %v\\n"
 let dbgl = "debug : len(%v)\\n"
 let bkp = "breakpoint : %v\\n"
-nnoremap db yiwofmt.Printf("<c-r>=dbg<cr>", )<esc>10<left>p9<right>p
-nnoremap pdb yiwopanic(fmt.Sprintf("<c-r>=dbg<cr>", ))<esc>11<left>p9<right>p `json"yiwopanic"`
-nnoremap ldb yiwofmt.Printf("<c-r>=dbgl<cr>", len()<esc>19<left>p18<right>pa)<esc>
+nnoremap dbg yiwofmt.Printf("<c-r>=dbgStr<cr>", )<esc>10<left>p9<right>p
+nnoremap dbp yiwopanic(fmt.Sprintf("<c-r>=dbgStr<cr>", ))<esc>11<left>p9<right>p `json"yiwopanic"`
+nnoremap dbl yiwofmt.Printf("<c-r>=dbgl<cr>", len()<esc>19<left>p18<right>pa)<esc>
 nnoremap <Leader>json yiwA `json:"<esc>pbve:s#\%V\(\<\u\l\+\\|\l\+\)\(\u\)#\l\1_\l\2#g<CR>A"`<esc>
 nnoremap <Leader>camel bve:s#\%V\(\<\u\l\+\\|\l\+\)\(\u\)#\l\1_\l\2#g<CR><esc>
 nnoremap <Leader>err oif err != nil {<CR>return err<CR><left><left>}<esc>
@@ -671,22 +650,9 @@ autocmd BufWritePost * call Fresh() "properly refresh vim issue resolved
 autocmd BufWritePre *.sh exec "normal gg=G``zz"
 
 " this next command will force close nerd tree if it's the last and only buffer
-" autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd BufEnter * call EnterBuffer()
-
-let g:canClose = 0 
-fu! EnterBuffer()
-    if winnr("$") > 2 
-        let g:canClose = 1
-    endif
-    if g:canClose 
-        if (winnr("$") == 1 && s:tabIsEmpty()) | q | endif
-        if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-    endif
-endfunction
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "__________________________________________________________________________
-
 " Transparent editing of gpg encrypted files.
 " By Wouter Hanegraaff
 augroup encrypted
