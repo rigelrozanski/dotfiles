@@ -14,6 +14,9 @@ set expandtab
 " disable Ex Mode
 map Q <Nop> 
 
+"better word wrapping during `gq` command
+"allows for hanging indentation
+set ai fo+=q
 
 " nerd tree show hidden by default
 " let g:NERDTreeShowHidden = 1
@@ -35,6 +38,7 @@ set backspace=indent,eol,start " resolves backspace-not-working during insert fo
 
 " syntax enable  
 syntax on
+
 " filetype plugin on  
 filetype plugin indent on
 set number  
@@ -46,8 +50,6 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1  
 let g:go_highlight_operators = 1  
 let g:go_highlight_build_constraints = 1  
-
-" let g:neocomplete#enable_at_startup = 1
 
 colorscheme molokai
 
@@ -61,34 +63,6 @@ if &term =~ '256color'
     set t_ut=
 endif
 
-let g:tagbar_type_go = {  
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
-
 nmap <F8> :TagbarToggle<CR>
 
 map <C-n> :NERDTreeToggle<CR>
@@ -101,33 +75,6 @@ if executable('ag')
     set grepformat=%f:%l:%c%m
 endif
 
-" go to definition #godef #go-def 
-let g:go_def_mapping_enabled = 0
-au FileType go nmap gd <Plug>(go-def-tab)
-
-" rust racer go to definition
-"set hidden
-"let g:racer_experimental_completer = 1
-"au FileType rust nmap gd :call <SID>rustdef()<CR>
-
-function! s:rustdef()
-    "<Plug>(rust-def)
-    "tabnew
-    split
-    call racer#GoToDefinition()
-    tabedit %
-    tabp
-    q
-    tabn
-endfunction
-
-" GoImports
-let g:go_fmt_command = "goimports"
-
-"let g:rustfmt_command = "cargo fmt -- "
-"let g:rustfmt_autosave = 1
-
-
 """""""""""""""""""""""""""""""""""""
 " Visual Mods
 
@@ -135,7 +82,6 @@ let g:go_fmt_command = "goimports"
 let loaded_matchparen = 1
 
 " Moving lines up/down, http://stackoverflow.com/questions/741814/move-entire-line-up-and-down-in-vim
-
 
 " duplicate lines
 function! s:dup_lines(n1, n2)
@@ -153,7 +99,6 @@ function! s:duplicate()
     call s:dup_lines(n, n + 1)
 endfunction
 
-
 " quick remove line function
 function! s:remove()
     if &scb ==# "noscrollbind"
@@ -165,7 +110,6 @@ function! s:remove()
        exe n 
        exe "normal \"_dd"
        exe "normal \<C-w>\<C-w>"
-       
     endif
 endfunction
 
@@ -182,28 +126,8 @@ function! s:tabRight()
     :exe "normal " . tabno . "gt"
 endfunction
 
-function! s:newtab()
-    :exe "tabnew"
-endfunction
-
-" quick remove line function
-function! s:openAllGo()
-    :argadd **/*.go
-    :argadd **/*.md
-    :silent! argdelete vendor/*
-    :tab all
-endfunction
-
-function! s:spellCheck()
-    :exe "setlocal spell spelllang=en_us"
-endfunction
-
-function! s:spellCheckEnd()
-    :exe "set nospell"
-endfunction
-
+command Notes call <SID>openNotes()
 function! s:openNotes()
-    
     "get the qu notes filepath
     let cmd = "qu lsfl app=vim-notes"
     let notesfile = system(cmd) 
@@ -283,21 +207,40 @@ vnoremap ?? :call NERDComment(0,"uncomment")<CR>
 """""""""""""""""""""""""""
 "" Custom Commands
 """"""""""""""""""""""""""
-command O call <SID>openAllGo()
-command SC call <SID>spellCheck()
-command SCE call <SID>spellCheckEnd()
-command T call <SID>newtab()
+
+" credit: https://github.com/convissor/vim-settings/blob/master/.vimrc
+" Declare function for moving left when closing a tab.
 command Q call TabCloseLeft('q!')
+function! TabCloseLeft(cmd)
+	if winnr('$') == 1 && tabpagenr('$') > 1 && tabpagenr() > 1 && tabpagenr() < tabpagenr('$')
+		exec a:cmd | tabprevious
+	else
+		exec a:cmd
+	endif
+endfunction
+
 command HL :set hlsearch
 command NHL :set nohlsearch
 command Wrap :set wrap!
-command Notes call <SID>openNotes()
+
+
+command T call <SID>newtab()
+function! s:newtab()
+    :exe "tabnew"
+endfunction
+
+command SC call <SID>spellCheck()
+function! s:spellCheck()
+    :exe "setlocal spell spelllang=en_us"
+endfunction
+
+command SCE call <SID>spellCheckEnd()
+function! s:spellCheckEnd()
+    :exe "set nospell"
+endfunction
 
 "override default quit command
 cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Q' : 'q')<CR>
-
-" open the whiteboard vim tab
-command WB :tabedit $GOPATH/src/github.com/rigelrozanski/wb/boards/vim
 
 " duplication for messed up key strokes
 command W :w
@@ -340,22 +283,10 @@ nnoremap F ggVGgq
 nnoremap cd ciw<esc>
 nnoremap <C-g> yiwjviwp
 
-" credit: https://github.com/convissor/vim-settings/blob/master/.vimrc
-" Declare function for moving left when closing a tab.
-function! TabCloseLeft(cmd)
-	if winnr('$') == 1 && tabpagenr('$') > 1 && tabpagenr() > 1 && tabpagenr() < tabpagenr('$')
-		exec a:cmd | tabprevious
-	else
-		exec a:cmd
-	endif
-endfunction
-
-
 "__________________________________________________________________________
 " goto commands
 
 function! s:tabIsEmpty()
-    "return winnr('$') == 1 && len(expand('%')) == 0 && line2byte(line('$') + 1) <= 2 
     return len(expand('%')) == 0 && line2byte(line('$') + 1) <= 2 
 endfunction
 
@@ -413,14 +344,6 @@ function! s:makegeneric(cmd)
     :tabnew
     :TabooRename makegeneric
     :silent exec "r ! make " . a:cmd
-    :setlocal buftype=nofile
-endfunction
-
-command -nargs=1 Go call <SID>gogeneric(<f-args>)
-function! s:gogeneric(cmd)
-    :tabnew
-    :TabooRename gogeneric
-    :silent exec "r ! go " . a:cmd
     :setlocal buftype=nofile
 endfunction
 
@@ -501,9 +424,6 @@ function! GotoFileWithLineNum()
     exe "normal gThhgt"
 endfunction 
 
-map gf :call GotoFileWithLineNum()<CR> 
-nnoremap <Leader>gf ma/FAIL\t<CR>eebvEy`abhpli/<ESC>Bi$GOPATH/src/<esc>5l:call GotoFileWithLineNum()<CR>
-
 "__________________________________________________________________________
 
 nnoremap <Leader>S :Rep <C-r><C-w> 
@@ -540,7 +460,6 @@ function! CreateNewXxx(linestart, lineend)
     edit! "reload the current buffer
 endfunction
 
-"command! -range UpdateAlias call UpdateAlias()
 command! UpdateAlias call UpdateAlias()
 function! UpdateAlias()
     let path = expand('%:p')
