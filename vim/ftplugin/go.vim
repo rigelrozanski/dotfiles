@@ -1,5 +1,33 @@
-setlocal iskeyword+=.
 
+nnoremap dbg :InsertDebug <CR> 
+command! InsertDebug call s:InsertDebug()
+function! s:InsertDebug() 
+    setlocal iskeyword+=.
+    let wuc = expand("<cword>") "word under cursor
+    exe "normal ofmt.Printf(\"debug " . wuc  . ": %v\"," . wuc . ")"
+    setlocal iskeyword-=.
+endfunction
+
+nnoremap dbp :InsertDebugPanic <CR> 
+command! InsertDebugPanic call s:InsertDebugPanic()
+function! s:InsertDebugPanic() 
+    setlocal iskeyword+=.
+    let wuc = expand("<cword>") "word under cursor
+    exe "normal opanic(fmt.Sprintf(\"debug " . wuc  . ": %v\"," . wuc . "))"
+    setlocal iskeyword-=.
+endfunction
+
+nnoremap dbl :InsertDebugLength <CR> 
+command! InsertDebugLength call s:InsertDebugLength()
+function! s:InsertDebugLength() 
+    setlocal iskeyword+=.
+    let wuc = expand("<cword>") "word under cursor
+    exe "normal ofmt.Sprintf(\"debug len(" . wuc  . "): %v\", len(" . wuc . "))"
+    setlocal iskeyword-=.
+endfunction
+
+
+"""""""""""""""""""""""""""""
 let g:tagbar_type_go = {  
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [

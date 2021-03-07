@@ -268,13 +268,6 @@ command QQQ call TabCloseRight('<bang>')
 " open current line on Github
 let g:gh_line_map = 'git'
 
-" quick insert fmt.Println("")
-let dbgStr = "debug : %v\\n"
-let dbgl = "debug : len(%v)\\n"
-let bkp = "breakpoint : %v\\n"
-nnoremap dbg yiwofmt.Printf("<c-r>=dbgStr<cr>", )<esc>10<left>p9<right>p
-nnoremap dbp yiwopanic(fmt.Sprintf("<c-r>=dbgStr<cr>", ))<esc>11<left>p9<right>p `json"yiwopanic"`
-nnoremap dbl yiwofmt.Printf("<c-r>=dbgl<cr>", len()<esc>19<left>p18<right>pa)<esc>
 nnoremap <Leader>json yiwA `json:"<esc>pbve:s#\%V\(\<\u\l\+\\|\l\+\)\(\u\)#\l\1_\l\2#g<CR>A"`<esc>
 nnoremap <Leader>camel bve:s#\%V\(\<\u\l\+\\|\l\+\)\(\u\)#\l\1_\l\2#g<CR><esc>
 nnoremap <Leader>err oif err != nil {<CR>return err<CR><left><left>}<esc>
