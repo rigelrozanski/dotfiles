@@ -1,6 +1,5 @@
 setlocal iskeyword+=.
 
-
 let g:tagbar_type_go = {  
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [

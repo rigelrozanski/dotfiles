@@ -444,7 +444,7 @@ function! SetWidth(cols)
     let path = expand('%:p')
     let linenostart = a:firstline  - 1
     let linenoend = a:lastline - 1
-    let cmd = "mt vim column-width " . path . " " . linenostart . " " . linenoend . " " . a:cols
+    let cmd = "vimrcgo column-width " . path . " " . linenostart . " " . linenoend . " " . a:cols
     let results = system(cmd) 
     edit! "reload the current buffer
 endfunction
@@ -455,7 +455,7 @@ function! CreateNewXxx(linestart, lineend)
     let path = expand('%:p')
     let linenostart = a:linestart  - 1
     let linenoend = a:lineend - 1
-    let cmd = "mt vim create-new-xxx " . path . " " . linenostart . " " . linenoend 
+    let cmd = "vimrcgo create-new-xxx " . path . " " . linenostart . " " . linenoend 
     let results = system(cmd) 
     edit! "reload the current buffer
 endfunction
@@ -484,7 +484,7 @@ function! CreateFunctionOf(linestart, lineend)
     let path = expand('%:p')
     let linenostart = a:linestart  - 1
     let linenoend = a:lineend - 1
-    let cmd = "mt vim create-function-of " . path . " " . linenostart . " " . linenoend 
+    let cmd = "vimrcgo create-function-of " . path . " " . linenostart . " " . linenoend 
     let results = system(cmd) 
     edit! "reload the current buffer
 endfunction
@@ -493,7 +493,7 @@ nnoremap <Leader>test :CreateTest <C-r><C-w><CR>
 command! -nargs=1 CreateTest call s:CreateTest(<f-args>)
 function! s:CreateTest(fnname)
     let path = expand('%:p')
-    let cmd = "mt vim create-test " . a:fnname . " " . path
+    let cmd = "vimrcgo create-test " . a:fnname . " " . path
     let testpath = system(cmd) 
     exe "tabnew" testpath
 endfunction
@@ -503,7 +503,7 @@ command! -nargs=1 DebugPrints call s:DebugPrints(<f-args>)
 function! s:DebugPrints(fnname)
     let lineno = line('.') - 1
     let path = expand('%:p')
-    let cmd = "mt vim debug-prints " . a:fnname . " " . path . " " . lineno
+    let cmd = "vimrcgo debug-prints " . a:fnname . " " . path . " " . lineno
     let results = system(cmd) 
     edit! "reload the current buffer
 endfunction
@@ -513,7 +513,7 @@ command! RmDebugPrints call s:RmDebugPrints()
 function! s:RmDebugPrints()
     let lineno = line('.') - 1
     let path = expand('%:p')
-    let cmd = "mt vim remove-debug-prints " . path . " " . lineno
+    let cmd = "vimrcgo remove-debug-prints " . path . " " . lineno
     let results = system(cmd) 
     edit! "reload the current buffer
 endfunction
@@ -524,7 +524,7 @@ function! s:CalAdd()
     :w
     let lineno = line('.') - 1
     let path = expand('%:p')
-    let cmd = "mt cal add " . path . " " . lineno
+    let cmd = "vimrcgo add " . path . " " . lineno
     let results = system(cmd) 
     edit! "reload the current buffer
 endfunction
