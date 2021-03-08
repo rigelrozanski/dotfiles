@@ -432,27 +432,6 @@ function! s:ReplaceAll(from, to)
     endif
 endfunction
 
-command! -range -nargs=1 SetWidth <line1>,<line2>call SetWidth(<f-args>)
-function! SetWidth(cols)
-    let path = expand('%:p')
-    let linenostart = a:firstline  - 1
-    let linenoend = a:lastline - 1
-    let cmd = "vimrcgo column-width " . path . " " . linenostart . " " . linenoend . " " . a:cols
-    let results = system(cmd) 
-    edit! "reload the current buffer
-endfunction
-
-nnoremap <Leader>new <S-v>}k:CreateNewXxx <CR>
-command! -range CreateNewXxx call CreateNewXxx(<line1>,<line2>)
-function! CreateNewXxx(linestart, lineend)
-    let path = expand('%:p')
-    let linenostart = a:linestart  - 1
-    let linenoend = a:lineend - 1
-    let cmd = "vimrcgo create-new-xxx " . path . " " . linenostart . " " . linenoend 
-    let results = system(cmd) 
-    edit! "reload the current buffer
-endfunction
-
 command! UpdateAlias call UpdateAlias()
 function! UpdateAlias()
     let path = expand('%:p')
@@ -471,56 +450,6 @@ function! Romeo(linestart, lineend)
     endwhile
 endfunction
 
-nnoremap <Leader>fo <S-v>}k:CreateFunctionOf <CR>
-command! -range CreateFunctionOf call CreateFunctionOf(<line1>,<line2>)
-function! CreateFunctionOf(linestart, lineend)
-    let path = expand('%:p')
-    let linenostart = a:linestart  - 1
-    let linenoend = a:lineend - 1
-    let cmd = "vimrcgo create-function-of " . path . " " . linenostart . " " . linenoend 
-    let results = system(cmd) 
-    edit! "reload the current buffer
-endfunction
-
-nnoremap <Leader>test :CreateTest <C-r><C-w><CR>
-command! -nargs=1 CreateTest call s:CreateTest(<f-args>)
-function! s:CreateTest(fnname)
-    let path = expand('%:p')
-    let cmd = "vimrcgo create-test " . a:fnname . " " . path
-    let testpath = system(cmd) 
-    exe "tabnew" testpath
-endfunction
-
-nnoremap <Leader>debugs :DebugPrints <C-r><C-w><CR>
-command! -nargs=1 DebugPrints call s:DebugPrints(<f-args>)
-function! s:DebugPrints(fnname)
-    let lineno = line('.') - 1
-    let path = expand('%:p')
-    let cmd = "vimrcgo debug-prints " . a:fnname . " " . path . " " . lineno
-    let results = system(cmd) 
-    edit! "reload the current buffer
-endfunction
-
-nnoremap <Leader>rmdebugs :RmDebugPrints <CR>
-command! RmDebugPrints call s:RmDebugPrints()
-function! s:RmDebugPrints()
-    let lineno = line('.') - 1
-    let path = expand('%:p')
-    let cmd = "vimrcgo remove-debug-prints " . path . " " . lineno
-    let results = system(cmd) 
-    edit! "reload the current buffer
-endfunction
-
-command! AddCal call s:CalAdd()
-command! CalAdd call s:CalAdd()
-function! s:CalAdd()
-    :w
-    let lineno = line('.') - 1
-    let path = expand('%:p')
-    let cmd = "vimrcgo add " . path . " " . lineno
-    let results = system(cmd) 
-    edit! "reload the current buffer
-endfunction
 
 "__________________________________________________________________________
 " END OF FILE/SESSION/SAVE stuff

@@ -26,6 +26,95 @@ function! s:InsertDebugLength()
     setlocal iskeyword-=.
 endfunction
 
+"""""""""""""""""""""""""""""
+
+command! -range -nargs=1 SetWidth <line1>,<line2>call SetWidth(<f-args>)
+function! SetWidth(cols)
+    let path = expand('%:p')
+    let linenostart = a:firstline  - 1
+    let linenoend = a:lastline - 1
+    let cmd = "vimrcgo column-width " . path . " " . linenostart . " " . linenoend . " " . a:cols
+    let results = system(cmd) 
+    edit! "reload the current buffer
+endfunction
+
+nnoremap <Leader>new <S-v>}k:CreateNewXxx <CR>
+command! -range CreateNewXxx call CreateNewXxx(<line1>,<line2>)
+function! CreateNewXxx(linestart, lineend)
+    let path = expand('%:p')
+    let linenostart = a:linestart  - 1
+    let linenoend = a:lineend - 1
+    let cmd = "vimrcgo create-new-xxx " . path . " " . linenostart . " " . linenoend 
+    let results = system(cmd) 
+    edit! "reload the current buffer
+endfunction
+
+nnoremap <Leader>fo :LCreateFunctionOf <CR>
+command! -nargs=1 Fo call s:CreateFunctionOf(<f-args>)
+command! LCreateFunctionOf call s:CreateFunctionOf("Dummiii")
+function! s:CreateFunctionOf(funcname)
+    let path = expand('%:p')
+    let lineno = line('.')
+    let cmd = "vimrcgo create-function-of " . path . " " . lineno . " " . a:funcname
+    let results = system(cmd) 
+    exe "normal " . results
+    startinsert! " equivalent to hitting 'a' in normal mode 
+endfunction
+
+nnoremap <Leader>fnget :CreateGetFunctionOf <CR>
+nnoremap <Leader>fnset :CreateSetFunctionOf <CR>
+nnoremap <Leader>fngset :CreateGetSetFunctionOf <CR>
+command! CreateGetFunctionOf call s:CreateGetSetFunctionOf("get")
+command! CreateSetFunctionOf call s:CreateGetSetFunctionOf("set")
+command! CreateGetSetFunctionOf call s:CreateGetSetFunctionOf("getandset")
+function! s:CreateGetSetFunctionOf(getandorset)
+    let path = expand('%:p')
+    let lineno = line('.')
+    let cmd = "vimrcgo create-get-set-function-of " . path . " " . lineno . " " . a:getandorset
+    let results = system(cmd) 
+    exe "normal " . results
+endfunction
+
+nnoremap <Leader>test :CreateTest <C-r><C-w><CR>
+command! -nargs=1 CreateTest call s:CreateTest(<f-args>)
+function! s:CreateTest(fnname)
+    let path = expand('%:p')
+    let cmd = "vimrcgo create-test " . a:fnname . " " . path
+    let testpath = system(cmd) 
+    exe "tabnew" testpath
+endfunction
+
+nnoremap <Leader>debugs :DebugPrints <C-r><C-w><CR>
+command! -nargs=1 DebugPrints call s:DebugPrints(<f-args>)
+function! s:DebugPrints(fnname)
+    let lineno = line('.') - 1
+    let path = expand('%:p')
+    let cmd = "vimrcgo debug-prints " . a:fnname . " " . path . " " . lineno
+    let results = system(cmd) 
+    edit! "reload the current buffer
+endfunction
+
+nnoremap <Leader>rmdebugs :RmDebugPrints <CR>
+command! RmDebugPrints call s:RmDebugPrints()
+function! s:RmDebugPrints()
+    let lineno = line('.') - 1
+    let path = expand('%:p')
+    let cmd = "vimrcgo remove-debug-prints " . path . " " . lineno
+    let results = system(cmd) 
+    edit! "reload the current buffer
+endfunction
+
+command! AddCal call s:CalAdd()
+command! CalAdd call s:CalAdd()
+function! s:CalAdd()
+    :w
+    let lineno = line('.') - 1
+    let path = expand('%:p')
+    let cmd = "vimrcgo add " . path . " " . lineno
+    let results = system(cmd) 
+    edit! "reload the current buffer
+endfunction
+
 
 """""""""""""""""""""""""""""
 let g:tagbar_type_go = {  

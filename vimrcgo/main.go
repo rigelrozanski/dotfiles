@@ -8,8 +8,10 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"unicode"
 
 	"github.com/rigelrozanski/common"
+	"github.com/rigelrozanski/common/parse"
 	"github.com/spf13/cobra"
 )
 
@@ -27,6 +29,7 @@ func init() {
 	rootCmd.AddCommand(removeEveryOtherCmd)
 	rootCmd.AddCommand(createNewXxx)
 	rootCmd.AddCommand(createFunctionOf)
+	rootCmd.AddCommand(createGetSetFunctionOf)
 }
 
 func main() {
@@ -182,7 +185,8 @@ func removePrints(lines []string, startLineNo int) []string {
 }
 
 // helper function for visual mode vim commands
-func loadFileVisualMode(args []string) (srcFile string, startLineNo, endLineNo int, lines []string, err error) {
+func loadFileVisualMode(args []string) (srcFile string,
+	startLineNo, endLineNo int, lines []string, err error) {
 
 	srcFile = args[0]
 	startLineNo, err = strconv.Atoi(args[1])
@@ -376,46 +380,141 @@ var createNewXxx = &cobra.Command{
 	},
 }
 
+func camelcaseToAbbreviation(camel string) (abbr string) {
+	if len(camel) == 0 {
+		return ""
+	}
+
+	abbr = strings.ToLower(string(camel[0])) // always include the first letter
+
+	remainingRunes := []rune(camel[1:])
+	for _, r := range remainingRunes {
+		if unicode.IsUpper(r) {
+			abbr += strings.ToLower(string(r))
+		}
+	}
+	return abbr
+}
+
 var createFunctionOf = &cobra.Command{
-	Use:   "create-function-of [source-file] [lineno-start] [lineno-end]",
+	Use:   "create-function-of [source-file] [lineno] [func-name]",
 	Short: "create a function of a struct",
 	Args:  cobra.ExactArgs(3),
 	RunE: func(cmd *cobra.Command, args []string) error {
 
-		srcFile, startLineNo, endLineNo, lines, err := loadFileVisualMode(args)
+		srcFile := args[0]
+		lineNo, err := strconv.Atoi(args[1])
 		if err != nil {
-			return err
+			fmt.Printf("obad line number: %v", err)
+			return nil
 		}
+		funcName := args[2]
 
 		// get the function name
-		split0 := strings.Split(lines[startLineNo], " ")
-		var name string
-		for i := 0; i < len(split0); i-- {
-			if split0[i] == "type" && split0[i+2] == "struct" {
-				name = split0[i+1]
-				break
+		strct, _, found := parse.GetCurrentParsedStruct(srcFile, lineNo)
+		if !found {
+			//fmt.Printf("o%v", "cursor not within a struct")
+			return nil
+		}
+
+		abbr := camelcaseToAbbreviation(strct.Name)
+
+		// create the function text
+		funcText := fmt.Sprintf("\r")
+		funcText += fmt.Sprintf("// %v TODO\r", funcName)
+		funcText += fmt.Sprintf("func (%v %v) %v() {\r", abbr, strct.Name, funcName)
+		funcText += fmt.Sprintf("\r")
+		funcText += fmt.Sprintf("}")
+
+		// normal vim script:
+		//  - go to the end of the struct
+		//  - insert a new line and all the func text
+		//  - escape (\033), go to the end of the header comment line
+		fmt.Printf("%vggo%v\0333k$", strct.EndLine, funcText)
+		return nil
+	},
+}
+
+var createGetSetFunctionOf = &cobra.Command{
+	Use:   "create-get-set-function-of [source-file] [lineno] [get,set,or getandset]",
+	Short: "create a get and/or set function of a struct for one of its fields",
+	Args:  cobra.ExactArgs(3),
+	RunE: func(cmd *cobra.Command, args []string) error {
+
+		srcFile := args[0]
+		lineNo, err := strconv.Atoi(args[1])
+		if err != nil {
+			fmt.Printf("obad line number: %v", err)
+			return nil
+		}
+		get, set := false, false
+		switch args[2] {
+		case "get":
+			get = true
+		case "set":
+			set = true
+		case "getandset":
+			get = true
+			set = true
+		default:
+			fmt.Printf("obad text for 3rd arg must be either get, set, or getandset")
+			return nil
+		}
+
+		// get the field
+		strct, fld, found := parse.GetCurrentParsedStruct(srcFile, lineNo)
+		if !found {
+			fmt.Printf("o%v", "cursor not within a struct")
+			return nil
+		}
+
+		abbr := camelcaseToAbbreviation(strct.Name)
+
+		// normal vim script: go to endline, enter line and start insert mode
+		fmt.Printf("%vggo", strct.EndLine)
+
+	OUTER:
+		for _, fldName := range fld.Names {
+			capitalizedFldName := ""
+			lowerCaseFldName := ""
+			switch len(fldName) {
+			case 0:
+				continue OUTER
+			case 1:
+				capitalizedFldName = strings.ToUpper(string(fldName[0]))
+				lowerCaseFldName = strings.ToLower(string(fldName[0]))
+			default:
+				capitalizedFldName = strings.ToUpper(string(fldName[0])) + string(fldName[1:])
+				lowerCaseFldName = strings.ToLower(string(fldName[0])) + string(fldName[1:])
+			}
+
+			if get {
+				fnName := fmt.Sprintf("Get%v", capitalizedFldName)
+
+				funcText := fmt.Sprintf("\r")
+				funcText += fmt.Sprintf("// %v gets %v from %v \r", fnName, fldName, strct.Name)
+				funcText += fmt.Sprintf("func (%v *%v) %v() %v {\r",
+					abbr, strct.Name, fnName, fld.Type)
+				funcText += fmt.Sprintf("return %v.%v\r", abbr, fldName)
+				funcText += fmt.Sprintf("}")
+				fmt.Printf(funcText)
+			}
+
+			if set {
+				fnName := fmt.Sprintf("Set%v", capitalizedFldName)
+				funcText := fmt.Sprintf("\r")
+				if get {
+					funcText += fmt.Sprintf("\r") //extra line
+				}
+				funcText += fmt.Sprintf("// %v sets %v within %v \r", fnName, fldName, strct.Name)
+				funcText += fmt.Sprintf("func (%v *%v) %v(%v %v) {\r",
+					abbr, strct.Name, fnName, lowerCaseFldName, fld.Type)
+				funcText += fmt.Sprintf("%v.%v = %v\r", abbr, fldName, lowerCaseFldName)
+				funcText += fmt.Sprintf("}")
+				fmt.Printf(funcText)
 			}
 		}
 
-		// get an abbreviation text
-		abbr := strings.ToLower(string(name[0]))
-
-		// create the function text
-		funcText := []string{"", "// TODO",
-			fmt.Sprintf("func (%v %v)FuncName() {", abbr, name),
-			"",
-			"}",
-		}
-
-		// compile and save the final file
-		var outLines []string
-		outLines = append(outLines[:], lines[:endLineNo+1]...)
-		outLines = append(outLines[:], funcText...)
-		outLines = append(outLines[:], lines[endLineNo+1:]...)
-		err = common.WriteLines(outLines, srcFile)
-		if err != nil {
-			return err
-		}
 		return nil
 	},
 }
