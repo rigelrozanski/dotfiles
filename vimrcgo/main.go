@@ -30,6 +30,7 @@ func init() {
 	rootCmd.AddCommand(createNewXxx)
 	rootCmd.AddCommand(createFunctionOf)
 	rootCmd.AddCommand(createGetSetFunctionOf)
+	rootCmd.AddCommand(createStructFulfillingInterface)
 }
 
 func main() {
@@ -464,7 +465,7 @@ var createGetSetFunctionOf = &cobra.Command{
 		// get the field
 		strct, fld, found := parse.GetCurrentParsedStruct(srcFile, lineNo)
 		if !found {
-			fmt.Printf("o%v", "cursor not within a struct")
+			//fmt.Printf("o%v", "cursor not within a struct")
 			return nil
 		}
 
@@ -513,6 +514,77 @@ var createGetSetFunctionOf = &cobra.Command{
 				funcText += fmt.Sprintf("}")
 				fmt.Printf(funcText)
 			}
+		}
+
+		return nil
+	},
+}
+
+var createStructFulfillingInterface = &cobra.Command{
+	Use:   "create-struct-fulfilling-interface [source-file] [lineno] [struct-name]",
+	Short: "create a struct which fulfilles an interface",
+	Args:  cobra.ExactArgs(3),
+	RunE: func(cmd *cobra.Command, args []string) error {
+
+		srcFile := args[0]
+		lineNo, err := strconv.Atoi(args[1])
+		if err != nil {
+			fmt.Printf("obad line number: %v", err)
+			return nil
+		}
+		structName := args[2]
+
+		// get the interface
+		inter, found := parse.GetCurrentParsedInterface(srcFile, lineNo)
+		if !found {
+			//fmt.Printf("o%v", "cursor not within a struct")
+			return nil
+		}
+
+		abbr := camelcaseToAbbreviation(structName)
+
+		// normal vim script: go to endline, enter line and start insert mode
+		fmt.Printf("%vggo", inter.EndLine)
+
+		// write the struct
+		fmt.Printf("\r")
+		fmt.Printf("// %v fulfills the interface %v (DNETL)\r", structName, inter.Name)
+		fmt.Printf("type %v struct {}\r", structName)
+		fmt.Printf("\r")
+		fmt.Printf("var _ %v = %v{}\r", inter.Name, structName)
+
+		// write all the interface functions
+		for _, interFn := range inter.Functions {
+
+			returnLine := ""
+			if len(interFn.OutputFields) > 0 {
+				returnLine = "return "
+				for _, of := range interFn.OutputFields {
+
+					// write one dummy output for each name, or just one dummy output
+					// if there are no names
+					max := len(of.Names)
+					if max == 0 {
+						max = 1
+					}
+
+					for i := 0; i < max; i++ {
+						if len(returnLine) > 7 { // (7 = "return ")
+							returnLine += ", "
+						}
+						returnLine += of.DummyFulfill
+					}
+				}
+				returnLine += "\r"
+			}
+
+			// create the function text
+			funcText := fmt.Sprintf("\r")
+			funcText += fmt.Sprintf("// %v TODO\r", interFn.FuncName)
+			funcText += fmt.Sprintf("func (%v %v) %v {\r", abbr, structName, interFn.RecreatedCode)
+			funcText += fmt.Sprintf(returnLine)
+			funcText += fmt.Sprintf("}\r")
+			fmt.Printf(funcText)
 		}
 
 		return nil

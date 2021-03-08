@@ -11,11 +11,6 @@
  - \fnget -> creates a "get" function for the field which the cursor is under within a struct 
  - \fnset -> creates a "set" function for the field which the cursor is under within a struct 
  - \fngetset -> creates both above
-
-^^^^^^^^^^^^^^^^ DONE ^^^^^^^^^^^^^^^^
-
-SHARPEN VIM TOOLS:
- - have all the golang functionality operate on the vim swap files and not the saved originals
  - :Fulfill MyStruct 
        -> if under an interface, should create a new object which fullfills 
           that interface with dummy functions. Add the following comment to the 
@@ -23,6 +18,11 @@ SHARPEN VIM TOOLS:
                  "This struct fulfills the interface SomeInterface (DNETL)"
        -> for all cases also add the line right after the struct 
                  `var _ MyInterface = MyStruct{}`
+
+^^^^^^^^^^^^^^^^ DONE ^^^^^^^^^^^^^^^^
+
+SHARPEN VIM TOOLS:
+ - have all the golang functionality operate on the vim swap files and not the saved originals
  - \ni    OR   :NewI OptionalNameForInterface
        -> if under a struct, creates an interface with all the existing functions on that struct
        -> will use OptionalNameForInterface if provided and then add the comment in the header: 

@@ -61,6 +61,15 @@ function! s:CreateFunctionOf(funcname)
     startinsert! " equivalent to hitting 'a' in normal mode 
 endfunction
 
+command! -nargs=1 Fulfill call s:CreateStructFulfilling(<f-args>)
+function! s:CreateStructFulfilling(structname)
+    let path = expand('%:p')
+    let lineno = line('.')
+    let cmd = "vimrcgo create-struct-fulfilling-interface  " . path . " " . lineno . " " . a:structname
+    let results = system(cmd) 
+    exe "normal " . results
+endfunction
+
 nnoremap <Leader>fnget :CreateGetFunctionOf <CR>
 nnoremap <Leader>fnset :CreateSetFunctionOf <CR>
 nnoremap <Leader>fngset :CreateGetSetFunctionOf <CR>
