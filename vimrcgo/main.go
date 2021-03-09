@@ -31,6 +31,7 @@ func init() {
 	rootCmd.AddCommand(createFunctionOf)
 	rootCmd.AddCommand(createGetSetFunctionOf)
 	rootCmd.AddCommand(createStructFulfillingInterface)
+	rootCmd.AddCommand(evaluateText)
 }
 
 func main() {

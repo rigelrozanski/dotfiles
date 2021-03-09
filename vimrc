@@ -158,10 +158,6 @@ inoremap <silent> <C-L> <Esc>:call <SID>duplicate()<CR>i
 vnoremap <silent> <C-H> <Esc>:call <SID>remove()<CR>v
 vnoremap <silent> <C-L> <Esc>:call <SID>duplicate()<CR>v
 
-" TODO replace with something much better in go 
-" math evaluation
-inoremap <C-E> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
-
 " http://vim.wikia.com/wiki/Moving_lines_up_or_down
 noremap <silent> <C-K> :m-2<CR>
 noremap <silent> <C-J> :m+1<CR>
@@ -237,6 +233,20 @@ endfunction
 command SCE call <SID>spellCheckEnd()
 function! s:spellCheckEnd()
     :exe "set nospell"
+endfunction
+
+" math evaluation
+"inoremap <C-E> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
+"
+"nnoremap <Leader>S :Rep <C-r><C-w> 
+"command! -nargs=* Rep call s:ReplaceAll(<f-args>)
+nnoremap <Leader>= :Eval <CR>
+command! Eval call s:Eval()
+function! s:Eval()
+    let line=getline('.')
+    let cmd = "vimrcgo evaluate-text \"" . line . "\""
+    let evaluated = system(cmd) 
+    exe "normal 0Di" . evaluated
 endfunction
 
 "override default quit command
