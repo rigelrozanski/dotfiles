@@ -4,8 +4,9 @@ command! InsertDebug call s:InsertDebug()
 function! s:InsertDebug() 
     setlocal iskeyword+=.
     let wuc = expand("<cword>") "word under cursor
-    exe "normal ofmt.Printf(\"debug " . wuc  . ": %v\"," . wuc . ")"
+    exe "normal ofmt.Printf(\"debug " . wuc  . ": %v\\n\"," . wuc . ")"
     setlocal iskeyword-=.
+   " exe "GoFmt"
 endfunction
 
 nnoremap dbp :InsertDebugPanic <CR> 
@@ -13,8 +14,9 @@ command! InsertDebugPanic call s:InsertDebugPanic()
 function! s:InsertDebugPanic() 
     setlocal iskeyword+=.
     let wuc = expand("<cword>") "word under cursor
-    exe "normal opanic(fmt.Sprintf(\"debug " . wuc  . ": %v\"," . wuc . "))"
+    exe "normal opanic(fmt.Printf(\"debug " . wuc  . ": %v\\n\"," . wuc . "))"
     setlocal iskeyword-=.
+   " exe "GoFmt"
 endfunction
 
 nnoremap dbl :InsertDebugLength <CR> 
@@ -22,8 +24,9 @@ command! InsertDebugLength call s:InsertDebugLength()
 function! s:InsertDebugLength() 
     setlocal iskeyword+=.
     let wuc = expand("<cword>") "word under cursor
-    exe "normal ofmt.Sprintf(\"debug len(" . wuc  . "): %v\", len(" . wuc . "))"
+    exe "normal ofmt.Printf(\"debug len(" . wuc  . "): %v\\n\", len(" . wuc . "))"
     setlocal iskeyword-=.
+    "exe "GoFmt"
 endfunction
 
 """""""""""""""""""""""""""""
@@ -58,6 +61,7 @@ function! s:CreateFunctionOf(funcname)
     let cmd = "vimrcgo create-function-of " . path . " " . lineno . " " . a:funcname
     let results = system(cmd) 
     exe "normal " . results
+    "exe "GoFmt"
     startinsert! " equivalent to hitting 'a' in normal mode 
 endfunction
 
@@ -68,7 +72,21 @@ function! s:CreateStructFulfilling(structname)
     let cmd = "vimrcgo create-struct-fulfilling-interface  " . path . " " . lineno . " " . a:structname
     let results = system(cmd) 
     exe "normal " . results
+    "exe "GoFmt"
 endfunction
+
+nnoremap <Leader>ni :LNi <CR>
+command! LNi call s:CreateInterfaceMirroringStruct("")
+command! -nargs=1 Newi call s:CreateInterfaceMirroringStruct(<f-args>)
+function! s:CreateInterfaceMirroringStruct(intername)
+    let path = expand('%:p')
+    let lineno = line('.')
+    let cmd = "vimrcgo create-interface-mirroring-struct  " . path . " " . lineno . " " . a:intername
+    let results = system(cmd) 
+    exe "normal " . results
+    "silent exe "GoFmt"
+endfunction
+
 
 nnoremap <Leader>fnget :CreateGetFunctionOf <CR>
 nnoremap <Leader>fnset :CreateSetFunctionOf <CR>
@@ -82,6 +100,7 @@ function! s:CreateGetSetFunctionOf(getandorset)
     let cmd = "vimrcgo create-get-set-function-of " . path . " " . lineno . " " . a:getandorset
     let results = system(cmd) 
     exe "normal " . results
+    exe "GoFmt"
 endfunction
 
 nnoremap <Leader>test :CreateTest <C-r><C-w><CR>

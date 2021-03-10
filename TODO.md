@@ -18,17 +18,17 @@
                  "This struct fulfills the interface SomeInterface (DNETL)"
        -> for all cases also add the line right after the struct 
                  `var _ MyInterface = MyStruct{}`
-
-^^^^^^^^^^^^^^^^ DONE ^^^^^^^^^^^^^^^^
-
-SHARPEN VIM TOOLS:
- - have all the golang functionality operate on the vim swap files and not the saved originals
+ - ctrl-e -> create a better evaluation routine than the builtin vim
  - \ni    OR   :NewI OptionalNameForInterface
        -> if under a struct, creates an interface with all the existing functions on that struct
        -> will use OptionalNameForInterface if provided and then add the comment in the header: 
              "Companion interface of the struct MyStruct (DNETL)"
        -> otherwise will use the name MyStructI and not include the afformentioned comment
        -> create this interface definition above the struct definition 
+
+^^^^^^^^^^^^^^^^ DONE ^^^^^^^^^^^^^^^^
+
+SHARPEN VIM TOOLS:
  - \up   OR   :Update
        if the cursor is within an interface definition: 
           -> updates the interface with its relative-struct functions from one of 2 sources:
@@ -42,4 +42,9 @@ SHARPEN VIM TOOLS:
                  "This struct fulfills the interface SomeInterface (DNETL)"
              then update that struct with any missing functions (as new dummy functions) 
              of SomeInterface
- - ctrl-e -> create a better evaluation routine than the builtin vim
+ - have all the golang functionality operate on the vim swap files and not the saved originals
+ - figure out how to run gofmt from ftplugin file 
+ - Improve \new
+  - use the parse library
+  - should be modified to send back the results (write directly and reload, causes issues)
+  - new should deduplicate types in the input fields of the NewFunc

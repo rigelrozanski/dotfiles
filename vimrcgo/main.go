@@ -8,7 +8,6 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
-	"unicode"
 
 	"github.com/rigelrozanski/common"
 	"github.com/rigelrozanski/common/parse"
@@ -31,6 +30,7 @@ func init() {
 	rootCmd.AddCommand(createFunctionOf)
 	rootCmd.AddCommand(createGetSetFunctionOf)
 	rootCmd.AddCommand(createStructFulfillingInterface)
+	rootCmd.AddCommand(createInterfaceMirroringStruct)
 	rootCmd.AddCommand(evaluateText)
 }
 
@@ -126,7 +126,8 @@ func insertPrints(lines []string, startLineNo int, name string) []string {
 			break
 		}
 
-		if strings.Contains(line, "}") || strings.Contains(line, "{") { // reached the end of the function
+		// reached the end of the function
+		if strings.Contains(line, "}") || strings.Contains(line, "{") {
 
 			outputStr := fmt.Sprintf("fmt.Println(\"wackydebugoutput %v %v\")", name, debugNo)
 			debugNo++
@@ -380,22 +381,6 @@ var createNewXxx = &cobra.Command{
 		}
 		return nil
 	},
-}
-
-func camelcaseToAbbreviation(camel string) (abbr string) {
-	if len(camel) == 0 {
-		return ""
-	}
-
-	abbr = strings.ToLower(string(camel[0])) // always include the first letter
-
-	remainingRunes := []rune(camel[1:])
-	for _, r := range remainingRunes {
-		if unicode.IsUpper(r) {
-			abbr += strings.ToLower(string(r))
-		}
-	}
-	return abbr
 }
 
 var createFunctionOf = &cobra.Command{
