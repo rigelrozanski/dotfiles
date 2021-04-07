@@ -474,9 +474,12 @@ function! s:Reload()
     endif
 endfunction
 
-command! Open call s:Open()
-function! s:Open()
-    exe "normal gx"
+nnoremap gx :OpenLink<CR>
+command! OpenLink call s:OpenLink()
+function! s:OpenLink()
+    let link = expand("<cWORD>")
+    let cmd = "open -a Firefox " . link
+    let results = system(cmd) " this runs the cmd without leaving vim
 endfunction
 
 "__________________________________________________________________________
