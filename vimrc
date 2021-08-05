@@ -482,6 +482,28 @@ function! s:OpenLink()
     let results = system(cmd) " this runs the cmd without leaving vim
 endfunction
 
+vnoremap gx :SearchTerm<CR>
+command! -range SearchTerm call s:SearchTerm()
+function! s:SearchTerm()
+    let selection = s:get_visual_selection()
+    let cmd = "open -a Firefox \"https://duckduckgo.com/?q=" . selection . "\""
+    let results = system(cmd) " this runs the cmd without leaving vim
+endfunction
+
+function! s:get_visual_selection()
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
+endfunction
+
+
 "__________________________________________________________________________
     
 fu! SaveSess()
@@ -626,7 +648,7 @@ command! -nargs=1 Newi call s:CreateInterfaceMirroringStruct(<f-args>)
 function! s:CreateInterfaceMirroringStruct(intername)
     let path = expand('%:p')
     let lineno = line('.')
-    let cmd = "vimrcgo create-interface-mirroring-struct  " . path . " " . lineno . " " . a:intername
+    let cmd = "vimrcgo create-interface-mirroring-struct " . path . " " . lineno . " " . a:intername
     let results = system(cmd)
     exe "normal " . results
     exe "GoFmt"

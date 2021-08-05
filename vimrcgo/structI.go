@@ -29,7 +29,7 @@ var createInterfaceMirroringStruct = &cobra.Command{
 		// get the function name
 		strct, _, found := parse.GetCurrentParsedStruct(srcFile, lineNo)
 		if !found {
-			//fmt.Printf("o%v", "cursor not within a struct")
+			fmt.Printf("o%v", "cursor not within a struct")
 			return nil
 		}
 
