@@ -97,4 +97,13 @@ curl -LSso ~/.vim/plugin/vim-gh-line.vim https://raw.githubusercontent.com/ruany
 # Install Rust Racer
 git clone --depth=1 https://github.com/racer-rust/vim-racer.git ~/.vim/bundle/vim-racer
 
+# Install dispatch
+mkdir -p ~/.vim/pack/tpope/start
+cd ~/.vim/pack/tpope/start
+git clone https://tpope.io/vim/dispatch.git
+vim -u NONE -c "helptags dispatch/doc" -c q
+
+
 popd
+
+

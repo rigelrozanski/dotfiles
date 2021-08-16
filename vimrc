@@ -712,6 +712,45 @@ endfunction
 
 
 """""""""""""""""""""""""""""
+" for songfiles 
+"
+
+
+let g:playing = 0
+nnoremap <Leader>p :Play <CR>
+command! Play call s:PlaySongsheet()
+function! s:PlaySongsheet()
+    if g:playing == 0
+        let [lineno, colno] = getpos(".")[1:2]
+        let path = expand('%:p')
+        let cmd = "mt songsheet-filled-playback-time " . path . " " . colno . " " . lineno
+        "let playbacktime = system(cmd)
+        "let cmd2 = "dispatch play test.wav trim " . playbacktime . " =10:00"
+        exe "Dispatch! play testrec.wav"
+        let g:playing = 1
+    else 
+        exe "AbortDispatch"
+        let g:playing = 0
+    endif
+endfunction
+
+command! Rec call s:RecSongsheet()
+function! s:RecSongsheet()
+    if g:playing == 0
+        let [lineno, colno] = getpos(".")[1:2]
+        let path = expand('%:p')
+        let cmd = "mt songsheet-filled-playback-time " . path . " " . colno . " " . lineno
+        "let playbacktime = system(cmd)
+        "let cmd2 = "dispatch play test.wav trim " . playbacktime . " =10:00"
+        exe "Dispatch! play testrec.wav"
+        let g:playing = 1
+    else 
+        exe "AbortDispatch"
+        let g:playing = 0
+    endif
+endfunction
+
+"""""""""""""""""""""""""""""
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
