@@ -778,6 +778,7 @@ function! s:PlaySongsheet()
         let [lineno, colno] = getpos(".")[1:2]
         let cmd = "mt songsheet-filled-playback-time " . path . " " . colno . " " . lineno
         let playbackTime = system(cmd)
+
         if playbackTime == "BAD-PLAYBACK-TIME"
             echo "bad playback time"
             return
@@ -798,7 +799,12 @@ function! s:RecSongsheet()
         return
     endif
 
-    if g:soxMode == ""
+    if g:soxMode == "playing" 
+        exe "AbortDispatch"
+        let g:soxMode = ""
+    endif
+
+    if g:soxMode == "" 
         let path = expand('%:p')
         let audioPath = system("mt songsheet-audio " . path)
 
