@@ -713,40 +713,103 @@ endfunction
 
 """""""""""""""""""""""""""""
 " for songfiles 
-"
 
 
-let g:playing = 0
+"maps the escape key to abort song playback
+"or recording if the current buffer is a songsheet
+"autocmd BufEnter * call AddEscForSongsheet()
+"let g:alreadyInit = "FALSE"
+"function! AddEscForSongsheet()
+    "if g:alreadyInit == "TRUE" 
+        "return 
+    "endif
+    "let path = expand('%:p')
+    "let cmd = "mt is-songsheet " . path
+    "let issongsheet = system(cmd)
+    "if issongsheet == "TRUE"
+        "map <esc> :call AbortSoxDispatch()<CR>
+    "endif
+    "g:alreadyInit = "TRUE"
+"endfunction
+    
+"function! AbortSoxDispatch()
+    "if g:soxMode == "playing" || g:soxMode == "recording"
+        "exe "AbortDispatch"
+        "let g:soxMode = ""
+    "endif
+"endfunction
+
+nnoremap <Leader>o :Stop <CR>
+command! Stop call s:StopSongsheet()
+function! s:StopSongsheet()
+    exe "AbortDispatch"
+    let g:soxMode = ""
+endfunction
+
+let g:soxMode = ""
 nnoremap <Leader>p :Play <CR>
 command! Play call s:PlaySongsheet()
 function! s:PlaySongsheet()
-    if g:playing == 0
-        let [lineno, colno] = getpos(".")[1:2]
-        let path = expand('%:p')
-        let cmd = "mt songsheet-filled-playback-time " . path . " " . colno . " " . lineno
-        "let playbacktime = system(cmd)
-        "let cmd2 = "dispatch play test.wav trim " . playbacktime . " =10:00"
-        exe "Dispatch! play testrec.wav"
-        let g:playing = 1
-    else 
+    let path = expand('%:p')
+    let cmd = "mt is-songsheet " . path
+    let issongsheet = system(cmd)
+    if issongsheet == "FALSE" 
+        return
+    endif
+
+    if g:soxMode == "playing" || g:soxMode == "recording"
         exe "AbortDispatch"
-        let g:playing = 0
+        let g:soxMode = ""
+        if g:soxMode == "recording"
+            return
+        endif
+    endif
+
+    if g:soxMode == ""
+
+        let hasAudio = system("mt songsheet-has-audio " . path)
+        if hasAudio == "FALSE"
+            echo "no audio file yet associated with this songsheet"
+            return
+        endif
+
+        let audioPath = system("mt songsheet-audio " . path)
+
+        let [lineno, colno] = getpos(".")[1:2]
+        let cmd = "mt songsheet-filled-playback-time " . path . " " . colno . " " . lineno
+        let playbackTime = system(cmd)
+        if playbackTime == "BAD-PLAYBACK-TIME"
+            echo "bad playback time"
+            return
+        endif
+        
+        exe "Dispatch! play " . audioPath . " trim " . playbackTime . " =10:00"
+        let g:soxMode = "playing"
+        return 
     endif
 endfunction
 
-command! Rec call s:RecSongsheet()
+command! Rec call <SID>RecSongsheet()
 function! s:RecSongsheet()
-    if g:playing == 0
-        let [lineno, colno] = getpos(".")[1:2]
+    let path = expand('%:p')
+    let cmd = "mt is-songsheet " . path
+    let issongsheet = system(cmd)
+    if issongsheet == "FALSE" 
+        return
+    endif
+
+    if g:soxMode == ""
         let path = expand('%:p')
-        let cmd = "mt songsheet-filled-playback-time " . path . " " . colno . " " . lineno
-        "let playbacktime = system(cmd)
-        "let cmd2 = "dispatch play test.wav trim " . playbacktime . " =10:00"
-        exe "Dispatch! play testrec.wav"
-        let g:playing = 1
-    else 
-        exe "AbortDispatch"
-        let g:playing = 0
+        let audioPath = system("mt songsheet-audio " . path)
+
+        
+        "reload the current buffer as new line 
+        "may have been added for the audio file 
+        "location within the songfile
+        
+        exe "Dispatch! rec " . audioPath 
+        let g:soxMode = "recording"
+        "edit! 
     endif
 endfunction
 
