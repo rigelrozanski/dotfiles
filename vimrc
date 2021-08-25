@@ -714,31 +714,6 @@ endfunction
 """""""""""""""""""""""""""""
 " for songfiles 
 
-
-"maps the escape key to abort song playback
-"or recording if the current buffer is a songsheet
-"autocmd BufEnter * call AddEscForSongsheet()
-"let g:alreadyInit = "FALSE"
-"function! AddEscForSongsheet()
-    "if g:alreadyInit == "TRUE" 
-        "return 
-    "endif
-    "let path = expand('%:p')
-    "let cmd = "mt is-songsheet " . path
-    "let issongsheet = system(cmd)
-    "if issongsheet == "TRUE"
-        "map <esc> :call AbortSoxDispatch()<CR>
-    "endif
-    "g:alreadyInit = "TRUE"
-"endfunction
-    
-"function! AbortSoxDispatch()
-    "if g:soxMode == "playing" || g:soxMode == "recording"
-        "exe "AbortDispatch"
-        "let g:soxMode = ""
-    "endif
-"endfunction
-
 nnoremap <Leader>o :Stop <CR>
 command! Stop call s:StopSongsheet()
 function! s:StopSongsheet()
@@ -751,7 +726,7 @@ nnoremap <Leader>p :Play <CR>
 command! Play call s:PlaySongsheet()
 function! s:PlaySongsheet()
     let path = expand('%:p')
-    let cmd = "mt is-songsheet " . path
+    let cmd = "songsheet is-ss " . path
     let issongsheet = system(cmd)
     if issongsheet == "FALSE" 
         return
@@ -767,16 +742,16 @@ function! s:PlaySongsheet()
 
     if g:soxMode == ""
 
-        let hasAudio = system("mt songsheet-has-audio " . path)
+        let hasAudio = system("songsheet has-audio " . path)
         if hasAudio == "FALSE"
             echo "no audio file yet associated with this songsheet"
             return
         endif
 
-        let audioPath = system("mt songsheet-audio " . path)
+        let audioPath = system("songsheet audio-fp " . path)
 
         let [lineno, colno] = getpos(".")[1:2]
-        let cmd = "mt songsheet-filled-playback-time " . path . " " . colno . " " . lineno
+        let cmd = "songsheet pt " . path . " " . colno . " " . lineno
         let playbackTime = system(cmd)
 
         if playbackTime == "BAD-PLAYBACK-TIME"
@@ -793,7 +768,7 @@ endfunction
 command! Rec call <SID>RecSongsheet()
 function! s:RecSongsheet()
     let path = expand('%:p')
-    let cmd = "mt is-songsheet " . path
+    let cmd = "songsheet is-ss " . path
     let issongsheet = system(cmd)
     if issongsheet == "FALSE" 
         return
@@ -806,17 +781,27 @@ function! s:RecSongsheet()
 
     if g:soxMode == "" 
         let path = expand('%:p')
-        let audioPath = system("mt songsheet-audio " . path)
+        let audioPath = system("songsheet audio-fp " . path)
 
         
         "reload the current buffer as new line 
         "may have been added for the audio file 
         "location within the songfile
+        edit! 
         
         exe "Dispatch! rec " . audioPath 
         let g:soxMode = "recording"
-        "edit! 
     endif
+endfunction
+
+nnoremap <Leader>bpm :CalcBPM <CR>
+command! CalcBPM call s:CalcBPM()
+function! s:CalcBPM()
+    let path = expand('%:p')
+    let cmd = "songsheet fill-bpm " . path
+    let dummy = system(cmd)
+    echo dummy
+    edit! 
 endfunction
 
 """""""""""""""""""""""""""""
