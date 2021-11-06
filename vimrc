@@ -192,8 +192,8 @@ vnoremap > xp`[v`]
 vnoremap < x2hp`[v`]
 
 " commenting lines or uncommenting lines
-vnoremap // :call NERDComment(0,"comment")<CR>
-vnoremap ?? :call NERDComment(0,"uncomment")<CR>
+vnoremap // :call nerdcommenter#Comment(0,"comment")<CR>
+vnoremap ?? :call nerdcommenter#Comment(0,"uncomment")<CR>
 
 " tab on visual code
 "vmap <Tab> >gv
