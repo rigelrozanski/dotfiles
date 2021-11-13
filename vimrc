@@ -17,6 +17,7 @@ map Q <Nop>
 "better word wrapping during `gq` command
 "allows for hanging indentation
 set ai fo+=q
+set tw=80 
 
 " nerd tree show hidden by default
 " let g:NERDTreeShowHidden = 1
