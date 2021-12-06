@@ -32,6 +32,7 @@ func init() {
 	rootCmd.AddCommand(createStructFulfillingInterface)
 	rootCmd.AddCommand(createInterfaceMirroringStruct)
 	rootCmd.AddCommand(evaluateText)
+	rootCmd.AddCommand(evaluateDoc)
 }
 
 func main() {

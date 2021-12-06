@@ -250,6 +250,14 @@ function! s:Eval()
     exe "normal 0Di" . evaluated
 endfunction
 
+command! Calculate call s:EvalDoc()
+function! s:EvalDoc()
+    let path = expand('%:p')
+    let cmd = "vimrcgo evaluate-doc \"" . path . "\""
+    let results = system(cmd) 
+    edit! "reload the current buffer
+endfunction
+
 "override default quit command
 cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Q' : 'q')<CR>
 
