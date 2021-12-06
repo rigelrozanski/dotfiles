@@ -1,8 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"math"
 	"net/http"
 	"strconv"
@@ -43,23 +45,23 @@ var evaluateDoc = &cobra.Command{
 			// set params
 			if strings.HasPrefix(strTrim, "let ") {
 				tr := strings.TrimPrefix(strTrim, "let ")
-				splt := strings.SplitN(tr, "=", 2)
+				splt := strings.SplitN(tr, "==", 2)
 				if len(splt) < 2 {
 					continue
 				}
 				paramName := splt[0]
-				exprStr := strings.Split(splt[1], "=")[0] // trim any old results
+				exprStr := strings.Split(splt[1], "==")[0] // trim any old results
 				exprRes := evaluateExpr(exprStr, params)
 				params[paramName] = exprRes
-				outLines[i] = fmt.Sprintf("let %v=%v=%v", paramName, exprStr, exprRes)
+				outLines[i] = fmt.Sprintf("let %v==%v==%v", paramName, exprStr, exprRes)
 				continue
 			}
 
 			// evaluate line otherwise
-			splt := strings.SplitN(line, "=", 2)
+			splt := strings.SplitN(line, "==", 2)
 			expression := splt[0]
 			exprRes := evaluateExpr(expression, params)
-			outLines[i] = fmt.Sprintf("%v=%v", expression, exprRes)
+			outLines[i] = fmt.Sprintf("%v==%v", expression, exprRes)
 		}
 
 		return common.WriteLines(outLines, srcFile)
@@ -72,22 +74,22 @@ var evaluateText = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 
 		origEvalText := args[0]
-		s := strings.Split(origEvalText, "=")
+		s := strings.Split(origEvalText, "==")
 		evalText := s[0]
 		evalText = strings.TrimSpace(evalText)
-		evalText = strings.ReplaceAll(evalText, " ", "*")
+		//evalText = strings.ReplaceAll(evalText, " ", "*")
 
 		result := evaluateExpr(evalText, nil)
 
 		switch res := result.(type) {
 		case string:
-			fmt.Printf("%v=%v", evalText, res)
+			fmt.Printf("%v==%v", evalText, res)
 		case bool:
-			fmt.Printf("%v=%v", evalText, res)
+			fmt.Printf("%v==%v", evalText, res)
 		case float64:
-			fmt.Printf("%v=%v", evalText, res)
+			fmt.Printf("%v==%v", evalText, res)
 		default:
-			fmt.Printf("%v = uknown output type %v", origEvalText, result)
+			fmt.Printf("%v==uknown output type %v", origEvalText, result)
 		}
 		return nil
 	},
@@ -145,9 +147,11 @@ func evaluateExpr(expression string, params map[string]interface{}) (res interfa
 		},
 		"rmDollar": func(args ...interface{}) (interface{}, error) {
 			tr := strings.TrimPrefix(args[0].(string), "$")
+			tr = strings.Replace(tr, ",", "", -1) // also remove any commas
 			return strconv.ParseFloat(tr, 64)
 		},
-		"parse": parseHTML,
+		"parse":     parseHTML,
+		"parsejson": parseJson,
 	}
 
 	expr, err := govaluate.NewEvaluableExpressionWithFunctions(expression, fns)
@@ -233,4 +237,98 @@ func parseHTML(args ...interface{}) (interface{}, error) {
 	})
 
 	return outText, nil
+}
+
+func parseJson(args ...interface{}) (interface{}, error) {
+
+	if len(args) < 2 {
+		return "", fmt.Errorf("must have at least 2 args: url, a parser:%+v", args)
+	}
+	url := args[0].(string)
+	res, err := http.Get(url)
+	if err != nil {
+		return "", err
+	}
+	defer res.Body.Close()
+	if res.StatusCode != 200 {
+		return "", fmt.Errorf("status code error: %d %s", res.StatusCode, res.Status)
+	}
+	body, err := ioutil.ReadAll(res.Body) // response body is []byte
+	if err != nil {
+		return "", err
+	}
+
+	result := make(map[string]interface{})
+	if err := json.Unmarshal(body, &result); err != nil { // Parse []byte to the go struct pointer
+		return "", err
+	}
+
+	query := []string{}
+	for i := 1; i < len(args); i++ {
+		query = append(query, args[i].(string))
+	}
+
+	return TraverseToStr(result, query)
+}
+
+func TraverseToUint64(data interface{}, path []string) (uint64, error) {
+	val, err := Traverse(data, path)
+	if err != nil {
+		return 0, err
+	}
+	return val.(uint64), nil
+}
+
+func TraverseToStr(data interface{}, path []string) (string, error) {
+	val, err := Traverse(data, path)
+	if err != nil {
+		return "", err
+	}
+	return val.(string), nil
+}
+
+func TraverseToMap(data interface{}, path []string) (map[string]interface{}, error) {
+	val, err := Traverse(data, path)
+	if err != nil {
+		return nil, err
+	}
+	return val.(map[string]interface{}), nil
+}
+
+func TraverseToArray(data interface{}, path []string) ([]interface{}, error) {
+	val, err := Traverse(data, path)
+	if err != nil {
+		return nil, err
+	}
+	return val.([]interface{}), nil
+}
+
+func Traverse(data interface{}, path []string) (interface{}, error) {
+	var ok bool
+	current := data
+	for _, p := range path {
+		switch current.(type) {
+		case map[string]string:
+			if current, ok = current.(map[string]string)[p]; !ok {
+				return nil, fmt.Errorf("key not found in map: %s", p)
+			}
+		case map[string]interface{}:
+			if current, ok = current.(map[string]interface{})[p]; !ok {
+				return nil, fmt.Errorf("key not found in map: %s", p)
+			}
+		case []interface{}:
+			i, err := strconv.ParseInt(p, 10, 64)
+			if err != nil {
+				return nil, fmt.Errorf("integer required, got: %s", p)
+			}
+			array := current.([]interface{})
+			if i < 0 || i >= int64(len(array)) {
+				return nil, fmt.Errorf("index %d out of bounds for %v", i, array)
+			}
+			current = array[i]
+		default:
+			return nil, fmt.Errorf("cannot traverse %T\n", current)
+		}
+	}
+	return current, nil
 }
