@@ -33,6 +33,7 @@ func init() {
 	rootCmd.AddCommand(createInterfaceMirroringStruct)
 	rootCmd.AddCommand(evaluateText)
 	rootCmd.AddCommand(evaluateDoc)
+	rootCmd.AddCommand(ConvertToBoxChars)
 }
 
 func main() {

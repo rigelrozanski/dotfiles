@@ -36,6 +36,7 @@ alias gitsquash2='git add -u ; git commit -m "int" ; git reset --soft HEAD~2 && 
 alias desk='cd $HOME/Desktop'
 alias gitr='cd $GOPATH/src/github.com/rigelrozanski'
 alias gitrk='cd $GOPATH/src/keybase/private/rigel'
+alias gitnw='cd $GOPATH/src/keybase/private/nwmod'
 alias giti='cd $GOPATH/src/github.com/ipsdm'
 alias gitt='cd $GOPATH/src/github.com/tendermint'
 alias gitc='cd $GOPATH/src/github.com/cosmos/cosmos-sdk'

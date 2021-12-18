@@ -230,10 +230,8 @@ func parseHTML(args ...interface{}) (interface{}, error) {
 		// only take output at the found index
 		if foundIndex == resIndexToTake {
 			outText = s.Text()
-		} else {
-			foundIndex++
 		}
-
+		foundIndex++
 	})
 
 	return outText, nil
