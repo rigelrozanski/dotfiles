@@ -8,12 +8,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// NOTE this code is not used
+// retired in favour of DrawIt vim plugin
+//   ... however leaving because may one day like to use
+
 /*
 main symbol conversions
-. = corner (┌, ┐, └, ┘)
 , = smooth corner (╭, ╮, ╯, ╰)
-T,t = tee connection to 3 sides (┴, ┤, ┬, ├)
-+ = box + (┼)
++ = depending on what's connecting: ┼, ┌, ┐, └, ┘, ┴, ┤, ┬, ├
 > = right arrow (←, ↑, →, ↓)
 < = left arrow
 v = down arrow
@@ -23,10 +25,10 @@ v = down arrow
 x = ╳
 / = ╱
 \ = ╲
-0 = █
-1 = ▓
-2 = ▒
-3 = ░
+S = █   (S is for solid)
+# = ▓
+: = ▒
+. = ░
 
 commands:
 box:                  convert to box characters
@@ -145,21 +147,30 @@ func replaceCharInLines(lines []string, x, y int, ch rune) []string {
 func ConvertToBoxCh(toConvert, left, right, top, bottom string) (boxCh string, converted bool) {
 
 	switch toConvert {
-	case `.`:
+	case `+`:
 		leftConnects := IsBoxChWhichConnectsOnRight(left)
 		rightConnects := IsBoxChWhichConnectsOnLeft(right)
 		topConnects := IsBoxChWhichConnectsOnBottom(top)
 		bottomConnects := IsBoxChWhichConnectsOnTop(bottom)
 		switch {
-		case leftConnects && topConnects:
+		case leftConnects && !rightConnects && topConnects && !bottomConnects:
 			return `┘`, true
-		case leftConnects && bottomConnects:
+		case leftConnects && !rightConnects && !topConnects && bottomConnects:
 			return `┐`, true
-		case rightConnects && bottomConnects:
+		case !leftConnects && rightConnects && !topConnects && bottomConnects:
 			return `┌`, true
-		case rightConnects && topConnects:
+		case !leftConnects && rightConnects && topConnects && !bottomConnects:
 			return `└`, true
+		case leftConnects && rightConnects && topConnects && !bottomConnects:
+			return `┴`, true
+		case leftConnects && !rightConnects && topConnects && bottomConnects:
+			return `┤`, true
+		case leftConnects && rightConnects && !topConnects && bottomConnects:
+			return `┬`, true
+		case !leftConnects && rightConnects && topConnects && bottomConnects:
+			return `├`, true
 		}
+		return `┼`, true // everything else
 	case `,`:
 		leftConnects := IsBoxChWhichConnectsOnRight(left)
 		rightConnects := IsBoxChWhichConnectsOnLeft(right)
@@ -175,31 +186,14 @@ func ConvertToBoxCh(toConvert, left, right, top, bottom string) (boxCh string, c
 		case rightConnects && topConnects:
 			return `╰`, true
 		}
-	case `T`, `t`:
-		leftConnects := IsBoxChWhichConnectsOnRight(left)
-		rightConnects := IsBoxChWhichConnectsOnLeft(right)
-		topConnects := IsBoxChWhichConnectsOnBottom(top)
-		bottomConnects := IsBoxChWhichConnectsOnTop(bottom)
-		switch {
-		case leftConnects && topConnects && rightConnects:
-			return `┴`, true
-		case leftConnects && bottomConnects && topConnects:
-			return `┤`, true
-		case rightConnects && leftConnects && bottomConnects:
-			return `┬`, true
-		case rightConnects && topConnects && bottomConnects:
-			return `├`, true
-		}
-	case `+`:
-		return `┼`, true
 	case `>`:
-		return `→`, true
+		return `▶`, true
 	case `<`:
-		return `←`, true
+		return `◀`, true
 	case `v`:
-		return `↓`, true
+		return `▼`, true
 	case `^`:
-		return `↑`, true
+		return `▲`, true
 	case `-`:
 		return `─`, true
 	case `|`:
@@ -210,13 +204,13 @@ func ConvertToBoxCh(toConvert, left, right, top, bottom string) (boxCh string, c
 		return `╱`, true
 	case `\`:
 		return `╲`, true
-	case `0`:
+	case `S`:
 		return `█`, true
-	case `1`:
+	case `#`:
 		return `▓`, true
-	case `2`:
+	case `:`:
 		return `▒`, true
-	case `3`:
+	case `.`:
 		return `░`, true
 	}
 
