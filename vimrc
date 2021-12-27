@@ -847,12 +847,21 @@ let g:tagbar_type_go = {
 let g:go_def_mapping_enabled = 0
 au FileType go nmap gd <Plug>(go-def-tab)
 
+
+
 " GoImports
 let g:go_fmt_command = "goimports"
 
 
 map gf :call GotoFileWithLineNum()<CR>
 nnoremap <Leader>gf ma/FAIL\t<CR>eebvEy`abhpli/<ESC>Bi$GOPATH/src/<esc>5l:call GotoFileWithLineNum()<CR>
+
+"""""""""""""""""""""""""""
+"" RUST 
+""""""""""""""""""""""""""
+" format fmt for rust files 
+au BufWrite *.rs :RustFmt
+au FileType rs nmap <buffer> gd <Plug>(rust-def-tab)
 
 """""""""""""""""""""""""""
 "" Custom Commands

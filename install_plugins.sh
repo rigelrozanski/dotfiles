@@ -77,11 +77,13 @@ else
 fi
 
 # install gotags
+## TODO this command wont work anymore
 go get -u github.com/jstemmer/gotags
 
 pushd ~/.vim/bundle
 
 # install golint
+## TODO this command wont work anymore
 go get -u github.com/golang/lint/golint
 
 # Install tagbar
@@ -94,12 +96,22 @@ git clone https://github.com/scrooloose/nerdtree.git
 cd ~/.vim/bundle
 git clone https://github.com/preservim/nerdcommenter.git
 
+# install rust-analyzer
+# https://github.com/rust-analyzer/rust-analyzer
+#brew install rust-analyzer
+
+# Install rust.vim
+git clone --depth=1 https://github.com/rust-lang/rust.vim.git ~/.vim/bundle/rust.vim
+
+# Install rust racer
+git clone --depth=1 https://github.com/racer-rust/vim-racer.git ~/.vim/bundle/vim-racer
+
+# install vim-plug
+#curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 # Install plugin directory
 mkdir -p ~/.vim/plugin && curl -LSso ~/.vim/plugin/taboo.vim https://raw.githubusercontent.com/gcmt/taboo.vim/master/plugin/taboo.vim
 curl -LSso ~/.vim/plugin/vim-gh-line.vim https://raw.githubusercontent.com/ruanyl/vim-gh-line/master/plugin/vim-gh-line.vim
-
-# Install Rust Racer
-git clone --depth=1 https://github.com/racer-rust/vim-racer.git ~/.vim/bundle/vim-racer
 
 # Install dispatch
 mkdir -p ~/.vim/pack/tpope/start
@@ -109,5 +121,3 @@ vim -u NONE -c "helptags dispatch/doc" -c q
 
 
 popd
-
-
