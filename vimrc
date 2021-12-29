@@ -55,7 +55,7 @@ let g:go_highlight_build_constraints = 1
 colorscheme molokai
 
 " vugu is a mod of html
-au BufRead,BufNewFile *.vugu setfiletype gohtmltmpl
+"au BufRead,BufNewFile *.vugu setfiletype gohtmltmpl
 
 " optional fixes a glitch under some versions of terminal
 if &term =~ '256color'
@@ -193,8 +193,9 @@ vnoremap > xp`[v`]
 vnoremap < x2hp`[v`]
 
 " commenting lines or uncommenting lines
-vnoremap // :call nerdcommenter#Comment(0,"comment")<CR>
-vnoremap ?? :call nerdcommenter#Comment(0,"uncomment")<CR>
+"vnoremap // :call nerdcommenter#Comment('x',"comment")<CR>
+vnoremap // :call nerdcommenter#Comment('x','AlignLeft')<CR>
+vnoremap ?? :call nerdcommenter#Comment('x',"uncomment")<CR>
 
 " tab on visual code
 "vmap <Tab> >gv
