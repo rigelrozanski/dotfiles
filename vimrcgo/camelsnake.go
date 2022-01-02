@@ -42,9 +42,9 @@ func SnakeToCamel(wordIn string, caseChangeFn func(string) string) {
 	currLetterIsUpper := false
 	nextLetterIsUpper := false
 	for i, letter := range chs {
-		if !(unicode.IsLetter(letter) || unicode.IsNumber(letter)) {
-			break
-		}
+		//if !(unicode.IsLetter(letter) || unicode.IsNumber(letter)) {
+		//    break
+		//}
 		if i >= len(chs)-1 {
 			nextLetterIsUpper = false
 		} else {
