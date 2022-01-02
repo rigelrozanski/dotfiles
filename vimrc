@@ -175,6 +175,10 @@ vnoremap copy :w !pbcopy<CR><CR>
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/g<Left><Left>
 vnoremap <Leader>s y:%s/<C-r>"/<C-r>"/g<Left><Left>
 
+" search and replace what is in the default register
+" with the word under the cursor
+nnoremap <Leader>las :%s/\<<C-r>"\>/<C-r><C-w>/g<Left><Left>
+
 nnoremap dup {v}y}p}dd{ 
 nnoremap cut {v}xO<Esc>
 
@@ -289,12 +293,31 @@ command QQQ call TabCloseRight('<bang>')
 let g:gh_line_map = 'git'
 
 nnoremap <Leader>json yiwA `json:"<esc>pbve:s#\%V\(\<\u\l\+\\|\l\+\)\(\u\)#\l\1_\l\2#g<CR>A"`<esc>
-nnoremap <Leader>camel bve:s#\%V\(\<\u\l\+\\|\l\+\)\(\u\)#\l\1_\l\2#g<CR><esc>
 nnoremap <Leader>err oif err != nil {<CR>return err<CR><left><left>}<esc>
 nnoremap viwp viwpyiwgvy
 nnoremap F ggVGgq
 nnoremap cd ciw<esc>
 nnoremap <C-g> yiwjviwp
+
+nnoremap <Leader>ucamel :UCamel<CR><esc>
+command! UCamel call s:UCamel()
+function! s:UCamel()
+    "yank the current word into register @a
+    normal "ayiW 
+    let cmd = "vimrcgo snake-to-upper-camel " . @a
+    let results = system(cmd)
+    exe "normal diwi" . results
+endfunction
+
+nnoremap <Leader>camel :Camel<CR><esc>
+command! Camel call s:Camel()
+function! s:Camel()
+    "yank the current word into register @a
+    normal "ayiW 
+    let cmd = "vimrcgo snake-to-camel " . @a
+    let results = system(cmd)
+    exe "normal diwi" . results
+endfunction
 
 "__________________________________________________________________________
 " goto commands

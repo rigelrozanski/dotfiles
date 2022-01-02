@@ -34,6 +34,8 @@ func init() {
 	rootCmd.AddCommand(evaluateText)
 	rootCmd.AddCommand(evaluateDoc)
 	rootCmd.AddCommand(ConvertToBoxChars)
+	rootCmd.AddCommand(snakeToUpperCamel)
+	rootCmd.AddCommand(snakeToCamel)
 }
 
 func main() {
