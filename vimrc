@@ -304,9 +304,10 @@ command! UCamel call s:UCamel()
 function! s:UCamel()
     "yank the current word into register @a
     normal "ayiW 
-    let cmd = "vimrcgo snake-to-upper-camel " . @a
+    let cmd = "vimrcgo snake-to-upper-camel \"" . @a . "\""
     let results = system(cmd)
-    exe "normal diwi" . results
+    let @b = results
+    normal viw"bp
 endfunction
 
 nnoremap <Leader>camel :Camel<CR><esc>
@@ -314,9 +315,10 @@ command! Camel call s:Camel()
 function! s:Camel()
     "yank the current word into register @a
     normal "ayiW 
-    let cmd = "vimrcgo snake-to-camel " . @a
+    let cmd = "vimrcgo snake-to-camel \"" . @a . "\""
     let results = system(cmd)
-    exe "normal diwi" . results
+    let @b = results
+    normal viw"bp
 endfunction
 
 "__________________________________________________________________________
