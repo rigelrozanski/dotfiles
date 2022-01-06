@@ -3,7 +3,7 @@ set nocp
 execute pathogen#infect()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 set nolazyredraw
-    
+
 " show existing tab with 4 spaces width
 set tabstop=4
 " when indenting with '>', use 4 spaces width
@@ -401,6 +401,21 @@ function! s:agsearch(find)
     exe "normal ggi" . a:find 
 endfunction
 
+nnoremap <Leader>A :AgIgnore <C-r><C-w><CR> 
+command! -nargs=* AgIgnore call s:agsearchignore(<f-args>)
+function! s:agsearchignore(find)
+    if TabooTabName(tabpagenr()) == "search"
+        :normal ggdG
+        :silent exec "r ! ag " . a:find . " --ignore={*.md,*_test.go}"
+    else
+        :tabnew
+        :TabooRename search
+        :silent exec "r ! ag " . a:find . " --ignore={*.md,*_test.go}"
+        :setlocal buftype=nofile
+    endif
+    exe "normal ggi" . a:find 
+endfunction
+
 command! XXX call s:xxxsearch()
 function! s:xxxsearch()
     if TabooTabName(tabpagenr()) == "XXX"
@@ -711,8 +726,16 @@ command! -nargs=1 CreateTest call s:CreateTest(<f-args>)
 function! s:CreateTest(fnname)
     let path = expand('%:p')
     let cmd = "vimrcgo create-test " . a:fnname . " " . path
-    let testpath = system(cmd)
-    exe "tabnew" testpath
+    let [testpath, lineNo] = split(system(cmd), ",")[0:1]
+    if testpath == path 
+        edit! "reload the current buffer
+    else
+        edit! "reload the current buffer
+        exe "tabnew" testpath
+    endif
+
+    exe "normal " . lineNo . "gg"
+
 endfunction
 
 nnoremap <Leader>debugs :DebugPrints <C-r><C-w><CR>
@@ -889,6 +912,11 @@ nnoremap <Leader>gf ma/FAIL\t<CR>eebvEy`abhpli/<ESC>Bi$GOPATH/src/<esc>5l:call G
 " format fmt for rust files 
 au BufWrite *.rs :RustFmt
 au FileType rs nmap <buffer> gd <Plug>(rust-def-tab)
+
+command LoadGoToRustMacros call <SID>LoadGoToRustMacros()
+function! s:LoadGoToRustMacros()
+    let @t ="iTestTestTest\<esc>"
+endfunction
 
 """""""""""""""""""""""""""
 "" Custom Commands
