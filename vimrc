@@ -401,16 +401,20 @@ function! s:agsearch(find)
     exe "normal ggi" . a:find 
 endfunction
 
-nnoremap <Leader>A :AgIgnore <C-r><C-w><CR> 
+nnoremap <Leader>b :AgIgnore <C-r><C-w><CR> 
 command! -nargs=* AgIgnore call s:agsearchignore(<f-args>)
 function! s:agsearchignore(find)
     if TabooTabName(tabpagenr()) == "search"
         :normal ggdG
         :silent exec "r ! ag " . a:find . " --ignore={*.md,*_test.go}"
+        "delete all comment lines found (lines with number://)
+        :g/[0-9]:\/\//d 
     else
         :tabnew
         :TabooRename search
         :silent exec "r ! ag " . a:find . " --ignore={*.md,*_test.go}"
+        "delete all comment lines found (lines with number://)
+        :g/[0-9]:\/\//d 
         :setlocal buftype=nofile
     endif
     exe "normal ggi" . a:find 
@@ -670,19 +674,6 @@ function! CreateNewXxx(linestart, lineend)
     edit! "reload the current buffer
 endfunction
 
-nnoremap <Leader>fo :LCreateFunctionOf <CR>
-command! -nargs=1 Fo call s:CreateFunctionOf(<f-args>)
-command! LCreateFunctionOf call s:CreateFunctionOf("Dummiii")
-function! s:CreateFunctionOf(funcname)
-    let path = expand('%:p')
-    let lineno = line('.')
-    let cmd = "vimrcgo create-function-of " . path . " " . lineno . " " . a:funcname
-    let results = system(cmd)
-    exe "normal " . results
-    exe "GoFmt"
-    startinsert! " equivalent to hitting 'a' in normal mode
-endfunction
-
 command! -nargs=1 Fulfill call s:CreateStructFulfilling(<f-args>)
 function! s:CreateStructFulfilling(structname)
     let path = expand('%:p')
@@ -703,6 +694,18 @@ function! s:CreateInterfaceMirroringStruct(intername)
     let results = system(cmd)
     exe "normal " . results
     exe "GoFmt"
+endfunction
+
+nnoremap <Leader>fo :LCreateFunctionOf <CR>
+command! LCreateFunctionOf call s:CreateFunctionOf("Dummiii")
+command! -nargs=1 Fo call s:CreateFunctionOf(<f-args>)
+function! s:CreateFunctionOf(funcname)
+    let path = expand('%:p')
+    let lineno = line('.')
+    let cmd = "vimrcgo create-function-of " . path . " " . lineno . " " . a:funcname
+    let gotoLineNo = system(cmd)
+    edit! "reload the current buffer
+    exe "normal " . gotoLineNo . "gg"
 endfunction
 
 
@@ -735,7 +738,6 @@ function! s:CreateTest(fnname)
     endif
 
     exe "normal " . lineNo . "gg"
-
 endfunction
 
 nnoremap <Leader>debugs :DebugPrints <C-r><C-w><CR>

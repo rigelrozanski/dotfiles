@@ -26,12 +26,9 @@ var createTestCmd = &cobra.Command{
 		lineNo := 0
 		var err error
 
-		//fmt.Printf("debug sourceFile[sfl-3:]: %v\n", sourceFile[sfl-3:])
 		if sourceFile[sfl-2:] == "go" {
-			//fmt.Printf("debug go: %v\n", "go")
 			testFile, lineNo, err = createTestGolang(fnName, sourceFile)
 		} else if sourceFile[sfl-2:] == "rs" {
-			//fmt.Printf("debug go: %v\n", "rs")
 			testFile, lineNo, err = createTestRust(fnName, sourceFile)
 		}
 		fmt.Printf("%v,%v", testFile, lineNo)
@@ -77,6 +74,28 @@ func createTestGolang(fnName, sourceFile string) (
 	return testFile, lineNo, err
 }
 
+// count squiggly brackets until 0
+// to find the final line when the squigs are balanced
+func CountSquigs(lines []string,
+	startingAtIndex int, runOnceSquigsBalanced func(lineIndex int)) {
+
+	squigCount := 0
+	squigInitialized := false
+	for j := startingAtIndex; j < len(lines); j++ {
+		linej := lines[j]
+		openSquigs := strings.Count(linej, "{")
+		closeSquigs := strings.Count(linej, "}")
+		squigCount += openSquigs - closeSquigs
+		if !squigInitialized && openSquigs > 0 {
+			squigInitialized = true
+		}
+		if squigInitialized && squigCount == 0 {
+			runOnceSquigsBalanced(j)
+			return
+		}
+	}
+}
+
 func createTestRust(fnName, sourceFile string) (
 	testFile string, lineNo int, err error) {
 
@@ -86,7 +105,6 @@ func createTestRust(fnName, sourceFile string) (
 		return sourceFile, lineNo, err
 	}
 
-OUTER:
 	for i := len(lines) - 1; i >= 0; i-- {
 		line := lines[i]
 		if strings.Contains(line, `#[test]`) || strings.Contains(line, `#[cfg(test)]`) {
@@ -96,31 +114,22 @@ OUTER:
 				insertLineNoWithinSquig = true
 			}
 
-			// count squiggly brackets until 0
-			// to find the final line of the test to insert into
-			squigCount := 0
-			squigInitialized := false
-			for j := i; j < len(lines); j++ {
-				linej := lines[j]
-				openSquigs := strings.Count(linej, "{")
-				closeSquigs := strings.Count(linej, "}")
-				squigCount += openSquigs - closeSquigs
-				if !squigInitialized && openSquigs > 0 {
-					squigInitialized = true
+			br := false
+			CountSquigs(lines, i, func(j int) {
+				switch {
+				case j > 0 && insertLineNoWithinSquig:
+					insertLineNo = j - 1
+				case j == 0 && insertLineNoWithinSquig:
+					insertLineNo = j
+				case !insertLineNoWithinSquig:
+					insertLineNo = j
 				}
-				if squigInitialized && squigCount == 0 {
-					switch {
-					case j > 0 && insertLineNoWithinSquig:
-						insertLineNo = j - 1
-					case j == 0 && insertLineNoWithinSquig:
-						insertLineNo = j
-					case !insertLineNoWithinSquig:
-						insertLineNo = j
-					}
-					break OUTER
-				}
-
+				br = true
+			})
+			if br {
+				break
 			}
+
 		}
 	}
 
@@ -455,129 +464,6 @@ var createNewXxx = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		return nil
-	},
-}
-
-var createFunctionOf = &cobra.Command{
-	Use:   "create-function-of [source-file] [lineno] [func-name]",
-	Short: "create a function of a struct",
-	Args:  cobra.ExactArgs(3),
-	RunE: func(cmd *cobra.Command, args []string) error {
-
-		srcFile := args[0]
-		lineNo, err := strconv.Atoi(args[1])
-		if err != nil {
-			fmt.Printf("obad line number: %v", err)
-			return nil
-		}
-		funcName := args[2]
-
-		// get the function name
-		strct, _, found := parse.GetCurrentParsedStruct(srcFile, lineNo)
-		if !found {
-			//fmt.Printf("o%v", "cursor not within a struct")
-			return nil
-		}
-
-		abbr := camelcaseToAbbreviation(strct.Name)
-
-		// create the function text
-		funcText := fmt.Sprintf("\r")
-		funcText += fmt.Sprintf("// %v TODO\r", funcName)
-		funcText += fmt.Sprintf("func (%v %v) %v() {\r", abbr, strct.Name, funcName)
-		funcText += fmt.Sprintf("\r")
-		funcText += fmt.Sprintf("}")
-
-		// normal vim script:
-		//  - go to the end of the struct
-		//  - insert a new line and all the func text
-		//  - escape (\033), go to the end of the header comment line
-		fmt.Printf("%vggo%v\0333k$", strct.EndLine, funcText)
-		return nil
-	},
-}
-
-var createGetSetFunctionOf = &cobra.Command{
-	Use:   "create-get-set-function-of [source-file] [lineno] [get,set,or getandset]",
-	Short: "create a get and/or set function of a struct for one of its fields",
-	Args:  cobra.ExactArgs(3),
-	RunE: func(cmd *cobra.Command, args []string) error {
-
-		srcFile := args[0]
-		lineNo, err := strconv.Atoi(args[1])
-		if err != nil {
-			fmt.Printf("obad line number: %v", err)
-			return nil
-		}
-		get, set := false, false
-		switch args[2] {
-		case "get":
-			get = true
-		case "set":
-			set = true
-		case "getandset":
-			get = true
-			set = true
-		default:
-			fmt.Printf("obad text for 3rd arg must be either get, set, or getandset")
-			return nil
-		}
-
-		// get the field
-		strct, fld, found := parse.GetCurrentParsedStruct(srcFile, lineNo)
-		if !found {
-			//fmt.Printf("o%v", "cursor not within a struct")
-			return nil
-		}
-
-		abbr := camelcaseToAbbreviation(strct.Name)
-
-		// normal vim script: go to endline, enter line and start insert mode
-		fmt.Printf("%vggo", strct.EndLine)
-
-	OUTER:
-		for _, fldName := range fld.Names {
-			capitalizedFldName := ""
-			lowerCaseFldName := ""
-			switch len(fldName) {
-			case 0:
-				continue OUTER
-			case 1:
-				capitalizedFldName = strings.ToUpper(string(fldName[0]))
-				lowerCaseFldName = strings.ToLower(string(fldName[0]))
-			default:
-				capitalizedFldName = strings.ToUpper(string(fldName[0])) + string(fldName[1:])
-				lowerCaseFldName = strings.ToLower(string(fldName[0])) + string(fldName[1:])
-			}
-
-			if get {
-				fnName := fmt.Sprintf("Get%v", capitalizedFldName)
-
-				funcText := fmt.Sprintf("\r")
-				funcText += fmt.Sprintf("// %v gets %v from %v \r", fnName, fldName, strct.Name)
-				funcText += fmt.Sprintf("func (%v *%v) %v() %v {\r",
-					abbr, strct.Name, fnName, fld.Type)
-				funcText += fmt.Sprintf("return %v.%v\r", abbr, fldName)
-				funcText += fmt.Sprintf("}")
-				fmt.Printf(funcText)
-			}
-
-			if set {
-				fnName := fmt.Sprintf("Set%v", capitalizedFldName)
-				funcText := fmt.Sprintf("\r")
-				if get {
-					funcText += fmt.Sprintf("\r") //extra line
-				}
-				funcText += fmt.Sprintf("// %v sets %v within %v \r", fnName, fldName, strct.Name)
-				funcText += fmt.Sprintf("func (%v *%v) %v(%v %v) {\r",
-					abbr, strct.Name, fnName, lowerCaseFldName, fld.Type)
-				funcText += fmt.Sprintf("%v.%v = %v\r", abbr, fldName, lowerCaseFldName)
-				funcText += fmt.Sprintf("}")
-				fmt.Printf(funcText)
-			}
-		}
-
 		return nil
 	},
 }
