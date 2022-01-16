@@ -157,15 +157,221 @@ noremap <silent> <C-L> :call <SID>duplicate()<CR>
 inoremap <silent> <C-H> <Esc>:call <SID>remove()<CR>i
 inoremap <silent> <C-L> <Esc>:call <SID>duplicate()<CR>i
 vnoremap <silent> <C-H> <Esc>:call <SID>remove()<CR>v
-vnoremap <silent> <C-L> <Esc>:call <SID>duplicate()<CR>v
 
 " http://vim.wikia.com/wiki/Moving_lines_up_or_down
 noremap <silent> <C-K> :m-2<CR>
 noremap <silent> <C-J> :m+1<CR>
 inoremap <silent> <C-K> <esc>:m-2<CR>i
 inoremap <silent> <C-J> <esc>:m+1<CR>i
-vnoremap <silent> <C-K> :m-2<CR>gv
-vnoremap <silent> <C-J> :m'>+1<CR>gv
+
+" visual-block x now replaced with space 
+" https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)#Creating_keymaps
+" should be used in conjunction with 1vp for paste (although it seems bugy) 
+vnoremap <silent> x :<C-U>call VisualCut()<CR>
+function! VisualCut()
+    let m = visualmode()
+    if m == "\<C-V>"
+        exe "normal gvygvr "
+    else 
+        "basically the same as just the regular x
+        exe "normal gvygvd" 
+    endif
+endfunction
+
+vnoremap <silent> <C-K> :<C-U>call VisualUp()<CR>
+function! VisualUp()
+    let m = visualmode()
+    if m == "\<C-V>"
+        let [line_start, column_start] = getpos("'<")[1:2]
+        let [line_end, column_end] = getpos("'>")[1:2]
+
+        " check if need to reorient the cursor
+        " within the visual block
+        let [curlineNo, curcolno] = getpos(".")[1:2]
+        if (curcolno == column_start && curlineNo == line_end) || (curcolno == column_end && curlineNo == line_start)
+            exe "normal gvO\"ay"
+        endif
+        let [line_start, column_start] = getpos("'<")[1:2]
+        let [line_end, column_end] = getpos("'>")[1:2]
+
+        let width = (column_end-column_start)+1
+        let height = (line_end-line_start)+1
+
+        "TODO ensure that the line above has adequate characters!!!!!
+        
+        " move up, copy visual width to register b
+        " then move down height (to the bottom of the original block) 
+        exe "normal kv" . (width-1) . "l\"ay" . height . "j"
+    
+        let c = 1
+        while c <= height+1
+            "copy width to register b then paste register a, move up a line,
+            "move to the beginning of that line
+            exe "normal v" . (width-1) . "l\"bygv\"apk" . (width-1) . "h"
+            
+            "set register a to b 
+            let @a=@b
+
+            let c += 1
+        endwhile
+        
+        "enter normal mode and reselect the now moved block
+        "use gv and a dummy copy to get back to the original position
+        exe "normal gv\"ay\<c-v>" . (width-1) . "l" . (height-1) . "jo"
+
+    else 
+        "vnoremap <silent> <C-K> :m-2<CR>gv
+        :'<,'>m-2
+        exe "normal gv"
+    endif
+endfunction
+
+
+vnoremap <silent> <C-J> :<C-U>call VisualDown()<CR>
+function! VisualDown()
+    let m = visualmode()
+    if m == "\<C-V>"
+        let [line_start, column_start] = getpos("'<")[1:2]
+        let [line_end, column_end] = getpos("'>")[1:2]
+
+        " check if need to reorient the cursor
+        " within the visual block
+        let [curlineNo, curcolno] = getpos(".")[1:2]
+        if (curcolno == column_start && curlineNo == line_end) || (curcolno == column_end && curlineNo == line_start)
+            exe "normal gvO\"ay"
+        endif
+        let [line_start, column_start] = getpos("'<")[1:2]
+        let [line_end, column_end] = getpos("'>")[1:2]
+
+        let width = (column_end-column_start)+1
+        let height = (line_end-line_start)+1
+        "exe "normal i\nwidth= " . width . "\<esc>"
+        "exe "normal i\nheight= " . height . "\<esc>"
+
+        "TODO ensure that the line below has adequate characters!!!!!
+        
+        " move down, copy visual width to register a
+        " then move up height (to the bottom of the original block) 
+        exe "normal " . height . "jv" . (width-1) . "l\"ay" . height . "k"
+    
+        let c = 1
+        while c <= height+1
+            "copy width to register b then paste register a, move up a line,
+            "move to the beginning of that line
+            exe "normal v" . (width-1) . "l\"bygv\"apj" . (width-1) . "h"
+            
+            "set register a to b 
+            let @a=@b
+
+            let c += 1
+        endwhile
+        
+        "enter normal mode and reselect the now moved block
+        "use gv and a dummy copy to get back to the original position
+        exe "normal gv\"ay\<c-v>" . (width-1) . "l" . (height-1) . "kO"
+
+    else 
+        "vnoremap <silent> <C-J> :m'>+1<CR>gv
+        :'<,'>m'>+1
+        exe "normal gv"
+    endif
+endfunction
+
+vnoremap <silent> <C-L> :<C-U>call VisualRight()<CR>
+function! VisualRight()
+    let m = visualmode()
+    if m == 'V'
+        call <SID>duplicate()
+    endif
+
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+
+    " check if need to reorient the cursor
+    " within the visual block
+    let [curlineNo, curcolno] = getpos(".")[1:2]
+    if (curcolno == column_start && curlineNo == line_end) || (curcolno == column_end && curlineNo == line_start)
+        exe "normal gvO\"ay"
+    endif
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+
+    let width = (column_end-column_start)+1
+    let height = (line_end-line_start)+1
+
+    "TODO ensure adequate space to the right
+    
+    " move right, copy rightward column to register a
+    " then move to leftmost column
+    exe "normal " . width . "l\<c-v>" . (height-1) . "j\"ay" . width . "h"
+        
+    let c = 1
+    while c <= width+1
+        "copy width to register b then paste register a, move up a line,
+        "move to the beginning of that line
+        exe "normal \<c-v>" . (height-1) . "j\"bygv\"apl"
+        
+        "set register a to b 
+        "need to set the register with this command 
+        "and not just let because need to set register type
+		call setreg('a', @b, 'b') 
+
+        let c += 1
+    endwhile
+    
+    "enter normal mode and reselect the now moved block
+    "use gv and a dummy copy to get back to the original position
+    exe "normal gv\"ay\<c-v>" . (width-1) . "h" . (height-1) . "joO"
+
+endfunction
+
+vnoremap <silent> <C-H> :<C-U>call VisualLeft()<CR>
+function! VisualLeft()
+    let m = visualmode()
+    if m == 'V'
+        call <SID>remove()
+    endif
+
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+
+    " check if need to reorient the cursor
+    " within the visual block
+    let [curlineNo, curcolno] = getpos(".")[1:2]
+    if (curcolno == column_start && curlineNo == line_end) || (curcolno == column_end && curlineNo == line_start)
+        exe "normal gvO\"ay"
+    endif
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+
+    let width = (column_end-column_start)+1
+    let height = (line_end-line_start)+1
+
+    "TODO ensure adequate space to the right
+    
+    " move left, copy rightward column to register a
+    " then move to leftmost column
+    exe "normal h\<c-v>" . (height-1) . "j\"ay" . width . "l"
+        
+    let c = 1
+    while c <= width+1
+        "copy width to register b then paste register a, move up a line,
+        "move to the beginning of that line
+        exe "normal \<c-v>" . (height-1) . "j\"bygv\"aph"
+        
+        "set register a to b 
+        "need to set the register with this command 
+        "and not just let because need to set register type
+		call setreg('a', @b, 'b') 
+
+        let c += 1
+    endwhile
+    
+    "enter normal mode and reselect the now moved block
+    "use gv and a dummy copy to get back to the original position
+    exe "normal gv\"ay\<c-v>" . (width-1) . "l" . (height-1) . "jo"
+endfunction
+
 
 " remap for mac copy to clipboard
 vnoremap copy :w !pbcopy<CR><CR>
