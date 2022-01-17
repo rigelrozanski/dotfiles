@@ -181,64 +181,92 @@ endfunction
 vnoremap <silent> <C-K> :<C-U>call VisualUp()<CR>
 function! VisualUp()
     let m = visualmode()
-    if m == "\<C-V>"
 
-        " copy the block into register b
-        exe "normal gv\"by"
-    
-        " get the block dimensions
-        let [line_start, column_start] = getcharpos("'<")[1:2]
-        let [line_end, column_end] = getcharpos("'>")[1:2]
-        let width = abs(column_end-column_start)+1
-        let height = abs(line_end-line_start)+1
-
-        "TODO ensure that the line above has adequate characters!!!!!
-        
-        " move up, copy visual width to register b
-        " then move down height (to the bottom of the original block) 
-        exe "normal kv" . (width-1) . "l\"ay" . height . "j"
-        
-        " paste the upper row onto the first lowest position, then paste the main
-        " block above
-        exe "normal \<c-v>" . (width-1) . "l\"apk\<c-v>" . (width-1) . "h" . (height-1) . "k\"bpgvo"
-
-    else 
+    if m == 'V'
         "vnoremap <silent> <C-K> :m-2<CR>gv
         :'<,'>m-2
         exe "normal gv"
     endif
+
+    " copy the block into register b
+    exe "normal gv\"by"
+    
+    " get the block dimensions
+    let [line_start, column_start] = getcharpos("'<")[1:2]
+    let [line_end, column_end] = getcharpos("'>")[1:2]
+    let width = abs(column_end-column_start)
+    let height = abs(line_end-line_start)
+
+    "TODO ensure that the line above has adequate characters!!!!!
+    
+    " need this block because 0h moves to beginning of line (not 0 moves left)
+    let horimovel = ""
+    if width > 0 
+        let horimovel = width . "l"
+    endif
+    let horimoveh = ""
+    if width > 0 
+        let horimoveh = width . "h"
+    endif
+    let vertmove = ""
+    if height > 0 
+        let vertmove = height . "k"
+    endif
+    
+    " move up, copy visual width to register b
+    " then move down height (to the bottom of the original block) 
+    exe "normal kv" . horimovel . "\"ay" . (height+1) . "j"
+    
+    " paste the upper row onto the first lowest position, then paste the main
+    " block above
+    exe "normal \<c-v>" . horimovel . "\"apk\<c-v>" . horimoveh . vertmove . "\"bpgvo"
+
 endfunction
 
 
 vnoremap <silent> <C-J> :<C-U>call VisualDown()<CR>
 function! VisualDown()
     let m = visualmode()
-    if m == "\<C-V>"
 
-        " copy the block into register b
-        exe "normal gv\"by"
-    
-        " get the block dimensions
-        let [line_start, column_start] = getcharpos("'<")[1:2]
-        let [line_end, column_end] = getcharpos("'>")[1:2]
-        let width = abs(column_end-column_start)+1
-        let height = abs(line_end-line_start)+1
-
-        "TODO ensure that the line below has adequate characters!!!!!
-        
-        " move down, copy visual width to register a
-        " then move up height (to the bottom of the original block) 
-        exe "normal " . height . "jv" . (width-1) . "l\"ay" . height . "k"
-    
-        " paste the lower row onto the first row position, then paste the main
-        " block below
-        exe "normal \<c-v>" . (width-1) . "l\"apj\<c-v>" . (width-1) . "h" . (height-1) . "j\"bpgvo"
-
-    else 
+    if m == 'V'
         "vnoremap <silent> <C-J> :m'>+1<CR>gv
         :'<,'>m'>+1
         exe "normal gv"
     endif
+
+    " copy the block into register b
+    exe "normal gv\"by"
+    
+    " get the block dimensions
+    let [line_start, column_start] = getcharpos("'<")[1:2]
+    let [line_end, column_end] = getcharpos("'>")[1:2]
+    let width = abs(column_end-column_start)
+    let height = abs(line_end-line_start)
+
+    "TODO ensure that the line below has adequate characters!!!!!
+    
+    " need this block because 0h moves to beginning of line (not 0 moves left)
+    let horimovel = ""
+    if width > 0 
+        let horimovel = width . "l"
+    endif
+    let horimoveh = ""
+    if width > 0 
+        let horimoveh = width . "h"
+    endif
+    let vertmove = ""
+    if height > 0 
+        let vertmove = height . "j"
+    endif
+    
+    " move down, copy visual width to register a
+    " then move up height (to the bottom of the original block) 
+    exe "normal " . (height+1) . "jv" . horimovel . "\"ay" . (height+1) . "k"
+    
+    " paste the lower row onto the first row position, then paste the main
+    " block below
+    exe "normal \<c-v>" . horimovel . "\"apj\<c-v>" . horimoveh . vertmove . "\"bpgvo"
+
 endfunction
 
 vnoremap <C-L> :<C-U>call VisualRight()<CR>
@@ -254,18 +282,35 @@ function! VisualRight()
     " get the block dimensions
     let [line_start, column_start] = getcharpos("'<")[1:2]
     let [line_end, column_end] = getcharpos("'>")[1:2]
-    let width = abs(column_end-column_start)+1
-    let height = abs(line_end-line_start)+1
+    let width = abs(column_end-column_start)
+    let height = abs(line_end-line_start)
+    "if width == 0 
+    "    let width = width + 1
+    "endif
+    "if height == 0 
+    "    let height = height + 1
+    "endif
+           
 
     "TODO ensure adequate space to the right
     
+    " need this block because 0h moves to beginning of line (not 0 moves left)
+    let horimove = ""
+    if width > 0 
+        let horimove = width . "l"
+    endif
+    let vertmove = ""
+    if height > 0 
+        let vertmove = height . "j"
+    endif
+    
     " move right, copy rightward column to register a
     " then move to leftmost column
-    exe "normal " . width . "l\<c-v>" . (height-1) . "j\"ay" . width . "h"
+    exe "normal " . (width+1) . "l\<c-v>" . vertmove . "\"ay" . (width+1) . "h"
 
     " paste the rightward col onto the first col position, then paste the main
     " block to the right
-    exe "normal \<c-v>" . (height-1) . "j\"apl\<c-v>" . (width-1) . "l" . (height-1) . "j\"bpgvo"
+    exe "normal \<c-v>" . vertmove . "\"apl\<c-v>" . horimove . vertmove . "\"bpgvo"
 endfunction
 
 vnoremap <C-H> :<C-U>call VisualLeft()<CR>
@@ -281,18 +326,28 @@ function! VisualLeft()
     " get the block dimensions
     let [line_start, column_start] = getcharpos("'<")[1:2]
     let [line_end, column_end] = getcharpos("'>")[1:2]
-    let width = abs(column_end-column_start)+1
-    let height = abs(line_end-line_start)+1
+    let width = abs(column_end-column_start)
+    let height = abs(line_end-line_start)
 
     "TODO ensure adequate space to the left
+
+    " need this block because 0h moves to beginning of line (not 0 moves left)
+    let horimove = ""
+    if width > 0 
+        let horimove = width . "h"
+    endif
+    let vertmove = ""
+    if height > 0 
+        let vertmove = height . "j"
+    endif
     
     " move left, copy leftward column to register a
     " then move to rightmost column
-    exe "normal h\<c-v>" . (height-1) . "j\"ay" . width . "l"
+    exe "normal h\<c-v>" . vertmove . "\"ay" . (width+1) . "l"
 
     " paste the leftward col onto the last col position, then paste the main
     " block to the left
-    exe "normal \<c-v>" . (height-1) . "j\"aph\<c-v>" . (width-1) . "h" . (height-1) . "j\"bpgvo"
+    exe "normal \<c-v>" . vertmove . "\"aph\<c-v>" . horimove . vertmove . "\"bpgvo"
 endfunction
 
 
