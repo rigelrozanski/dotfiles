@@ -186,6 +186,7 @@ function! VisualUp()
         "vnoremap <silent> <C-K> :m-2<CR>gv
         :'<,'>m-2
         exe "normal gv"
+        return
     endif
 
     " copy the block into register b
@@ -232,6 +233,7 @@ function! VisualDown()
         "vnoremap <silent> <C-J> :m'>+1<CR>gv
         :'<,'>m'>+1
         exe "normal gv"
+        return
     endif
 
     " copy the block into register b
@@ -274,6 +276,7 @@ function! VisualRight()
     let m = visualmode()
     if m == 'V'
         call <SID>duplicate()
+        return
     endif
 
     " copy the block into register b
@@ -284,14 +287,7 @@ function! VisualRight()
     let [line_end, column_end] = getcharpos("'>")[1:2]
     let width = abs(column_end-column_start)
     let height = abs(line_end-line_start)
-    "if width == 0 
-    "    let width = width + 1
-    "endif
-    "if height == 0 
-    "    let height = height + 1
-    "endif
            
-
     "TODO ensure adequate space to the right
     
     " need this block because 0h moves to beginning of line (not 0 moves left)
@@ -318,6 +314,7 @@ function! VisualLeft()
     let m = visualmode()
     if m == 'V'
         call <SID>remove()
+        return
     endif
 
     " copy the block into register b
@@ -376,19 +373,10 @@ nnoremap time :pu=strftime('%Y %b %d - %H:%M, [%a .%Z]')<CR>i<BS><ESC>
 " Visual remapping
 """""""""""""""""""""""""""""""""""
 
-" remap for left right shifting
-vnoremap > xp`[v`]
-vnoremap < x2hp`[v`]
-
 " commenting lines or uncommenting lines
 "vnoremap // :call nerdcommenter#Comment('x',"comment")<CR>
 vnoremap // :call nerdcommenter#Comment('x','AlignLeft')<CR>
 vnoremap ?? :call nerdcommenter#Comment('x',"uncomment")<CR>
-
-" tab on visual code
-"vmap <Tab> >gv
-"vmap <S-Tab> <gv
-"imap <Tab> <Tab>
 
 """""""""""""""""""""""""""
 "" Custom Commands
@@ -461,7 +449,6 @@ command Wqa :wqa
 " get the current file directory
 command Where :echo @%
 
-
 " close all tabs to the right
 function TabCloseRight(bang)
     let cur=tabpagenr()
@@ -471,7 +458,6 @@ function TabCloseRight(bang)
 endfunction
 
 command QQQ call TabCloseRight('<bang>')
-
 
 " open current line on Github
 let g:gh_line_map = 'git'
@@ -504,7 +490,7 @@ function! s:Camel()
     let @b = results
     normal viw"bp
 endfunction
-"   window_key.push(KeyPrefixWindow);
+
 
 "__________________________________________________________________________
 " goto commands
@@ -892,7 +878,6 @@ function! s:CreateFunctionOf(funcname)
     exe "normal " . gotoLineNo . "gg"
 endfunction
 
-
 nnoremap <Leader>fnget :CreateGetFunctionOf <CR>
 nnoremap <Leader>fnset :CreateSetFunctionOf <CR>
 nnoremap <Leader>fngset :CreateGetSetFunctionOf <CR>
@@ -1083,11 +1068,8 @@ let g:tagbar_type_go = {
 let g:go_def_mapping_enabled = 0
 au FileType go nmap gd <Plug>(go-def-tab)
 
-
-
 " GoImports
 let g:go_fmt_command = "goimports"
-
 
 map gf :call GotoFileWithLineNum()<CR>
 nnoremap <Leader>gf ma/FAIL\t<CR>eebvEy`abhpli/<ESC>Bi$GOPATH/src/<esc>5l:call GotoFileWithLineNum()<CR>
@@ -1104,22 +1086,4 @@ function! s:LoadGoToRustMacros()
     let @t ="iTestTestTest\<esc>"
 endfunction
 
-"""""""""""""""""""""""""""
-"" Custom Commands
-""""""""""""""""""""""""""
-" quick remove line function
-command O call <SID>openAllGo()
-function! s:openAllGo()
-    :argadd **/*.go
-    :argadd **/*.md
-    :silent! argdelete vendor/*
-    :tab all
-endfunction
 
-command -nargs=1 Go call <SID>gogeneric(<f-args>)
-function! s:gogeneric(cmd)
-    :tabnew
-    :TabooRename gogeneric
-    :silent exec "r ! go " . a:cmd
-    :setlocal buftype=nofile
-endfunction
