@@ -164,6 +164,12 @@ noremap <silent> <C-J> :m+1<CR>
 inoremap <silent> <C-K> <esc>:m-2<CR>i
 inoremap <silent> <C-J> <esc>:m+1<CR>i
 
+command Col call Col()
+function! Col() 
+    let colno = getpos(".")[2]
+    echo colno 
+endfunction
+
 " visual-block x now replaced with space 
 " https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)#Creating_keymaps
 " should be used in conjunction with 1vp for paste (although it seems bugy) 
@@ -512,6 +518,8 @@ nnoremap rrr :call <SID>refreshInstall()<CR>
 function! s:refreshInstall()
     if TabooTabName(tabpagenr()) == "makeinstall"
         :call <SID>makeinstall()
+    elseif TabooTabName(tabpagenr()) == "makebuild"
+        :call <SID>makebuild()
     elseif TabooTabName(tabpagenr()) == "maketest"
         :call <SID>maketest()
     elseif TabooTabName(tabpagenr()) == "XXX"
@@ -529,6 +537,20 @@ function! s:makeinstall()
         :tabnew
         :TabooRename makeinstall
         :silent exec "r ! make install"
+        :setlocal buftype=nofile
+    endif
+endfunction
+
+command Build call <SID>makebuild()
+function! s:makebuild()
+    call s:tabIsEmptyRename("makebuild")
+    if TabooTabName(tabpagenr()) == "makebuild"
+        :normal ggdG
+        :silent exec "r ! make build"
+    else
+        :tabnew
+        :TabooRename makeinstall
+        :silent exec "r ! make build"
         :setlocal buftype=nofile
     endif
 endfunction
