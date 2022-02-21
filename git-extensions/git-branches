@@ -1,0 +1,4 @@
+#!/bin/sh
+
+git for-each-ref refs/ --format='%(HEAD)%(align:27)%(color:yellow)%(refname:short)%(color:reset)%(end)%(color:red)%(objectname:short)%(color:reset) %(align:10)%(authorname)%(end)%(align:20)(%(color:green)%(committerdate:relative)%(color:reset))%(end)%(align:30)%(contents:subject)%(end)'\
+    --sort='-committerdate' --sort=upstream

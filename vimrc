@@ -890,7 +890,7 @@ endfunction
 
 nnoremap <Leader>fo :LCreateFunctionOf <CR>
 command! LCreateFunctionOf call s:CreateFunctionOf("Dummiii")
-command! -nargs=1 Fo call s:CreateFunctionOf(<f-args>)
+command! -nargs=1 FO call s:CreateFunctionOf(<f-args>)
 function! s:CreateFunctionOf(funcname)
     let path = expand('%:p')
     let lineno = line('.')

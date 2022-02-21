@@ -9,7 +9,7 @@ getdeps:
 install:
 	go install ./vimrcgo
 
-swap: swapvimrc swapvim swapbash swapgitignore swapkitty
+swap: swapvimrc swapvim swapbash swapgit swapkitty
 
 swapvimrc:
 	bash swap_vimrc.sh push
@@ -23,8 +23,8 @@ swapbash:
 swapkitty:
 	bash swap_kitty.sh push
 
-swapgitignore:
-	bash swap_gitignore.sh push
+swapgit:
+	bash swap_git.sh push
 
 pullvimrc:
 	bash swap_vimrc.sh pull

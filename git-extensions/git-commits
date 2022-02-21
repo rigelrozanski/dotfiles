@@ -1,0 +1,4 @@
+#!/bin/sh
+
+branch=$1
+git log $branch --oneline -n 20
