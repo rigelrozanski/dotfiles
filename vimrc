@@ -578,6 +578,20 @@ function! s:makegeneric(cmd)
     :setlocal buftype=nofile
 endfunction
 
+"delete all lines with keyword text
+command! -nargs=* Rmlines call s:Rmlinesfn(<f-args>)
+function! s:Rmlinesfn(keyword)
+    exe 'g/' . a:keyword . '/d'
+    exe "normal gg" 
+endfunction
+
+"only keep lines with keyword text
+command! -nargs=* Keeplines call s:Keeplinesfn(<f-args>)
+function! s:Keeplinesfn(keyword)
+    exe 'v/' . a:keyword . '/d'
+    exe "normal gg" 
+endfunction
+
 nnoremap <Leader>a :Ag <C-r><C-w><CR> 
 command! -nargs=* Ag call s:agsearch(<f-args>)
 function! s:agsearch(find)
@@ -634,11 +648,6 @@ function! s:openAll(dir)
     syntax on
 endfunction
 
-"delete all lines with certain text
-command -nargs=1 Rmlines call <SID>rmlines(<f-args>)
-function! s:rmlines(keyword)
-    execute '%s/.*' . a:keyword . '.*\n//g'
-endfunction
 
 function! GotoFileWithLineNum() 
     " filename under the cursor 
