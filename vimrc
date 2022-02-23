@@ -353,6 +353,27 @@ function! VisualLeft()
     exe "normal \<c-v>" . vertmove . "\"aph\<c-v>" . horimove . vertmove . "\"bpgvo"
 endfunction
 
+" ensure trailing whitespace on all visual lines to         
+" meet a line width of 'size'                               
+command -range -nargs=1 WSCOL call <SID>WSCOL(<f-args>)     
+function! s:WSCOL(size)                                     
+    
+    " get start and end line 
+    let line_start = getcharpos("'<")[1]
+    let line_end = getcharpos("'>")[1]
+
+
+    let ln = line_start
+    while ln <= line_end
+        let w = strwidth(getline(ln))
+        if w < a:size 
+            let diff = a:size - w
+            exe "normal " . ln . "gg$" . diff . "a \<esc>"
+        endif
+        let ln += 1
+    endwhile
+endfunction
+
 
 " remap for mac copy to clipboard
 vnoremap copy :w !pbcopy<CR><CR>
