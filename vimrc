@@ -164,12 +164,6 @@ noremap <silent> <C-J> :m+1<CR>
 inoremap <silent> <C-K> <esc>:m-2<CR>i
 inoremap <silent> <C-J> <esc>:m+1<CR>i
 
-command Col call Col()
-function! Col() 
-    let colno = getpos(".")[2]
-    echo colno 
-endfunction
-
 " visual-block x now replaced with space 
 " https://vim.fandom.com/wiki/Mapping_keys_in_Vim_-_Tutorial_(Part_1)#Creating_keymaps
 " should be used in conjunction with 1vp for paste (although it seems bugy) 
@@ -353,27 +347,32 @@ function! VisualLeft()
     exe "normal \<c-v>" . vertmove . "\"aph\<c-v>" . horimove . vertmove . "\"bpgvo"
 endfunction
 
-" ensure trailing whitespace on all visual lines to         
-" meet a line width of 'size'                               
-command -range -nargs=1 WSCOL call <SID>WSCOL(<f-args>)     
-function! s:WSCOL(size)                                     
+" ensure trailing whitespace on all visual lines to
+" meet a line width of 'size'
+command -range -nargs=* Col call <SID>WSCOL(<f-args>)
+function! s:WSCOL(...)
+
+    if len(a:000) == 0 
+        " just print out the current col position 
+        echo virtcol('.') . "    (is the cursor col position)"
+        return
+    endif
+
+    let newWidth = a:000[0]
     
-    " get start and end line 
+    " ensure whitespace for the given lines
     let line_start = getcharpos("'<")[1]
     let line_end = getcharpos("'>")[1]
-
-
     let ln = line_start
     while ln <= line_end
         let w = strwidth(getline(ln))
-        if w < a:size 
-            let diff = a:size - w
+        if w < newWidth
+            let diff = newWidth - w 
             exe "normal " . ln . "gg$" . diff . "a \<esc>"
         endif
         let ln += 1
     endwhile
 endfunction
-
 
 " remap for mac copy to clipboard
 vnoremap copy :w !pbcopy<CR><CR>
